@@ -2,6 +2,9 @@
   "extends": "next/core-web-vitals",
   "rules": {
     "react/display-name": "off",
-    "react/no-unescaped-entities": 0 
+    "react/no-unescaped-entities": 0     
+  },
+  "parserOptions": {
+    "ecmaVersion": "2020"
   }
 }

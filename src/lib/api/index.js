@@ -232,7 +232,7 @@ export async function allProducts() {
   let page = 1;
   
   try {
-    while (page <= 200) {
+    while (page <= 20) {
       const res = await api.get("products", {
         per_page: 100,
         status: "publish",
