@@ -1,0 +1,9 @@
+# Block all crawlers for /accounts
+User-agent: *
+Disallow: /compte/*
+Disallow: /panier/
+Disallow: /paiement/
+
+# Allow all crawlers
+User-agent: *
+Allow: /

@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.main-slider .slick-prev:before,
+.main-slider .slick-next:before {
+  @apply !text-rachel-red-700 !mt-0.5;
+}
+.main-slider .slick-arrow.slick-prev {
+  @apply top-full absolute right-[170px] left-auto;
+}
+.main-slider .slick-arrow.slick-next {
+  @apply top-full absolute right-0;
+}
+
+.slick-dots li.slick-active button::before {
+  content: "" !important;
+}
+.slick-dots li.slick-active {
+  width: 25px !important;
+  margin-right: 0px !important;
+  height: 8px !important;
+  margin-left: 10px !important;
+  background-color: #111111 !important;
+  content: "" !important;
+  border-radius: 50px;
+}
+.slick-dots li {
+  width: 5px !important;
+  margin: 0 4px !important;
+  vertical-align: middle !important;
+  margin-bottom: 15px !important;
+}
+
+.thumbnails .slick-slide > div {
+  @apply ml-2
+}
+
+.thumbnails .slick-prev:before,
+.thumbnails .slick-next:before {
+  @apply !text-rachel-red-700 !mt-0.5;
+}
+.thumbnails .slick-arrow.slick-prev {
+  @apply absolute left-0 z-10
+}
+.thumbnails .slick-arrow.slick-next {
+  @apply absolute right-0 z-10
+}
+
+.product-slider .slick-prev:before,
+.product-slider .slick-next:before {
+  @apply !text-rachel-red-700 !mt-0.5;
+}
+.product-slider .slick-arrow.slick-prev {
+  @apply absolute left-2 z-10
+}
+.product-slider .slick-arrow.slick-next {
+  @apply absolute right-2 z-10
+}
+input,select{
+  @apply !rounded-full
+}
+
+.ais-SearchBox-input{
+  @apply w-full !relative
+}
+
+.ais-SearchBox-submit{
+  @apply hidden
+}
+.ais-SearchBox-reset{
+  @apply hidden
+
+}
+.ais-Pagination-list{
+  @apply flex max-w-lg mx-auto justify-between my-4 px-6 items-center
+}
+.ais-Pagination-item--selected{
+  @apply text-rachel-red-700 font-semibold
+}
+
+.ais-Pagination-item:hover{
+  @apply text-rachel-red-700
+}
