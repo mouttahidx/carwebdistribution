@@ -87,7 +87,7 @@ export default function AlgoliaSearch() {
         </Index>
 
         {/* Products Results */}
-        <Index indexName="all_product" indexId="products">
+        <Index indexName="all_product" indexId="products" filters="visibility:1">
           <Configure hitsPerPage={6} distinct={true} />
           <IndexResults title="Produits" setSearchResults={setSearchResults} />
         </Index>

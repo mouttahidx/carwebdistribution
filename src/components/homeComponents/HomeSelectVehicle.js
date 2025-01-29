@@ -6,9 +6,10 @@ import { useRouter } from "next/router";
 import SelectVehicle from "@/components/homeComponents/SelectVehicle";
 import { ToastContainer, toast } from "react-toastify";
 import { TrashIcon, WrenchIcon } from "@heroicons/react/24/solid";
-import { FaCar, FaCarSide } from "react-icons/fa6";
-import Image from "next/image";
-export default function NavSelectVehicle() {
+import { FaCar } from "react-icons/fa";
+import ErrorBoundary from "../ErrorBoundary";
+
+export default function HomeSelectVehicle() {
   const { data, status } = useSession();
   const router = useRouter();
   const [openModal, setOpenModal] = useState(false);
@@ -33,6 +34,8 @@ export default function NavSelectVehicle() {
   }, [router]);
 
   const handleAddVehicle = (item) => {
+    console.log(item)
+   
     setLocalVehicle({
       id: item.term_id,
       name: item.name,
@@ -41,6 +44,7 @@ export default function NavSelectVehicle() {
       model: item.model,
       subModel: item.subModel,
     });
+
     if (typeof window !== "undefined") {
       localStorage.setItem(
         "user-vehicle",
@@ -53,6 +57,7 @@ export default function NavSelectVehicle() {
           subModel: item.subModel,
         })
       );
+
       toast.success("Véhicule ajouté avec succès!");
     }
   };
@@ -62,72 +67,16 @@ export default function NavSelectVehicle() {
     localStorage.removeItem("user-vehicle");
   };
 
-  if (status === "unauthenticated") {
-    return (
-      <div className="">
-        {localVehicle ? (
-          <div className="flex gap-x-2 items-center md:bg-gray-100 p-1 rounded-md w-full">
-            <div className="relative w-8/12 lg:border-r md:border-gray-200 justify-between">
-              <FaCar
-                className="flex md:hidden w-8 rounded-full p-1 h-8 text-white cursor-pointer bg-rachel-red-700 "
-                onClick={() => {
-                  setOpenModal(true);
-                }}
-              />
-              <div
-                onClick={() =>
-                  router.push(
-                    `/boutique?par_vehicule=1&year=${localVehicle.year}&make=${localVehicle.make}&model=${localVehicle.model}&submodel=${localVehicle.subModel}`
-                  )
-                }
-                className="hidden md:flex py-1.5 rounded-md lg:px-2 lg:text-sm text-xs !whitespace-nowrap !text-ellipsis overflow-hidden cursor-pointer items-center gap-x-1 justify-start"
-              >
-                <div className="relative hidden lg:flex items-center w-fit">
-                  <Image
-                    src="/car.svg"
-                    className="w-10"
-                    width={50}
-                    height={50}
-                  />
-                  <span className="absolute bg-rachel-red-800 text-white rounded-full w-3 h-3 flex items-center justify-center p-1 text-[0.6rem] right-0 -top-1">
-                    {localVehicle && 1}
-                  </span>
-                </div>
-                <span className="truncate font-normal text-sm"> {localVehicle?.name}</span>
-              </div>
-            </div>
+  useEffect(() => {
+    if (vehicles && vehicles.length > 0) {
+      setOpenModal(true);
+    }
+  }, [vehicles]);
 
-            <div className="hidden md:flex text-xs gap-x-2 items-center justify-center flex-1 w-4/12">
-              <span
-                className="text-blue-500 uppercase font-semibold cursor-pointer text-[10px] xl:text-xs"
-                onClick={() => {
-                  setOpenModal(true);
-                }}
-              >
-                Changer
-              </span>
-            </div>
-          </div>
-        ) : (
-          <div className="w-full flex justify-center">
-            <FaCar
-              className="md:hidden w-8 rounded-full p-1 h-8 text-white cursor-pointer bg-rachel-red-700"
-              onClick={() => {
-                setOpenModal(true);
-              }}
-            />
-            <Button
-              icon={false}
-              text={
-                <div className="flex items-center justify-start xl:gap-x-1">
-                  Ajouter un vehicule <FaCar className="w-5 h-5 ml-1" />
-                </div>
-              }
-              onClick={() => setOpenModal(1)}
-              className="hidden md:flex !xl:px-1 !xl:text-sm !text-xs !px-2"
-            />
-          </div>
-        )}
+  return (
+    <div>
+      <ErrorBoundary>
+        <SelectVehicle setVehicules={setVehicles} />
         <>
           <Modal
             show={openModal}
@@ -141,7 +90,7 @@ export default function NavSelectVehicle() {
               {localVehicle ? "Gérer votre véhicule" : "Rechercher un vehicule"}
             </Modal.Header>
             <Modal.Body>
-              {!localVehicle && <SelectVehicle setVehicules={setVehicles} />}
+              {/* {!localVehicle && <SelectVehicle setVehicules={setVehicles} />} */}
               {!localVehicle && (
                 <div className="mt-8 flex gap-2 flex-wrap">
                   {vehicles &&
@@ -223,42 +172,7 @@ export default function NavSelectVehicle() {
           </Modal>
         </>
         <ToastContainer className={"!z-[99999999999999]"} />
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      {data?.user?.vehicles?.length > 0 ? (
-        <div>
-          <FaCar
-            className="flex md:hidden w-8 rounded-full p-1 h-8 text-white cursor-pointer bg-rachel-red-700"
-            onClick={() => router.push("/compte/vehicules")}
-          />
-          <p
-            onClick={() =>
-              router.push(
-                `/boutique?par_vehicule=1&year=${data?.user?.vehicles[0]?.year}&make=${data?.user?.vehicles[0]?.make}&model=${data?.user?.vehicles[0]?.model}&submodel=${data?.user?.vehicles[0]?.subModel}`
-              )
-            }
-            className="hidden md:flex bg-rachel-red-700 text-white py-1.5 rounded-md px-1 lg:text-sm text-xs w-fit max-w-[120px] !whitespace-nowrap !text-ellipsis overflow-hidden cursor-pointer"
-          >
-            {data?.user?.vehicles[0]?.name}
-          </p>
-        </div>
-      ) : (
-        <div>
-          <FaCar
-            className="flex md:hidden w-8 rounded-full p-1 h-8 text-white cursor-pointer bg-rachel-red-700"
-            onClick={() => router.push("/compte/vehicules")}
-          />
-          <Button
-            text={"Choisissez un vehicule"}
-            onClick={() => router.push("/compte/vehicules")}
-            className="hidden md:flex xl:px-1 xl:text-sm text-xs px-0"
-          />
-        </div>
-      )}
+      </ErrorBoundary>
     </div>
   );
 }

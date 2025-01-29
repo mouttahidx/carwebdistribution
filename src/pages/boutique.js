@@ -251,7 +251,7 @@ export default function Shop({ results, brands, headers }) {
           {`Boutique | ${process.env.NEXT_PUBLIC_WEBSITE_TITLE}`}
         </title>
       </Head>
-      <div className="flex flex-col items lg:flex-row lg:gap-x-8 px-1">
+      <div className="flex flex-col items lg:flex-row lg:gap-x-8 px-1 container mx-auto">
         {/* sidebar */}
         <aside className="lg:w-4/12 xl:w-3/12 my-10 lg:my-0 ">
           <Filter

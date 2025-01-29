@@ -11,7 +11,7 @@ import Tiles from "@/components/homeComponents/Tiles";
 import CreateAccount from "@/components/homeComponents/CreateAccount";
 
 import TiresBrands from "@/components/homeComponents/TiresBrands";
-import { useEffect } from "react";
+import HomeSelectVehicle from "@/components/homeComponents/HomeSelectVehicle";
 
 export default function Home({ brands, products }) {
   return (
@@ -22,15 +22,14 @@ export default function Home({ brands, products }) {
         }`}</title>
       </Head>
       <SimpleSlider data={products} />
-      {/* <SelectVehicle /> */}
       <main className="w-full flex justify-center !overflow-x-hidden">
-        <section className="max-w-full lg:container px-1 ">
+        <section className="container px-1 ">
+          <HomeSelectVehicle />
           <CreateAccount />
-
           <TireSearch />
           <Tiles data-aos="fade-up" />
           <TiresBrands />
-          <BrowseCategories />
+          {/* <BrowseCategories /> */}
           {brands.length > 0 && <BrowseBrands brands={brands} />}
           <FeaturedProducts products={products} />
           <Benefits />

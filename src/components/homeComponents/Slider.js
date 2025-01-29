@@ -127,7 +127,7 @@ export default function SimpleSlider() {
   ];
   return (
     <section data-aos="fade-in" data-aos-duration="800" className="w-full">
-      <Slider {...settings} className="bg-white pb-4 mb-14 main-slider">
+      <Slider {...settings} className="bg-white pb-4 mb-14 main-slider -mt-5">
         {sliders.map((slider, index) => (
           <div
             key={index}
@@ -184,6 +184,7 @@ export default function SimpleSlider() {
                     data-aos-duration="1500"
                     className="absolute -z-[8] ml-auto !right-0 w-11/12 md:w-2/3 h-full xl:w-full object-cover xl:object-contain object-left xl:object-right "
                   />
+                  <div className="container mx-auto">
                   <h1
                     className="text-left  p-2 lg:px-8  w-full  lg:py-3 text-4xl xl:text-5xl lg:mt-24  xl:w-1/2 2xl:w-1/2 font-extrabold text-white  max-w-7xl !leading-snug ml-4 mt-16"
                     style={{ textShadow: "2px 2px 10px black" }}
@@ -216,6 +217,7 @@ export default function SimpleSlider() {
                   >
                     Magasiner
                   </Link>
+                  </div>
                 </div>
               ) : (
                 <span

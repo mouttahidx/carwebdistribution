@@ -13,26 +13,26 @@ import AlgoliaSearch from "@/components/AlgoliaSearch";
 
 export default function MainNav() {
   return (
-    <div className="hidden w-full md:flex items-center border-b justify-between md:justify-evenly py-2 gap-y-4 px-2 lg:px-4 md:flex-nowrap flex-wrap relative">
+    <div className="hidden lg:container mx-auto w-full md:flex items-center border-b justify-between py-2 gap-y-4 px-2 md:flex-nowrap flex-wrap relative">
       {/* Logo */}
-      <div className="w-2/12 md:w-2/12 lg:w-3/12 ">
-        <Link href="/" className="flex flex-col items-center justify-start">
+      <div className="w-[100px] ">
+        <Link href="/" className="flex flex-col items-start justify-start">
           <Image
             src="/logo-dark.png"
             width="0"
             height="0"
             sizes="100vw"
-            className="w-full max-w-[90px] lg:max-w-[130px] h-auto object-contain"
+            className="w-full max-w-[90px] lg:max-w-[100px] h-auto object-contain"
             alt="Car web distribution logo"
             priority="false"
           />
-          <span className="text-xs font-semibold text-center hidden md:block">
+          <p className="text-xs font-semibold text-center hidden md:block">
             carwebdistribution
-          </span>
+          </p>
         </Link>
       </div>
       {/* search */}
-      <div className="w-8/12 pr-2 lg:ml-14 md:w-8/12 lg:w-7/12 flex items-center">
+      <div className="w-8/12 pr-2 lg:ml-8 md:w-7/12 lg:w-5/12 flex items-center">
         {/* <Search /> */}
         <AlgoliaSearch />
       </div>
@@ -42,8 +42,15 @@ export default function MainNav() {
         <NavSelectVehicle />
       </div>
 
+      <div className="hidden w-fit xl:flex top-0 md:sticky duration-200  capitalize ml-4 flex-col text-center items-center justify-center text-xs">
+        <div>
+          parler à un spécialiste
+          <br />
+          <a href="tel:+1 800-883-0691" className="text-sm">+1 800-883-0691</a>
+        </div>
+      </div>
       {/* notif,show,cart */}
-      <div className="w-3/12 md:w-2/12 flex gap-x-4 ml-3 justify-center">
+      <div className="w-3/12 md:w-2/12 flex gap-x-4 ml-3 lg:ml-auto justify-center">
         {/* store link */}
         <Link
           href={"/boutique"}
@@ -56,7 +63,7 @@ export default function MainNav() {
         </Link>
 
         {/* cart link */}
-        <div>
+        <div className="flex items-center">
           <Cart />
         </div>
       </div>
@@ -66,3 +73,4 @@ export default function MainNav() {
     </div>
   );
 }
+ 

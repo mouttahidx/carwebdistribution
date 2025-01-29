@@ -32,7 +32,7 @@ export default function Cart() {
 
   return (
     <>
-      <div className="relative">
+      <div className="relative flex items-center">
         <ShoppingCartIcon
           className="w-6 h-6 text-gray-500 cursor-pointer "
           onClick={() => {

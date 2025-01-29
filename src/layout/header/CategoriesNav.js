@@ -22,22 +22,22 @@ export default function CategoriesNav() {
       slug: "accessoires-pour-camions",
       children: [{ id: 51515, name: "Accessoires" }],
     },
-    {
-      name: "Camping et Loisirs",
-      slug: "camping-et-loisirs",
-      children: [
-        { id: 51512, name: "Accessoires" },
-        { id: 51511, name: "Équipement de Camping" },
-      ],
-    },
-    {
-      name: "Électrique",
-      slug: "electrique",
-      children: [
-        { id: 51501, name: "Composants Électriques" },
-        { id: 51502, name: "Câblage et Connecteurs" },
-      ],
-    },
+    // {
+    //   name: "Camping et Loisirs",
+    //   slug: "camping-et-loisirs",
+    //   children: [
+    //     { id: 51512, name: "Accessoires" },
+    //     { id: 51511, name: "Équipement de Camping" },
+    //   ],
+    // },
+    // {
+    //   name: "Électrique",
+    //   slug: "electrique",
+    //   children: [
+    //     { id: 51501, name: "Composants Électriques" },
+    //     { id: 51502, name: "Câblage et Connecteurs" },
+    //   ],
+    // },
     {
       name: "Embrayage et Transmission",
       slug: "embrayage-et-transmission",
@@ -102,14 +102,14 @@ export default function CategoriesNav() {
         { id: 51505, name: "Outils de atelier" },
       ],
     },
-    {
-      name: "Remorques et Attelage",
-      slug: "remorques-et-attelage",
-      children: [
-        { id: 51518, name: "Accessoires de remorquage" },
-        { id: 51519, name: "Composants de remorque" },
-      ],
-    },
+    // {
+    //   name: "Remorques et Attelage",
+    //   slug: "remorques-et-attelage",
+    //   children: [
+    //     { id: 51518, name: "Accessoires de remorquage" },
+    //     { id: 51519, name: "Composants de remorque" },
+    //   ],
+    // },
     {
       name: "Roues et Pneus",
       slug: "roues-et-pneus",
@@ -132,15 +132,15 @@ export default function CategoriesNav() {
   ].sort((a, b) => (a.name > b.name ? 1 : -1));
 
   return (
-    <div className="hidden md:flex border-b top-0 md:sticky duration-200 bg-rachel-red-700 text-white w-full shadow-md z-10 ">
-      <div className="flex justify-evenly gap-x-4 py-2 items-center flex-wrap gap-y-4 max-w-7xl mx-auto px-2">
+    <div className="hidden md:flex top-0 md:sticky duration-200 bg-gray-100 w-full shadow-md z-10 border-t">
+      <div className="flex justify-evenly gap-x-4 py-2 items-center flex-wrap gap-y-4 container mx-auto ">
         {categoriesLevel2.map((item, index) => (
           <Dropdown
             key={index}
-            
+            icon={<ArrowDownIcon className="w-10 h-10" />}
             label={<span className="text-sm w-full ">{item.name}</span>}
             color={"transparent"}
-
+            arrowIcon={<ArrowDownTrayIcon className="w-10 h-10" />}
             size={"small"}
           >
             {item.children?.length > 0 &&
@@ -157,14 +157,14 @@ export default function CategoriesNav() {
               ))}
           </Dropdown>
         ))}
-        <Link
+        {/* <Link
           href="/boutique?sale=1"
           className={`text-sm text-center lg:max-w-full ${
             router.pathname === "/boutique?sale=1" && "text-black"
           } cursor-pointer flex items-center`}
         >
           Promotions
-        </Link>{" "}
+        </Link>{" "} */}
         <span
           onClick={() => {
             window.location.href = "/recherche-pneu/";
@@ -177,12 +177,7 @@ export default function CategoriesNav() {
         >
           Outil de recherche de pneus
         </span>
-        <Link
-          href="/boutique"
-         
-        >
-          Boutique
-        </Link>{" "}
+
       </div>
     </div>
   );
