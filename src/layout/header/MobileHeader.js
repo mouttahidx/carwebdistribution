@@ -14,8 +14,8 @@ import AlgoliaSearch from "@/components/AlgoliaSearch";
 
 export default function MobileHeader() {
   return (
-    <div className="md:hidden w-full  items-center border-b py-2 gap-y-4 px-2 grid grid-cols-1 relative">
-      <div className="flex items-center justify-between">
+    <div className="lg:hidden w-full  items-center border-b py-2 gap-y-4 px-2 grid grid-cols-1 relative">
+      <div className="flex items-center justify-between flex-wrap">
         {/* Logo */}
         <div className="w-2/12 md:w-2/12 lg:w-3/12 ">
           <Link href="/" className="flex flex-col items-center justify-start">
@@ -33,21 +33,8 @@ export default function MobileHeader() {
             </span>
           </Link>
         </div>
-        {/* search */}
-        <div className="w-8/12 pr-2 lg:ml-14 md:w-8/12 lg:w-7/12 flex items-center">
-          {/* <Search /> */}
-          <AlgoliaSearch />
-        </div>
-
-        {/* Select Vehicle */}
-        <div className="w-1/12 md:w-2/12">
-          <NavSelectVehicle />
-        </div>
-      </div>
-
-      <div className="flex items-center justify-between">
         {/* notif,show,cart */}
-        <div className="w-3/12 flex gap-x-4">
+        <div className="w-3/12 flex gap-x-8 lg:gap-x-4 ml-auto">
           {/* store link */}
           <div>
             <Link href={"/boutique"}>
@@ -63,6 +50,15 @@ export default function MobileHeader() {
 
         {/* account */}
         <AccountMenuItem />
+        {/* search */}
+        
+      </div>
+      <div className="w-full pr-2 flex items-center">
+          {/* <Search /> */}
+          <AlgoliaSearch />
+        </div>
+      <div className="flex items-center justify-between">
+        <NavSelectVehicle />
       </div>
     </div>
   );

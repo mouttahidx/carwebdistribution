@@ -1,29 +1,38 @@
-
 "use client";
 
-import { Button, Drawer } from "flowbite-react";
+import { Drawer } from "flowbite-react";
 import { useState } from "react";
+import { FaAlignJustify } from "react-icons/fa6";
 
 export function DrawerComponent() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleClose = () => setIsOpen(false);
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
 
   return (
     <>
-      <div className="flex min-h-[50vh] items-center justify-center">
-        <Button onClick={() => setIsOpen(true)}>Show right drawer</Button>
+    <div className="flex items-center justify-center">
+        <FaAlignJustify
+          onClick={() => setIsOpen(true)}
+          className="w-8 h-8 cursor-pointer"
+        />
       </div>
-      <Drawer open={isOpen} onClose={handleClose} position="right">
-        <Drawer.Header title="Drawer" />
+      <Drawer open={isOpen} onClose={handleClose} position="left">
+        <Drawer.Header color=""/>
         <Drawer.Items>
           <p className="mb-6 text-sm text-gray-500 dark:text-gray-400">
             Supercharge your hiring by taking advantage of our&nbsp;
-            <a href="#" className="text-cyan-600 underline hover:no-underline dark:text-cyan-500">
+            <a
+              href="#"
+              className="text-cyan-600 underline hover:no-underline dark:text-cyan-500"
+            >
               limited-time sale
             </a>
-            &nbsp;for Flowbite Docs + Job Board. Unlimited access to over 190K top-ranked candidates and the #1 design
-            job board.
+            &nbsp;for Flowbite Docs + Job Board. Unlimited access to over 190K
+            top-ranked candidates and the #1 design job board.
           </p>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <a

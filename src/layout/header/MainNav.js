@@ -1,3 +1,4 @@
+'use client';
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -10,19 +11,11 @@ import { BuildingStorefrontIcon } from "@heroicons/react/24/outline";
 import AccountMenuItem from "@/components/accountComponents/AccountMenuItem";
 import NavSelectVehicle from "@/components/homeComponents/NavSelectVehicle";
 import AlgoliaSearch from "@/components/AlgoliaSearch";
-import { FaAlignJustify } from "react-icons/fa6";
 import { DrawerComponent } from "./DrawerComponent";
-import { useState } from "react";
 
 export default function MainNav() {
-  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="hidden lg:container mx-auto w-full md:flex items-center border-b justify-between py-2 gap-4 xl:gap-x-6 px-2 md:flex-nowrap flex-wrap relative">
-      <div className="flex items-center justify-center">
-        <FaAlignJustify onClick={() => setIsOpen(true)} className="w-10 h-10"/>
-          <DrawerComponent />
-      </div>
-
+    <div className="hidden lg:container mx-auto w-full lg:flex items-center border-b justify-between py-2 gap-4 xl:gap-x-6 px-2 md:flex-nowrap flex-wrap relative">
       {/* Logo */}
       <div className="w-[100px] ">
         <Link href="/" className="flex flex-col items-start justify-start">

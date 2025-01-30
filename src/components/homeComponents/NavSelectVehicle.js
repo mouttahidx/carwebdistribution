@@ -66,13 +66,13 @@ export default function NavSelectVehicle() {
   if (status === "unauthenticated") {
     return (
       <div className="w-full">
-        <div className="md:bg-gray-100 p-3 py-2 rounded-md w-full grid grid-cols-3 items-center">
+        <div className="bg-gray-100 p-3 py-2 rounded-md w-full grid grid-cols-3 items-center">
           <div
             className={`col-span-${
               localVehicle ? "2" : "1"
             } flex relative justify-start`}
           >
-            <div className="relative hidden lg:flex items-center w-10 flex-nowrap">
+            <div className="relative flex items-center w-10 flex-nowrap">
               <Image src="/car.svg" className=" w-9" width={50} height={50} />
               <span className="absolute bg-rachel-red-800 text-white rounded-full w-3 h-3 flex items-center justify-center p-1 text-[0.6rem] right-0 top-0">
                 {localVehicle && 1 || 0}
@@ -84,7 +84,7 @@ export default function NavSelectVehicle() {
                   `/boutique?par_vehicule=1&year=${localVehicle?.year}&make=${localVehicle?.make}&model=${localVehicle?.model}&submodel=${localVehicle?.subModel}`
                 )
               }
-              className="hidden md:flex py-1.5 rounded-md lg:px-2 lg:text-sm text-xs !whitespace-nowrap !text-ellipsis overflow-hidden cursor-pointer items-center gap-x-1 justify-start"
+              className="ml-5 lg:ml-0 flex py-1.5 rounded-md lg:px-2 lg:text-sm text-xs !whitespace-nowrap !text-ellipsis overflow-hidden cursor-pointer items-center gap-x-1 justify-start"
             >
               <span className="truncate font-normal text-sm max-w-[110px]">
                 <Tooltip content="Magasiner par véhicule">
@@ -94,7 +94,7 @@ export default function NavSelectVehicle() {
             </div>
           </div>
 
-          <div className="hidden md:flex text-xs gap-x-2 items-center justify-center pl-2 ml-2 border-l border-gray-200">
+          <div className="flex text-xs gap-x-2 items-center justify-center pl-2 ml-2 border-l border-gray-200">
             <span
               className="text-blue-500 uppercase font-semibold cursor-pointer text-[10px] xl:text-xs  whitespace-nowrap"
               onClick={() => {
@@ -136,7 +136,7 @@ export default function NavSelectVehicle() {
                       vehicles.map((item) => (
                         <div
                           key={item.term_id}
-                          className="bg-black rounded-xl px-2 py-4 flex flex-col md:w-[180px] w-[180px]"
+                          className="bg-black rounded-xl px-2 py-4 flex flex-col w-[180px] w-[180px]"
                         >
                           {item.subModel === "" && (
                             <p className="text-xs font-bold text-white">
@@ -176,7 +176,7 @@ export default function NavSelectVehicle() {
                     key={localVehicle.term_id}
                     className="bg-black rounded-xl p-8 flex flex-col"
                   >
-                    <p className="text-lg md:text-xl font-semibold text-rachel-red-700">
+                    <p className="text-lg text-xl font-semibold text-rachel-red-700">
                       {localVehicle.name}
                     </p>
                     <span className="text-sm text-gray-100 mb-3">
@@ -218,7 +218,7 @@ export default function NavSelectVehicle() {
 
   return (
     <div className="w-full">
-      <div className="md:bg-gray-100 p-3 py-2 rounded-md w-full grid grid-cols-3 items-center">
+      <div className="bg-gray-100 p-3 py-2 rounded-md w-full grid grid-cols-3 items-center">
         <div
           className={`col-span-${
             data?.user?.vehicles?.length > 0 ? "2" : ""
@@ -236,7 +236,7 @@ export default function NavSelectVehicle() {
                 `/boutique?par_vehicule=1&year=${data?.user?.vehicles[0]?.year}&make=${data?.user?.vehicles[0]?.make}&model=${data?.user?.vehicles[0]?.model}&submodel=${data?.user?.vehicles[0]?.subModel}`
               )
             }
-            className="hidden md:flex py-1.5 rounded-md lg:px-2 lg:text-sm text-xs !whitespace-nowrap !text-ellipsis overflow-hidden cursor-pointer items-center gap-x-1 justify-start"
+            className="flex py-1.5 rounded-md lg:px-2 lg:text-sm text-xs !whitespace-nowrap !text-ellipsis overflow-hidden cursor-pointer items-center gap-x-1 justify-start"
           >
             <span className="truncate font-normal text-sm max-w-[110px]">
               <Tooltip content="Magasiner par véhicule">
@@ -246,7 +246,7 @@ export default function NavSelectVehicle() {
           </div>
         </div>
 
-        <div className="hidden md:flex text-xs gap-x-2 items-center justify-center pl-2 ml-2 border-l border-gray-200">
+        <div className="flex text-xs gap-x-2 items-center justify-center pl-2 ml-2 border-l border-gray-200">
           <span
             className="text-blue-500 uppercase font-semibold cursor-pointer text-[10px] xl:text-xs  whitespace-nowrap"
             onClick={() => {

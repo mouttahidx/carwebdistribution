@@ -7,7 +7,6 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx}",
     "./src/app/**/*.{js,ts,jsx,tsx}",
     "./src/layout/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/flowbite-react/**/*.js",
     flowbite.content(),
 
   ],

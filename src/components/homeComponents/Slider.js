@@ -87,7 +87,7 @@ export default function SimpleSlider() {
   };
   const sliders = [
     {
-      headline: "Partez à l'aventure <br/>en toute tranquilité!",
+      headline: "Partez à l'aventure en toute tranquilité!",
       image: "img/main-slider.webp",
       paragraph:
         "Découvrez nos accessoires pour VR automobiles et camionettes.",
@@ -135,7 +135,7 @@ export default function SimpleSlider() {
           >
             <div
               className={`p4-4 w-full flex-wrap flex flex-col z-20 justify-${
-                index === 0 ? "start bg-black  p-0" : "center  md:px-16"
+                index === 0 ? "center bg-black  p-0" : "center  md:px-16"
               } items-center h-full bg-bottom bg-cover  bg-no-repeat  `}
               {...(index > 0
                 ? { style: { backgroundImage: `url(${slider.image})` } }
@@ -144,7 +144,7 @@ export default function SimpleSlider() {
               {/* /* ------------------------------- first slide ------------------------------ */}
               {index === 0 ? (
                 <div
-                  className={`p-0  w-full flex flex-col z-20 !items-start !justify-start h-full  relative`}
+                  className={`p-0  w-full flex flex-col z-20 !items-center !justify-start h-full  relative`}
                 >
                   <Image
                     alt="Mountains"
@@ -186,7 +186,7 @@ export default function SimpleSlider() {
                   />
                   <div className="container mx-auto">
                   <h1
-                    className="text-left  p-2 lg:px-8  w-full  lg:py-3 text-4xl xl:text-5xl lg:mt-24  xl:w-1/2 2xl:w-1/2 font-extrabold text-white  max-w-7xl !leading-snug ml-4 mt-16"
+                    className="text-center  p-2 lg:px-8  w-full  lg:py-3 text-4xl xl:text-5xl lg:mt-24 font-extrabold text-white  max-w-7xl !leading-snug ml-4 mt-16"
                     style={{ textShadow: "2px 2px 10px black" }}
                     data-aos="fade-right"
                     data-aos-duration="1500"
@@ -202,7 +202,7 @@ export default function SimpleSlider() {
                           "data-aos-delay": "2000",
                         }
                       : "")}
-                    className={`w-full md:w-1/3 xl:text-5xl lg:mt-4  xl:w-1/3 2xl:1/4 !text-lg  text-white  max-w-2xl rounded-xl lg:rounded-full p-2 lg:px-8 lg:py-3 ml-4 mt-2`}
+                    className={`w-full xl:text-5xl lg:mt-4  !text-lg  text-white rounded-xl lg:rounded-full p-2 lg:px-8 lg:py-3 mx-auto mt-2 text-center`}
                     style={{ textShadow: "3px 3px 7px black" }}
                   >
                     {slider.paragraph}
@@ -212,7 +212,7 @@ export default function SimpleSlider() {
                     data-aos="fade-in"
                     data-aos-duration="1500"
                     data-aos-delay="2500"
-                    className="flex items-center bg-rachel-red-700 text-white xl:px-3 ml-6 lg:ml-12 rounded-md w-fit mt-10 font-bold !text-base !px-6 !py-2 "
+                    className="flex items-center bg-rachel-red-700 text-white xl:px-3 mx-auto rounded-md w-fit mt-10 font-bold !text-base !px-6 !py-2 "
                     href={slider.link || "/boutique"}
                   >
                     Magasiner
