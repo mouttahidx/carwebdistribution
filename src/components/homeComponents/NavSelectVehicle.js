@@ -5,9 +5,11 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import SelectVehicle from "@/components/homeComponents/SelectVehicle";
 import { ToastContainer, toast } from "react-toastify";
-import { TrashIcon, WrenchIcon } from "@heroicons/react/24/solid";
-import { FaCar, FaCarSide } from "react-icons/fa6";
+import { TrashIcon } from "@heroicons/react/24/solid";
+import { FaCar } from "react-icons/fa6";
 import Image from "next/image";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function NavSelectVehicle() {
   const { data, status } = useSession();
   const router = useRouter();
@@ -54,6 +56,7 @@ export default function NavSelectVehicle() {
         })
       );
       toast.success("Véhicule ajouté avec succès!");
+      toast.success();
     }
   };
 
@@ -63,71 +66,45 @@ export default function NavSelectVehicle() {
   };
 
   if (status === "unauthenticated") {
+    toast.success("Véhicule ajouté avec succès!");
+
     return (
       <div className="">
-        {localVehicle ? (
-          <div className="flex gap-x-2 items-center md:bg-gray-100 p-1 rounded-md w-full">
-            <div className="relative w-8/12 lg:border-r md:border-gray-200 justify-between">
-              <FaCar
-                className="flex md:hidden w-8 rounded-full p-1 h-8 text-white cursor-pointer bg-rachel-red-700 "
-                onClick={() => {
-                  setOpenModal(true);
-                }}
-              />
-              <div
-                onClick={() =>
-                  router.push(
-                    `/boutique?par_vehicule=1&year=${localVehicle.year}&make=${localVehicle.make}&model=${localVehicle.model}&submodel=${localVehicle.subModel}`
-                  )
-                }
-                className="hidden md:flex py-1.5 rounded-md lg:px-2 lg:text-sm text-xs !whitespace-nowrap !text-ellipsis overflow-hidden cursor-pointer items-center gap-x-1 justify-start"
-              >
-                <div className="relative hidden lg:flex items-center w-fit">
-                  <Image
-                    src="/car.svg"
-                    className="w-10"
-                    width={50}
-                    height={50}
-                  />
-                  <span className="absolute bg-rachel-red-800 text-white rounded-full w-3 h-3 flex items-center justify-center p-1 text-[0.6rem] right-0 -top-1">
-                    {localVehicle && 1}
-                  </span>
-                </div>
-                <span className="truncate font-normal text-sm"> {localVehicle?.name}</span>
-              </div>
-            </div>
-
-            <div className="hidden md:flex text-xs gap-x-2 items-center justify-center flex-1 w-4/12">
-              <span
-                className="text-blue-500 uppercase font-semibold cursor-pointer text-[10px] xl:text-xs"
-                onClick={() => {
-                  setOpenModal(true);
-                }}
-              >
-                Changer
+        <div className="flex gap-x-2 items-center md:bg-gray-100 p-1 py-3 rounded-md w-full">
+          <div className="relative hidden lg:flex items-center w-fit">
+            <Image src="/car.svg" className="w-10" width={50} height={50} />
+            <span className="absolute bg-rachel-red-800 text-white rounded-full w-3 h-3 flex items-center justify-center p-1 text-[0.6rem] right-0 -top-1">
+              {localVehicle ? 1 : 0}
+            </span>
+          </div>
+          <div className="relative lg:border-r md:border-gray-200 justify-between">
+            <div
+              onClick={() =>
+                router.push(
+                  `/boutique?par_vehicule=1&year=${localVehicle.year}&make=${localVehicle.make}&model=${localVehicle.model}&submodel=${localVehicle.subModel}`
+                )
+              }
+              className="hidden md:flex py-1.5 rounded-md lg:px-2 lg:text-sm text-xs !whitespace-nowrap !text-ellipsis overflow-hidden cursor-pointer items-center gap-x-1 justify-start"
+            >
+              <span className="truncate font-normal text-sm">
+                {" "}
+                {localVehicle?.name}
               </span>
             </div>
           </div>
-        ) : (
-          <div className="w-full flex justify-center">
-            <FaCar
-              className="md:hidden w-8 rounded-full p-1 h-8 text-white cursor-pointer bg-rachel-red-700"
+
+          <div className="hidden md:flex text-xs gap-x-2 items-center justify-center flex-1 ">
+            <span
+              className="text-blue-500 uppercase font-semibold cursor-pointer text-[10px] xl:text-xs"
               onClick={() => {
                 setOpenModal(true);
               }}
-            />
-            <Button
-              icon={false}
-              text={
-                <div className="flex items-center justify-start xl:gap-x-1">
-                  Ajouter un vehicule <FaCar className="w-5 h-5 ml-1" />
-                </div>
-              }
-              onClick={() => setOpenModal(1)}
-              className="hidden md:flex !xl:px-1 !xl:text-sm !text-xs !px-2"
-            />
+            >
+              {localVehicle ? "Changer" : "Ajouter un vehicule"}
+            </span>
           </div>
-        )}
+        </div>
+
         <>
           <Modal
             show={openModal}
@@ -141,45 +118,47 @@ export default function NavSelectVehicle() {
               {localVehicle ? "Gérer votre véhicule" : "Rechercher un vehicule"}
             </Modal.Header>
             <Modal.Body>
-              {!localVehicle && <SelectVehicle setVehicules={setVehicles} />}
               {!localVehicle && (
-                <div className="mt-8 flex gap-2 flex-wrap">
-                  {vehicles &&
-                    vehicles.map((item) => (
-                      <div
-                        key={item.term_id}
-                        className="bg-black rounded-xl px-2 py-4 flex flex-col md:w-[180px] w-[180px]"
-                      >
-                        {item.subModel === "" && (
-                          <p className="text-xs font-bold text-white">
-                            Piéces genériques de ce modéle
+                <>
+                  <SelectVehicle setVehicules={setVehicles} />
+                  <div className="mt-8 flex gap-2 flex-wrap">
+                    {vehicles &&
+                      vehicles.map((item) => (
+                        <div
+                          key={item.term_id}
+                          className="bg-black rounded-xl px-2 py-4 flex flex-col md:w-[180px] w-[180px]"
+                        >
+                          {item.subModel === "" && (
+                            <p className="text-xs font-bold text-white">
+                              Piéces genériques de ce modéle
+                            </p>
+                          )}
+                          <p className="font-semibold text-sm text-rachel-red-600 min-h-[70px] ">
+                            {item.name}
+
+                            <span className="block font-semibold text-xs text-rachel-red-700">
+                              {item.year}
+                            </span>
                           </p>
-                        )}
-                        <p className="font-semibold text-sm text-rachel-red-600 min-h-[70px] ">
-                          {item.name}
 
-                          <span className="block font-semibold text-xs text-rachel-red-700">
-                            {item.year}
-                          </span>
-                        </p>
-
-                        {data?.user?.vehicles?.some(
-                          (v) => v?.id === item.term_id
-                        ) ? (
-                          <span className="mt-auto text-gray-300 text-xs">
-                            Déjà sur votre liste
-                          </span>
-                        ) : (
-                          <span
-                            className="mt-auto text-white text-xs hover:cursor-pointer hover:underline"
-                            onClick={() => handleAddVehicle(item)}
-                          >
-                            Choisir
-                          </span>
-                        )}
-                      </div>
-                    ))}
-                </div>
+                          {data?.user?.vehicles?.some(
+                            (v) => v?.id === item.term_id
+                          ) ? (
+                            <span className="mt-auto text-gray-300 text-xs">
+                              Déjà sur votre liste
+                            </span>
+                          ) : (
+                            <span
+                              className="mt-auto text-white text-xs hover:cursor-pointer hover:underline"
+                              onClick={() => handleAddVehicle(item)}
+                            >
+                              Choisir
+                            </span>
+                          )}
+                        </div>
+                      ))}
+                  </div>
+                </>
               )}
               <div className="mt-4 flex gap-2">
                 {localVehicle && (
@@ -222,7 +201,7 @@ export default function NavSelectVehicle() {
             </Modal.Footer>
           </Modal>
         </>
-        <ToastContainer className={"!z-[99999999999999]"} />
+        <ToastContainer className="!z-[99999999999999]" />
       </div>
     );
   }
