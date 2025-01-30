@@ -331,14 +331,14 @@ export default function Shop({ results, brands, headers }) {
             </div>
           </div>
 
-          <div className="grow grid grid-cols-2 md:grid-cols-3 gap-4 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+          <div className="grow grid grid-cols-2 md:grid-cols-3 gap-4 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-h-[20vh]">
             {!loading ? (
               products?.length > 0 ? (
                 products?.map((product) => (
                   <ProductCard product={product} key={product.id} />
                 ))
               ) : (
-                <p>Il n&apos;ya aucun produit.</p>
+                <p className="w-full text-center mt-40 col-span-5">{"Aucun résultat trouvé. Essayez d'ajuster vos filtres ou explorer d'autres catégories !"}</p>
               )
             ) : (
               <>
@@ -350,24 +350,30 @@ export default function Shop({ results, brands, headers }) {
           </div>
           {!loading &&
             (pageTotal > 0 ? (
-              <ReactPaginate
-                previousLabel={"← Précedent"}
-                nextLabel={"Suivant →"}
-                pageCount={+pageTotal}
-                forcePage={page.current - 1}
-                onPageChange={handlePageClick}
-                containerClassName={
-                  "pagination w-full flex gap-x-2 justify-center my-8"
-                }
-                previousLinkClassName={
-                  "pagination__link hover:text-rachel-red-700"
-                }
-                nextLinkClassName={"pagination__link hover:text-rachel-red-700"}
-                disabledClassName={
-                  "pagination__link--disabled text-gray-500 cursor-default hover:text-gray-500"
-                }
-                activeClassName={"pagination__link--active text-rachel-red-700"}
-              />
+              <div className="!mt-auto">
+                <ReactPaginate
+                  previousLabel={"← Précedent"}
+                  nextLabel={"Suivant →"}
+                  pageCount={+pageTotal}
+                  forcePage={page.current - 1}
+                  onPageChange={handlePageClick}
+                  containerClassName={
+                    "pagination w-full flex gap-x-2 justify-center my-8 "
+                  }
+                  previousLinkClassName={
+                    "pagination__link hover:text-rachel-red-700"
+                  }
+                  nextLinkClassName={
+                    "pagination__link hover:text-rachel-red-700"
+                  }
+                  disabledClassName={
+                    "pagination__link--disabled text-gray-500 cursor-default hover:text-gray-500"
+                  }
+                  activeClassName={
+                    "pagination__link--active text-rachel-red-700"
+                  }
+                />
+              </div>
             ) : (
               ""
             ))}

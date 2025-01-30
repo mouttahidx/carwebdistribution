@@ -10,10 +10,19 @@ import { BuildingStorefrontIcon } from "@heroicons/react/24/outline";
 import AccountMenuItem from "@/components/accountComponents/AccountMenuItem";
 import NavSelectVehicle from "@/components/homeComponents/NavSelectVehicle";
 import AlgoliaSearch from "@/components/AlgoliaSearch";
+import { FaAlignJustify } from "react-icons/fa6";
+import { DrawerComponent } from "./DrawerComponent";
+import { useState } from "react";
 
 export default function MainNav() {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="hidden lg:container mx-auto w-full md:flex items-center border-b justify-between py-2 gap-y-4 px-2 md:flex-nowrap flex-wrap relative">
+    <div className="hidden lg:container mx-auto w-full md:flex items-center border-b justify-between py-2 gap-4 xl:gap-x-6 px-2 md:flex-nowrap flex-wrap relative">
+      <div className="flex items-center justify-center">
+        <FaAlignJustify onClick={() => setIsOpen(true)} className="w-10 h-10"/>
+          <DrawerComponent />
+      </div>
+
       {/* Logo */}
       <div className="w-[100px] ">
         <Link href="/" className="flex flex-col items-start justify-start">
@@ -32,25 +41,28 @@ export default function MainNav() {
         </Link>
       </div>
       {/* search */}
-      <div className="w-8/12 pr-2 lg:ml-8 md:w-7/12 lg:w-5/12 flex items-center">
+      <div className="w-8/12 pr-2 md:w-7/12 lg:w-5/12 flex items-center">
         {/* <Search /> */}
         <AlgoliaSearch />
       </div>
 
       {/* Select Vehicle */}
-      <div className="w-1/12 md:w-2/12">
+      <div className="hidden lg:flex max-w-[300px] ">
         <NavSelectVehicle />
       </div>
 
-      <div className="hidden w-fit xl:flex top-0 md:sticky duration-200  capitalize ml-4 flex-col text-center items-center justify-center text-xs">
+      <div className="hidden w-fit xl:flex capitalize flex-col text-center items-center justify-center text-xs">
         <div>
           parler à un spécialiste
           <br />
-          <a href="tel:+1 800-883-0691" className="text-sm">+1 800-883-0691</a>
+          <a href="tel:+1 800-883-0691" className="text-sm">
+            +1 800-883-0691
+          </a>
         </div>
       </div>
+
       {/* notif,show,cart */}
-      <div className="w-3/12 md:w-2/12 flex gap-x-4 ml-3 lg:ml-auto justify-center">
+      <div className="w-3/12 md:w-fit flex gap-x-4 justify-center">
         {/* store link */}
         <Link
           href={"/boutique"}
@@ -73,4 +85,3 @@ export default function MainNav() {
     </div>
   );
 }
- 

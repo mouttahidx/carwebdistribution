@@ -137,11 +137,10 @@ export default function CategoriesNav() {
         {categoriesLevel2.map((item, index) => (
           <Dropdown
             key={index}
-            icon={<ArrowDownIcon className="w-10 h-10" />}
-            label={<span className="text-sm w-full ">{item.name}</span>}
+            renderTrigger={() => <div className="text-sm w-fit cursor-pointer">{item.name}</div>}
             color={"transparent"}
-            arrowIcon={<ArrowDownTrayIcon className="w-10 h-10" />}
             size={"small"}
+            inline={true}
           >
             {item.children?.length > 0 &&
               item.children.map((child) => (
@@ -150,7 +149,6 @@ export default function CategoriesNav() {
                   href={
                     "/boutique/?categorie_id=" + child.id + "&parent_category=1"
                   }
-                  className="w-full"
                 >
                   {child.name}
                 </Dropdown.Item>

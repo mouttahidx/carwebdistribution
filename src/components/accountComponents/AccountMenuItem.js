@@ -10,7 +10,10 @@ import React from "react";
 import {
   FaCar,
   FaFileInvoice,
+  FaRegUserCircle,
   FaShoppingBag,
+  FaUser,
+  FaUserCircle,
 } from "react-icons/fa";
 
 export default function AccountMenuItem() {
@@ -18,8 +21,8 @@ export default function AccountMenuItem() {
   const router = useRouter();
 
   return (
-    <div className="flex flex-grow justify-end">
-      <Dropdown label="Compte" color={"#ffffff"} className="w-[150px] z-40" inline>
+    <div className="flex justify-end">
+      <Dropdown label="Compte" color={"#ffffff"} className="z-40" inline renderTrigger={()=><span className=""><FaUser className="border-2 p-0.5 border-gray-500 fill-gray-500 rounded-full cursor-pointer w-6 h-6" /></span>} >
         {status === "authenticated" && (
           <>
             <Dropdown.Header
