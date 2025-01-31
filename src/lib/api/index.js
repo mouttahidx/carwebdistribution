@@ -2,7 +2,7 @@ import axios from "axios";
 
 const WooCommerceRestApi = require("@woocommerce/woocommerce-rest-api").default;
 
-const api = new WooCommerceRestApi({
+export const api = new WooCommerceRestApi({
   url: process.env.NEXT_PUBLIC_WEBSITE_URL,
   consumerKey: process.env.NEXT_PUBLIC_CONSUMER_KEY,
   consumerSecret: process.env.NEXT_PUBLIC_CONSUMER_SECRET,
@@ -13,6 +13,7 @@ const api = new WooCommerceRestApi({
     },
   },
 });
+
 export async function allBrands(per_page = 10) {
   try {
     const res = await axios.get(

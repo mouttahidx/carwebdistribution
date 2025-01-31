@@ -33,9 +33,6 @@ export default function Filter({
   if (isMobile) {
     return (
       <div className="w-full bg-white rounded-md">
-        <h4 className=" !py-4 font-semibold text-xl text-center !ring-0">
-          Filtres
-        </h4>
         {vehicle === "1" && (
           <div className="flex flex-col gap-y-2 mb-8">
             <p className="font-medium">Retirer le filtrage par voiture</p>
@@ -49,8 +46,8 @@ export default function Filter({
             </Button>
           </div>
         )}
-        <div className="bg-white rounded-lg p-2 border w-full flex lg:flex-col gap-x-3">
-          <div className="w-6/12 lg:w-full">
+        <div className="bg-white rounded-lg p-2 border w-full grid grid-cols-1 md:grid-cols-2 gap-2">
+          <div className="w-full">
             <Button onClick={() => setOpenCategoryModal(true)} className="w-full bg-transparent text-black border border-gray-950 hover:!bg-rachel-red-800 hover:text-white duration-500">Catégories</Button>
             <Modal show={openCategoryModal} onClose={() => setOpenCategoryModal(false)}>
               <Modal.Header>Filtrage par catégorie</Modal.Header>
@@ -68,7 +65,7 @@ export default function Filter({
               </Modal.Footer>
             </Modal>
           </div>
-          <div className="w-6/12 lg:w-full">
+          <div className="w-full">
             <Button onClick={() => setOpenBrandsModal(true)} className="w-full bg-transparent text-black border border-gray-950 hover:!bg-rachel-red-800 hover:text-white duration-500">Marques</Button>
             <Modal show={openBrandsModal} onClose={() => setOpenBrandsModal(false)}>
               <Modal.Header>Filtrage par marque</Modal.Header>
@@ -94,9 +91,7 @@ export default function Filter({
   
   return (
     <div className="w-full bg-white rounded-md">
-      <h4 className=" !py-4 font-semibold text-xl text-center !ring-0">
-        Filtre
-      </h4>
+    
       {vehicle === "1" && (
         <div className="flex flex-col gap-y-2 mb-8">
           <p className="font-medium">Retirer le filtrage par voiture</p>

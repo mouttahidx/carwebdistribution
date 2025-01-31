@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -11,7 +11,6 @@ import { BuildingStorefrontIcon } from "@heroicons/react/24/outline";
 import AccountMenuItem from "@/components/accountComponents/AccountMenuItem";
 import NavSelectVehicle from "@/components/homeComponents/NavSelectVehicle";
 import AlgoliaSearch from "@/components/AlgoliaSearch";
-import { DrawerComponent } from "./DrawerComponent";
 
 export default function MainNav() {
   return (
@@ -55,7 +54,7 @@ export default function MainNav() {
       </div>
 
       {/* notif,show,cart */}
-      <div className="w-3/12 md:w-fit flex gap-x-4 justify-center">
+      <div className="w-3/12 md:w-fit flex gap-x-4 justify-center ml-auto">
         {/* store link */}
         <Link
           href={"/boutique"}
@@ -74,7 +73,9 @@ export default function MainNav() {
       </div>
 
       {/* account */}
-      <AccountMenuItem />
+      <div className="h-full flex items-center ml-3">
+        <AccountMenuItem />
+      </div>
     </div>
   );
 }

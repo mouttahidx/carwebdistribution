@@ -1,8 +1,10 @@
 "use client";
 
-import { Drawer } from "flowbite-react";
+import { Drawer, List } from "flowbite-react";
 import { useState } from "react";
 import { FaAlignJustify } from "react-icons/fa6";
+import CategoriesNavMobile from "./CategoriesNavMobile";
+import { FaComment, FaEnvelope, FaPhone } from "react-icons/fa";
 
 export function DrawerComponent() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,58 +13,36 @@ export function DrawerComponent() {
     setIsOpen(false);
   };
 
-
   return (
     <>
-    <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center">
         <FaAlignJustify
           onClick={() => setIsOpen(true)}
-          className="w-8 h-8 cursor-pointer"
+          className="w-8 h-8 cursor-pointer fill-gray-500"
         />
       </div>
-      <Drawer open={isOpen} onClose={handleClose} position="left">
-        <Drawer.Header color=""/>
+      <Drawer
+        open={isOpen}
+        onClose={handleClose}
+        position="left"
+        className="bg-gray-50 pl-0 overflow-y-scroll"
+      >
+        <Drawer.Header titleIcon={() => <></>} />
+        <List className="pl-8">
+          <List.Item icon={FaPhone} className=" flex" >
+            <a href="tel:1-800-123-4567">1-800-123-4567</a>
+          </List.Item>
+          <List.Item icon={FaEnvelope} className="!mt-4 flex">
+            <a href="mailto:info@carwebdistribution.ca">info@carwebdistribution.ca</a>
+          </List.Item>
+          <List.Item icon={FaComment} className="!mt-4 flex">
+            <span>Live chat</span>
+          </List.Item>
+        </List>
+        <hr className="my-3" />
         <Drawer.Items>
-          <p className="mb-6 text-sm text-gray-500 dark:text-gray-400">
-            Supercharge your hiring by taking advantage of our&nbsp;
-            <a
-              href="#"
-              className="text-cyan-600 underline hover:no-underline dark:text-cyan-500"
-            >
-              limited-time sale
-            </a>
-            &nbsp;for Flowbite Docs + Job Board. Unlimited access to over 190K
-            top-ranked candidates and the #1 design job board.
-          </p>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <a
-              href="#"
-              className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-cyan-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
-            >
-              Learn more
-            </a>
-            <a
-              href="#"
-              className="inline-flex items-center rounded-lg bg-cyan-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
-            >
-              Get access&nbsp;
-              <svg
-                className="ms-2 h-3.5 w-3.5 rtl:rotate-180"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 10"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M1 5h12m0 0L9 1m4 4L9 9"
-                />
-              </svg>
-            </a>
-          </div>
+          <h2 className="pl-8 font-semibold">Catégories</h2>
+          <CategoriesNavMobile />
         </Drawer.Items>
       </Drawer>
     </>

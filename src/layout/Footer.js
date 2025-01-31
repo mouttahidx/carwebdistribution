@@ -4,7 +4,7 @@ import Link from "next/link";
 const Footer = () => {
   const dt = new Date();
   return (
-    <footer className=" border-t ">
+    <footer className="container border-t ">
       <div className=" lg:container mx-auto flex flex-wrap lg:flex-nowrap lg:gap-8 gap-x-6 gap-y-8 p-6 lg:justify-evenly">
         <div className="flex flex-col w-full  md:w-1/2 lg:w-4/12 ">
           <Link href="/" className="flex flex-col items-center gap-x-2 w-fit">

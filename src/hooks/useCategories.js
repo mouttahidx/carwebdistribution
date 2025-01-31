@@ -1,13 +1,25 @@
+import { api } from "@/lib/api";
 import useSWR from "swr";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+const fetcher = async ([url, page]) => {
+  const response = await api.get(url, { per_page: 5, page: page });
+  return { data: response.data, headers: response.headers };
+};
 
-const useCategories = () => {
-  const { data, error } = useSWR(process.env.NEXT_PUBLIC_WEBSITE_URL+"/wp-json/wc/v3/products/categories", fetcher, { revalidateOnFocus: false });
+const useCategories = (page) => {
+  const { data, error, isLoading } = useSWR(
+    ["products/categories", page],
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      dedupingInterval: 60000 * 60 * 24 * 10,
+    }
+  );
+  
 
   return {
     categories: data || [],
-    isLoading: !error && !data,
+    isLoading,
     isError: error,
   };
 };

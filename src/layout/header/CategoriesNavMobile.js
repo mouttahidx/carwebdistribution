@@ -1,8 +1,9 @@
-import { Dropdown } from "flowbite-react";
+import { Dropdown, Sidebar } from "flowbite-react";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
-export default function CategoriesNav() {
+export default function CategoriesNavMobile() {
   const router = useRouter();
   const [offset, setOffset] = useState(0);
 
@@ -128,53 +129,63 @@ export default function CategoriesNav() {
       ],
     },
   ].sort((a, b) => (a.name > b.name ? 1 : -1));
+  // <div className="grid grid-cols-1 gap-4 w-full">
 
+  //   {/* <Link
+  //     href="/boutique?sale=1"
+  //     className={`text-sm lg:max-w-full ${
+  //       router.pathname === "/boutique?sale=1" && "text-black"
+  //     } cursor-pointer flex items-center`}
+  //   >
+  //     Promotions
+  //   </Link>{" "} */}
+  //   <span
+  //     onClick={() => {
+  //       window.location.href = "/recherche-pneu/";
+  //     }}
+  //     className={
+  //       router.pathname === "/recherche-pneu"
+  //         ? "cursor-pointer text-sm lg:max-w-full text-black "
+  //         : "cursor-pointer text-sm lg:max-w-full  hover:text-black duration-200"
+  //     }
+  //   >
+  //     Outil de recherche de pneus
+  //   </span>
+  // </div>;
   return (
-    <div className="hidden md:flex top-0 md:sticky duration-200 bg-gray-100 w-full shadow-md z-10 border-t">
-      <div className="flex justify-evenly gap-x-4 py-2 items-center flex-wrap gap-y-4 container mx-auto ">
-        {categoriesLevel2.map((item, index) => (
-          <Dropdown
-            key={index}
-            renderTrigger={() => <div className="text-sm w-fit cursor-pointer">{item.name}</div>}
-            color={"transparent"}
-            size={"small"}
-            inline={true}
-          >
-            {item.children?.length > 0 &&
-              item.children.map((child) => (
-                <Dropdown.Item
-                  key={child.id}
-                  href={
-                    "/boutique/?categorie_id=" + child.id + "&parent_category=1"
-                  }
-                >
-                  {child.name}
-                </Dropdown.Item>
-              ))}
-          </Dropdown>
-        ))}
-        {/* <Link
-          href="/boutique?sale=1"
-          className={`text-sm text-center lg:max-w-full ${
-            router.pathname === "/boutique?sale=1" && "text-black"
-          } cursor-pointer flex items-center`}
-        >
-          Promotions
-        </Link>{" "} */}
-        <span
-          onClick={() => {
-            window.location.href = "/recherche-pneu/";
-          }}
-          className={
-            router.pathname === "/recherche-pneu"
-              ? "cursor-pointer text-sm text-center max-w-[120px] lg:max-w-full text-black "
-              : "cursor-pointer text-sm text-center max-w-[120px] lg:max-w-full  hover:text-black duration-200"
-          }
-        >
-          Outil de recherche de pneus
-        </span>
+    <Sidebar
+      aria-label="Sidebar with multi-level dropdown example"
+      className="w-full -mt-2"
+    >
+      
+      <Sidebar.Items>
+        <Sidebar.ItemGroup>
 
-      </div>
-    </div>
+          {categoriesLevel2.map((item, index) => (
+            <Sidebar.Collapse
+              icon={() => <></>}
+              label={item.name}
+              key={index}
+              className="!text-sm"
+            >
+              {item.children?.length > 0 &&
+                item.children.map((child) => (
+                  <Sidebar.Item
+                    key={child.id}
+                    href={
+                      "/boutique/?categorie_id=" +
+                      child.id +
+                      "&parent_category=1"
+                    }
+                    className="!text-sm text-left"
+                  >
+                    {child.name}
+                  </Sidebar.Item>
+                ))}
+            </Sidebar.Collapse>
+          ))}
+        </Sidebar.ItemGroup>
+      </Sidebar.Items>
+    </Sidebar>
   );
 }

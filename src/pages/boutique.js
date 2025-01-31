@@ -67,7 +67,7 @@ export default function Shop({ results, brands, headers }) {
   };
 
   function handlePageClick({ selected }) {
-    page.current = selected + 1;
+    page.current = selected;
     getUpdatedProducts();
   }
   // fetch products methode
@@ -251,9 +251,9 @@ export default function Shop({ results, brands, headers }) {
           {`Boutique | ${process.env.NEXT_PUBLIC_WEBSITE_TITLE}`}
         </title>
       </Head>
-      <div className="flex flex-col items lg:flex-row lg:gap-x-8 px-1 container mx-auto">
+      <div className="flex flex-col items lg:flex-row  px-1 container mx-auto">
         {/* sidebar */}
-        <aside className="lg:w-4/12 xl:w-3/12 my-10 lg:my-0 ">
+        <aside className="lg:w-4/12 pt-16 lg:pt-2 mb-10 lg:my-0 ">
           <Filter
             brands={brands}
             brandsUpdate={brandsUpdate}
@@ -266,7 +266,7 @@ export default function Shop({ results, brands, headers }) {
         </aside>
 
         {/* products */}
-        <section className="flex-grow lg:w-8/12 xl:9/12 xl:px-6">
+        <section className="flex-grow lg:w-8/12  xl:px-6">
           <div className="mb-6 flex justify-center md:justify-between items-center flex-wrap md:flex-nowrap">
             <div className="w-full md:w-[400px] text-center md:text-left mb-4 md:mb-0">
               {!loading && products?.length > 0 && (

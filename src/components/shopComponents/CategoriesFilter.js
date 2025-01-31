@@ -1,8 +1,7 @@
-import { allCategories } from "@/lib/api";
-import { Accordion, Button, Checkbox, Label } from "flowbite-react";
+import useCategories from "@/hooks/useCategories";
+import { Accordion, Checkbox, Label } from "flowbite-react";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
-import { act } from "react";
 import ContentLoader from "react-content-loader";
 import ReactPaginate from "react-paginate";
 import { usePapaParse } from "react-papaparse";
@@ -38,6 +37,10 @@ export default function CategoriesFilter({
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { readString } = usePapaParse();
+  const {
+    categories: { data, headers },
+    isLoading,
+  } = useCategories(page.current);
 
   const getCategories = () => {
     setLoading(true);
@@ -73,22 +76,23 @@ export default function CategoriesFilter({
           });
         });
     } else {
-      allCategories(10, page.current)
-        .then((res) => {
-          if (res.status === 200) {
-            setCategories(res.data);
-
-            setTotalPages(res.headers?.["x-wp-totalpages"]);
-          }
-          setLoading(false);
-        })
-        .catch((err) => console.log(err));
+      if (data) {
+        setCategories(data);
+        setLoading(false);
+        setTotalPages(headers["x-wp-totalpages"]);
+      }
     }
   };
 
   function handlePageClick({ selected }) {
-    page.current = selected + 1;
+    if (selected === 0) {
+      page.current = 1;
+    } else {
+      page.current = selected + 1;
+    }
+
     getCategories();
+    console.log(page.current)
   }
 
   function clearSelection() {
@@ -106,11 +110,18 @@ export default function CategoriesFilter({
   }
 
   useEffect(() => {
+    if(router.query?.parent_category === "1") {
+      return;
+    }
+    setLoading(isLoading);
+    setCategories(data);
+  }, [data,isLoading]);
+
+  useEffect(() => {
     getCategories();
   }, [router.query]);
 
-  useEffect(() => {
-  }, [activeCategories]);
+  useEffect(() => {}, [activeCategories, categories]);
 
   useEffect(() => {
     reset > 0 && clearSelection();
@@ -318,8 +329,9 @@ export default function CategoriesFilter({
                   previousLabel={"← Précedent"}
                   nextLabel={"Suivant →"}
                   pageCount={+totalPages}
-                  forcePage={page.current - 1}
                   onPageChange={handlePageClick}
+                  pageRangeDisplayed={2}
+                  forcePage={page.current - 1}
                   containerClassName={
                     "pagination w-full flex gap-x-2 justify-center my-8"
                   }
