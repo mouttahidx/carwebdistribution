@@ -69,10 +69,10 @@ export default function ProductCard({ product, searchTerm }) {
       {/* product image */}
       <div className="rounded-t-md relative w-full h-44 border-b">
         <Image
-          src={"/slider2.jpg" ||
+          src={
             product?.image ||
             (product?.images?.length > 0 && product?.images[0]?.src) ||
-            product?.categories_image
+            product?.categories_image || "/slider2.jpg"
             
           }
           fill
