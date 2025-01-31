@@ -81,7 +81,6 @@ export default function ProductDetails({
           <Link
             href={"/boutique?categorie_id=" + cat.id}
             key={cat.id}
-            target="_blank"
             className="text-xs bg-rachel-black-100 p-1.5 rounded mr-2 hover:text-rachel-red-600 duration-200"
             dangerouslySetInnerHTML={{ __html: cat.name }}
           />
@@ -93,7 +92,6 @@ export default function ProductDetails({
         {brands && brands?.length > 0 && (
           <Link
             href={"/boutique?marque=" + brands[0].term_id}
-            target="_blank"
             className="text-xs bg-rachel-black-100 p-1.5 rounded mr-2 hover:text-rachel-red-600 duration-200"
           >
             {brands[0].name}

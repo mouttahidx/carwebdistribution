@@ -66,6 +66,7 @@ export default function SelectVehicle({ setVehicules }) {
   ];
   const [makes, setMakes] = useState([]);
   const [models, setModels] = useState([]);
+ 
 
   useEffect(() => {
     if (vehicle.year.trim() !== "") {
@@ -148,7 +149,6 @@ export default function SelectVehicle({ setVehicules }) {
           }
           if (res.data.length > 0) {
             setVehicules(res.data);
-            console.log(res.data)
           }
         })
         .catch((error) => {
@@ -237,7 +237,7 @@ export default function SelectVehicle({ setVehicules }) {
          <ToastContainer className={"!z-[99999999999999]"}/>
       </div>
       {loading && (
-        <LoadingModal loading={"pop-up"} text="Recherche en cours..." />
+        <LoadingModal loading={loading} text="Recherche en cours..." />
       )}
     </section>
   );

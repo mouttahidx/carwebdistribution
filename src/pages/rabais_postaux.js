@@ -170,7 +170,6 @@ export default function Rabaispostaux() {
               </p>
                 <a
                   href={promo.link}
-                  target="_blank"
                   className="flex items-center bg-rachel-red-700 hover:!bg-rachel-red-800 mt-auto text-white py-1 rounded-md  justify-center"
                 >
                   Voir le PDF

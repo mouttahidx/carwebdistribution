@@ -21,8 +21,6 @@ export default function ProductCard({ product, searchTerm }) {
   );
   const [isLoading, setIsLoading] = useState(false);
 
- 
-
   /* ---------------- work prices if simple or variable product --------------- */
   const Prices = () => {
     if (isLoading) {
@@ -50,12 +48,12 @@ export default function ProductCard({ product, searchTerm }) {
     if (product.type === "variable") {
       return (
         <span className="font-semibold">
-          <p className="font-normal text-xs">à partir de:</p>${Number(product?.price).toFixed(2)}
+          <p className="font-normal text-xs">à partir de:</p>$
+          {Number(product?.price).toFixed(2)}
         </span>
       );
     }
   };
-
 
   /* -------------------------------------------------------------------------- */
   /*                               product render                               */
@@ -64,7 +62,7 @@ export default function ProductCard({ product, searchTerm }) {
     <Link
       key={product.id}
       href={"/produits/" + product?.slug}
-      className="flex flex-col justify-start items-start w-full border rounded-md"
+      className="flex flex-col justify-start h-full items-start w-full border rounded-md"
     >
       {/* product image */}
       <div className="rounded-t-md relative w-full h-44 border-b">
@@ -72,48 +70,50 @@ export default function ProductCard({ product, searchTerm }) {
           src={
             product?.image ||
             (product?.images?.length > 0 && product?.images[0]?.src) ||
-            product?.categories_image || "/slider2.jpg"
-            
+            product?.categories_image ||
+            "/slider2.jpg"
           }
           fill
           sizes="100vw"
-          className="rounded-t-md object-contain w-full"
+          className={`rounded-t-md object-${
+            product?.categories_image ? "cover" : "contain"
+          } w-full`}
           alt={product.name || "thumbnail of product"}
         />
 
-
         {/* ------------------------- product promotion badge ------------------------ */}
-        {(product?.on_sale || (product.supplier?.length>0 && product?.supplier[0]?.term_id === 29339)) && (
+        {(product?.on_sale ||
+          (product.supplier?.length > 0 &&
+            product?.supplier[0]?.term_id === 29339)) && (
           <span className="bg-rachel-red-800 absolute z-[9] text-xs text-white px-2 rounded-md top-2 right-2">
             Promotion
           </span>
         )}
       </div>
 
-      <div className="px-2 py-3 w-full bg-white rounded-md h-[190px]">
+      <div className="px-2 py-3 w-full bg-white rounded-md flex flex-col grow">
         {/* category */}
-        <div className="flex gap-y-2 flex-wrap max-h-11 overflow-hidden rounded-md h-11">
+        <div className="flex gap-y-2 flex-wrap max-h-11 overflow-hidden rounded-md mb-1 truncate">
           {product?.categories &&
             product?.categories?.map((cat) => (
               <p
                 key={cat.slug}
-                className="text-xs bg-rachel-black-100 h-fit max-h-10 p-1 rounded mr-2 w-fit max-w-[180px] break-words"
+                className="text-xs bg-rachel-black-100 h-fit max-h-10 p-1 rounded mr-2 w-fit max-w-[180px] break-words truncate"
                 dangerouslySetInnerHTML={{ __html: cat.name }}
               />
             ))}
         </div>
 
         {/* name */}
-        <div className="mt-1 overflow-hidden h-11 mb-2">
+        <div className="mt-1 overflow-hidden mb-2">
           <h2
-            className="text-sm capitalize max-w-[288px] break-words h-fit max-h-10"
+            className="text-sm capitalize break-words h-fit"
             dangerouslySetInnerHTML={{ __html: product.name }}
           />
         </div>
 
         {/* price and rating */}
-
-        <div className="flex justify-between items-center">
+        <div className="block mt-auto">
           <Prices />
         </div>
 

@@ -10,7 +10,7 @@ export default function Layout({children }) {
     <meta name="robots" content="all" />
     </Head>
         <Header/>
-        <main className="w-full py-5 bg-[#FDFDFD]">
+        <main className="w-full py-5 bg-[#FDFDFD] overflow-x-hidden">
             {children}
         </main>
         <Footer/>

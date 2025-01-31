@@ -25,14 +25,6 @@ export default function HomeSelectVehicle() {
     }
   }, [status]);
 
-  useEffect(() => {
-    if (router.asPath === "/#select_vehicle") {
-      setOpenModal(1);
-    } else {
-      setOpenModal(false);
-    }
-  }, [router]);
-
   const handleAddVehicle = (item) => {
     console.log(item)
    

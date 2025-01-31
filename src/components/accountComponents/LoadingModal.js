@@ -1,15 +1,21 @@
 'use client';
 
-import { Button, Modal, Spinner } from 'flowbite-react';
-import { useEffect, useState } from 'react';
+import { Modal, Spinner } from 'flowbite-react';
+import { useState } from 'react';
 
 export default function LoadingModal({loading,text="le formulaire est en cours d'enregistrement"}) {
   const [openModal, setOpenModal] = useState(loading);
-  const props = { openModal, setOpenModal };
+
+  
+  const handleClose = () => {
+    setOpenModal(false);
+  };
+
+
 
   return (
     <>
-      <Modal closable="false" show={props.openModal === 'pop-up'} size="md" popup  onClose={() => props.setOpenModal(undefined)}>
+      <Modal  closable="false" show={openModal} size="md" popup position='center' onClose={() => handleClose()}>
         {/* <Modal.Header /> */}
         <Modal.Body>
           <div className="text-center h-[250px] flex flex-col justify-center !top-[50%]">

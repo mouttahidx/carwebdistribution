@@ -4,8 +4,8 @@ import Script from "next/script";
 export default function Document() {
   return (
     <Html lang="fr" className="scroll-smooth">
-      <Head />
-      <body style={{ position: "relative" }} className="!overflow-y-auto">
+        <Head />
+      <body style={{ position: "relative" }} className="!overflow-y-auto !px-0 !overflow-x-hidden">
         <Main />
         <NextScript />
         <Script

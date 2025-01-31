@@ -15,7 +15,7 @@ export default function FeaturedProducts({ products }) {
         </h2>
       </div>
       <div
-        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4  lg:grid-cols-5 grid-rows-1 gap-y-6 gap-x-3 lg:gap-x-4 pt-8 bg-red "
+        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4  lg:grid-cols-6 grid-rows-1 gap-y-6 gap-x-3 lg:gap-x-4 pt-8 bg-red "
         data-aos-anchor-placement="top-center"
         data-aos="fade-up"
         data-aos-duration="1000"

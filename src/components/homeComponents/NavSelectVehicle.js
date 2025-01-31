@@ -27,11 +27,11 @@ export default function NavSelectVehicle() {
 
   useEffect(() => {
     if (router.asPath === "/#select_vehicle") {
-      setOpenModal(1);
+      !openModal && setOpenModal(1);
     } else {
       setOpenModal(false);
     }
-  }, [router]);
+  }, [router.asPath]);
 
   const handleAddVehicle = (item) => {
     setLocalVehicle({
@@ -122,10 +122,12 @@ export default function NavSelectVehicle() {
               setOpenModal(false);
               setVehicles([]);
             }}
+            dismissible
+            position="center"
             size={"4xl"}
           >
             <Modal.Header>
-              {localVehicle ? "Gérer votre véhicule" : "Rechercher un vehicule"}
+              {localVehicle ? "Gérer votre véhicule" : "Rechercher un vehicule"} Nav select
             </Modal.Header>
             <Modal.Body>
               {!localVehicle && (
