@@ -67,7 +67,11 @@ export default function Shop({ results, brands, headers }) {
   };
 
   function handlePageClick({ selected }) {
-    page.current = selected;
+    if (selected === 0) {
+      page.current = 1;
+    } else {
+      page.current = selected + 1;
+    }
     getUpdatedProducts();
   }
   // fetch products methode
