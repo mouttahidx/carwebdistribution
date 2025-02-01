@@ -361,6 +361,8 @@ export default function Shop({ results, brands, headers }) {
                   pageCount={+pageTotal}
                   forcePage={page.current - 1}
                   onPageChange={handlePageClick}
+                  pageRangeDisplayed={1}
+                  marginPagesDisplayed={2}
                   containerClassName={
                     "pagination w-full flex gap-x-2 justify-center my-8 "
                   }
