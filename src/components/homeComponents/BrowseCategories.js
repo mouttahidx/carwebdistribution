@@ -135,6 +135,7 @@ export default function BrowseCategories() {
                                     sizes="100vw"
                                     className="w-full h-auto"
                                     alt={subcat.name}
+                                    unoptimized
                                   />
                                 </div>
                                 <h2

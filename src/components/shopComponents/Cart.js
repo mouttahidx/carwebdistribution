@@ -86,6 +86,7 @@ export default function Cart() {
                       height={80}
                       src={item.image.src}
                       alt={item.image.alt || item.name}
+                      unoptimized
                     />
                   ) :
                   <Image
@@ -94,6 +95,7 @@ export default function Cart() {
                   height={80}
                   src={'/logo-dark.png'}
                   alt={item.name}
+                  unoptimized
                 />
                   }
                   <div className="flex-grow">

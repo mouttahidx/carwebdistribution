@@ -52,6 +52,7 @@ export default function ProductCarousel({ data }) {
               alt={slide?.name}
               fill
               src={`${slide.src}`}
+              unoptimized
             />
           </div>
         ))}
@@ -73,6 +74,7 @@ export default function ProductCarousel({ data }) {
               alt={slide?.name}
               fill
               src={`${slide.src}`}
+              unoptimized
             />
           </div>
         ))}

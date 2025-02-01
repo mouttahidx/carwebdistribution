@@ -79,6 +79,7 @@ export default function ProductCard({ product, searchTerm }) {
             product?.categories_image ? "cover" : "contain"
           } w-full`}
           alt={product.name || "thumbnail of product"}
+          unoptimized
         />
 
         {/* ------------------------- product promotion badge ------------------------ */}

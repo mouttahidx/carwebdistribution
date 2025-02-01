@@ -699,6 +699,7 @@ const Paiement = () => {
                   height="80"
                   className=""
                   alt="stripe logo"
+                  unoptimized
                 />
               </div>
 

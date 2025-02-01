@@ -52,6 +52,7 @@ export default function Apropos() {
               height="500"
               className="w-[500px] -mb-24"
               alt="toolbox mecanic"
+              unoptimized
             />
           </div>
         </div>

@@ -140,6 +140,7 @@ export default function SimpleSlider() {
                   className={`p-0  w-full flex flex-col z-20 !items-center !justify-start h-full  relative`}
                 >
                   <Image
+                  unoptimized
                     alt="Mountains"
                     src="/img/sliders/slider1_img1.png"
                     blurDataURL="/img/sliders/slider1_img1.png"
@@ -152,6 +153,7 @@ export default function SimpleSlider() {
                     className="absolute -z-[10] !left-0 !right-0 mx-auto top-0 w-full h-full object-cover"
                   />
                   <Image
+                  unoptimized
                     alt="Mountains"
                     src="/img/sliders/slider1_img2.png"
                     blurDataURL="/img/sliders/slider1_img2.png"
@@ -165,6 +167,7 @@ export default function SimpleSlider() {
                     className="absolute -z-[9] !left-0 top-0 object-left-bottom w-full object-cover md:object-contain lg:w-[60%] h-full lg:object-cover"
                   />
                   <Image
+                  unoptimized
                     alt="Mountains"
                     src="/img/sliders/slider1_img3.png"
                     blurDataURL="/img/sliders/slider1_img3.png"

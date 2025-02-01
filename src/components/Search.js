@@ -115,6 +115,7 @@ export default function Search() {
                     width={50}
                     height={50}
                     alt={cat?.name}
+                    unoptimized
                   />
                   <div className="ml-2 flex flex-col">
                     <p
@@ -142,6 +143,7 @@ export default function Search() {
                   width={50}
                   height={50}
                   alt={res?.name}
+                  unoptimized
                 />
                 <div className="ml-2 flex flex-col">
                   <p

@@ -19,6 +19,7 @@ export default function ProductImages({ images, on_sale }) {
               fill
               className="object-contain object-center rounded w-full aspect-square"
               src={images[0]?.src || "/slider2.jpg"}
+              unoptimized
             />
           </div>
         ) : (
@@ -32,6 +33,7 @@ export default function ProductImages({ images, on_sale }) {
     <div className="relative aspect-square xl:aspect-video overflow-hidden">
       <Image
         alt={"thumbnail"}
+        unoptimized
         fill
         className="object-cover object-center rounded w-full aspect-square"
         src={"/slider2.jpg"}

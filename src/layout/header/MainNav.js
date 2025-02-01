@@ -26,6 +26,7 @@ export default function MainNav() {
             className="w-full max-w-[90px] lg:max-w-[100px] h-auto object-contain"
             alt="Car web distribution logo"
             priority="false"
+            unoptimized
           />
           <p className="text-xs font-semibold text-center hidden md:block">
             carwebdistribution

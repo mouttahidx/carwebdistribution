@@ -270,6 +270,7 @@ const Panier = ({ shippingZones }) => {
                               height={100}
                               src={item.image.src}
                               alt={item.image.alt}
+                              unoptimized
                             />
                           ) : (
                             <Image
@@ -278,6 +279,7 @@ const Panier = ({ shippingZones }) => {
                               height={100}
                               src={"/logo-dark.png"}
                               alt={item.name}
+                              unoptimized
                             />
                           )}
                           <div className="flex-grow">

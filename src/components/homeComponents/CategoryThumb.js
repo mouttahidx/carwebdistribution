@@ -12,6 +12,7 @@ export default function CategoryThumb({ category }) {
         width={70}
         height={70}
         alt={category.name + " Cover"}
+        unoptimized
       />
       <h2
         className="text-xs text-center mt-3"

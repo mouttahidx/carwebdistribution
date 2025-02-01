@@ -16,6 +16,7 @@ const Footer = () => {
               className="w-full max-w-[90px] lg:max-w-[130px] h-auto"
               alt="Car web distribution logo"
               priority="false"
+              unoptimized
             />
           </Link>
           <p className="text-gray-500 max-w-[360px]">

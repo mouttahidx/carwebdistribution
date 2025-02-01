@@ -28,6 +28,7 @@ export default function MobileHeader() {
               className="w-full max-w-[90px] lg:max-w-[130px] h-auto object-contain"
               alt="Car web distribution logo"
               priority="false"
+              unoptimized
             />
             <span className="text-xs font-semibold text-center hidden md:block">
               carwebdistribution
