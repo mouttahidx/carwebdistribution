@@ -71,16 +71,13 @@ export default function CategoriesFilter({
               setCategories(level3Categories);
 
               setLoading(false);
-              // categories are in french in sidebar, they don't update product on uncheck
             },
           });
         });
-    } else {
-      if (data) {
-        setCategories(data);
-        setLoading(false);
-        setTotalPages(headers["x-wp-totalpages"]);
-      }
+    }else{
+      setLoading(isLoading);
+      setCategories(data);
+      setTotalPages(headers?.["x-wp-totalpages"]);
     }
   };
 
@@ -115,6 +112,7 @@ export default function CategoriesFilter({
     }
     setLoading(isLoading);
     setCategories(data);
+    setTotalPages(headers?.["x-wp-totalpages"]);
   }, [data,isLoading]);
 
   useEffect(() => {
@@ -165,6 +163,10 @@ export default function CategoriesFilter({
               Catégories
             </Accordion.Title>
             <Accordion.Content className="!py-2">
+              <LoaderPlaceHolder />
+              <LoaderPlaceHolder />
+              <LoaderPlaceHolder />
+              <LoaderPlaceHolder />
               <LoaderPlaceHolder />
               <LoaderPlaceHolder />
               <LoaderPlaceHolder />
@@ -330,7 +332,8 @@ export default function CategoriesFilter({
                   nextLabel={"Suivant →"}
                   pageCount={+totalPages}
                   onPageChange={handlePageClick}
-                  pageRangeDisplayed={2}
+                  pageRangeDisplayed={1}
+                  marginPagesDisplayed={2}
                   forcePage={page.current - 1}
                   containerClassName={
                     "pagination w-full flex gap-x-2 justify-center my-8"

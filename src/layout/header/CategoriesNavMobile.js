@@ -157,10 +157,8 @@ export default function CategoriesNavMobile() {
       aria-label="Sidebar with multi-level dropdown example"
       className="w-full -mt-2"
     >
-      
       <Sidebar.Items>
         <Sidebar.ItemGroup>
-
           {categoriesLevel2.map((item, index) => (
             <Sidebar.Collapse
               icon={() => <></>}
@@ -182,8 +180,28 @@ export default function CategoriesNavMobile() {
                     {child.name}
                   </Sidebar.Item>
                 ))}
+              
             </Sidebar.Collapse>
           ))}
+          <Sidebar.Item
+                
+                key={"pneus"}
+                href={"/recherche-pneu/"}
+                className="!text-sm text-left"
+              >
+                <span
+                  onClick={() => {
+                    window.location.href = "/recherche-pneu/";
+                  }}
+                  className={
+                    router.pathname === "/recherche-pneu"
+                      ? "cursor-pointer text-sm text-center max-w-[120px] lg:max-w-full text-black "
+                      : "cursor-pointer text-sm text-center max-w-[120px] lg:max-w-full  hover:text-black duration-200"
+                  }
+                >
+                  Outil de recherche de pneus
+                </span>
+              </Sidebar.Item>
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>
