@@ -112,6 +112,7 @@ export default function CategoriesNav() {
       name: "Roues et Pneus",
       slug: "roues-et-pneus",
       children: [
+        { id: 29345, name: "Jante" ,parent: false},
         { id: 51513, name: "Roues" },
         { id: 51514, name: "Pneus" },
       ],
@@ -135,7 +136,9 @@ export default function CategoriesNav() {
         {categoriesLevel2.map((item, index) => (
           <Dropdown
             key={index}
-            renderTrigger={() => <div className="text-sm w-fit cursor-pointer">{item.name}</div>}
+            renderTrigger={() => (
+              <div className="text-sm w-fit cursor-pointer">{item.name}</div>
+            )}
             color={"transparent"}
             size={"small"}
             inline={true}
@@ -145,7 +148,9 @@ export default function CategoriesNav() {
                 <Dropdown.Item
                   key={child.id}
                   href={
-                    "/boutique/?categorie_id=" + child.id + "&parent_category=1"
+                    "/boutique/?categorie_id=" +
+                    child.id +
+                    ( child?.parent === false ? "" : "&parent_category=1")
                   }
                 >
                   {child.name}
@@ -173,7 +178,6 @@ export default function CategoriesNav() {
         >
           Outil de recherche de pneus
         </span>
-
       </div>
     </div>
   );

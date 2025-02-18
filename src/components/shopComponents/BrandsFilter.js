@@ -121,7 +121,7 @@ export default function BrandsFilter({
                       className="cursor-pointer disabled:cursor-not-allowed"
                     />
                     <Label htmlFor={brand.id}>
-                      <p>{brand.name}</p>
+                      <p  dangerouslySetInnerHTML={{__html:brand.name}}/>
                     </Label>
                   </div>
                 ))}

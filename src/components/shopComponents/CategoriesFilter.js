@@ -188,7 +188,7 @@ export default function CategoriesFilter({
                   Effacer tout
                 </span>
               )}
-              {router.query?.parent_category === "1" && (
+              {(router.query?.parent_category === "1" && categories.length > 0) && (
                 <div className="flex items-center gap-2 pt-4">
                   <Checkbox
                     onChange={handleCategoryClick}
