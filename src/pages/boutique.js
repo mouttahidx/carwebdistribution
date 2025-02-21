@@ -215,7 +215,7 @@ export default function Shop({ results, brands, headers }) {
 
   useEffect(() => {
     checkRender();
-  }, [brand, category, vehicle, orderBy, perPage, order, sale]);
+  }, [ brand,category, vehicle, orderBy, perPage, order, sale]);
 
   /**
    * checkRouter is a function that checks if the router query changed and
@@ -412,12 +412,11 @@ export async function getServerSideProps(ctx) {
   const { data: products, headers: prodHeaders } = await getProductsByBrand(
     ...params
   );
-  const brands = await allBrands(100);
+
   return {
     props: {
       results: products || [],
       headers: prodHeaders || [],
-      brands: brands || [],
     },
   };
 }

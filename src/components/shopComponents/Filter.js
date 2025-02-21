@@ -4,6 +4,7 @@ import CategoriesFilter from "./CategoriesFilter";
 import BrandsFilter from "./BrandsFilter";
 import { Button, Modal } from "flowbite-react";
 import { useRouter } from "next/router";
+import CategoriesSideBar from "./CategoriesSideBar";
 
 export default function Filter({
   categoryUpdate,
@@ -112,6 +113,8 @@ export default function Filter({
             productsLoading={productsLoading}
             activeCategories={activeCategories}
           />
+
+          {/* <CategoriesSideBar /> */}
         </div>
         <div className="w-6/12 lg:w-full">
           <hr className="hidden lg:block my-3" />

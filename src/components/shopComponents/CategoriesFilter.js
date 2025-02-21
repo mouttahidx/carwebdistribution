@@ -40,45 +40,16 @@ export default function CategoriesFilter({
   const {
     categories: { data, headers },
     isLoading,
-  } = useCategories(page.current);
+  } = useCategories(
+    page.current,
+    router.query?.parent_category === "1" ? router.query?.categorie_id : 0
+  );
 
   const getCategories = () => {
     setLoading(true);
-    if (router.query?.parent_category === "1") {
-      fetch("/categories.csv")
-        .then((response) => response.text())
-        .then((text) => {
-          readString(text, {
-            complete: (results) => {
-              const level3Categories = results.data
-                .map((item) => {
-                  return {
-                    id: Number(item[0]),
-                    name: item[1],
-                    parent: Number(item[3]),
-                    slug: item[2],
-                  };
-                })
-                .filter(
-                  (item) => item.parent === Number(router.query?.categorie_id)
-                )
-                .sort(function (a, b) {
-                  var textA = a.name.toUpperCase();
-                  var textB = b.name.toUpperCase();
-                  return textA < textB ? -1 : textA > textB ? 1 : 0;
-                });
-
-              setCategories(level3Categories);
-
-              setLoading(false);
-            },
-          });
-        });
-    }else{
-      setLoading(isLoading);
-      setCategories(data);
-      setTotalPages(headers?.["x-wp-totalpages"]);
-    }
+    setLoading(isLoading);
+    setCategories(data);
+    setTotalPages(headers?.["x-wp-totalpages"]);
   };
 
   function handlePageClick({ selected }) {
@@ -89,7 +60,7 @@ export default function CategoriesFilter({
     }
 
     getCategories();
-    console.log(page.current)
+    console.log(page.current);
   }
 
   function clearSelection() {
@@ -107,13 +78,10 @@ export default function CategoriesFilter({
   }
 
   useEffect(() => {
-    if(router.query?.parent_category === "1") {
-      return;
-    }
     setLoading(isLoading);
     setCategories(data);
     setTotalPages(headers?.["x-wp-totalpages"]);
-  }, [data,isLoading]);
+  }, [data, isLoading,headers]);
 
   useEffect(() => {
     getCategories();
@@ -147,6 +115,7 @@ export default function CategoriesFilter({
             id: String(router.query?.categorie_id),
           });
         }
+        
         categoryUpdate({ delete: false, id: e.target.id });
       } else {
         categoryUpdate({ delete: true, id: e.target.id });
@@ -188,27 +157,30 @@ export default function CategoriesFilter({
                   Effacer tout
                 </span>
               )}
-              {(router.query?.parent_category === "1" && categories.length > 0) && (
-                <div className="flex items-center gap-2 pt-4">
-                  <Checkbox
-                    onChange={handleCategoryClick}
-                    disabled={productsLoading}
-                    checked={
-                      router.query?.parent_category === "1" &&
-                      activeCategories.includes(
-                        String(router.query?.categorie_id)
-                      )
-                    }
-                    className="cursor-pointer disabled:cursor-not-allowed"
-                    value={"all"}
-                  />
-                  <Label className="flex items-center grow font-semibold">
-                    <p
-                      dangerouslySetInnerHTML={{ __html: "Sélectionner tout" }}
+              {router.query?.parent_category === "1" &&
+                categories.length > 0 && (
+                  <div className="flex items-center gap-2 pt-4">
+                    <Checkbox
+                      onChange={handleCategoryClick}
+                      disabled={productsLoading}
+                      checked={
+                        router.query?.parent_category === "1" &&
+                        activeCategories.includes(
+                          String(router.query?.categorie_id)
+                        )
+                      }
+                      className="cursor-pointer disabled:cursor-not-allowed"
+                      value={"all"}
                     />
-                  </Label>
-                </div>
-              )}
+                    <Label className="flex items-center grow font-semibold">
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: "Sélectionner tout",
+                        }}
+                      />
+                    </Label>
+                  </div>
+                )}
               {categories.map((cat) => {
                 if (cat.parent == 0) {
                   let childs = [];
@@ -266,7 +238,7 @@ export default function CategoriesFilter({
                                   className="w-fit"
                                 />
                                 <span className="text-gray-400 text-xs ml-1">
-                                  ({child.count})
+                                  {/* ({child.count}) */}
                                 </span>
                               </Label>
                             </div>
@@ -319,13 +291,14 @@ export default function CategoriesFilter({
                       >
                         <p dangerouslySetInnerHTML={{ __html: cat.name }} />
                         <span className="text-gray-400 text-xs ml-auto">
-                          {cat.count > 0 && "(" + cat.count + ")"}
+                          {/* {cat.count > 0 && "(" + cat.count + ")"} */}
                         </span>
                       </Label>
                     </div>
                   );
                 }
               })}
+
               {totalPages > 1 && !loading ? (
                 <ReactPaginate
                   previousLabel={"← Précedent"}

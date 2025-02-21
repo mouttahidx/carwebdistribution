@@ -3,12 +3,13 @@ import { Accordion, Checkbox, Label } from "flowbite-react";
 import React, { useEffect, useRef, useState } from "react";
 import ContentLoader from "react-content-loader";
 import ReactPaginate from "react-paginate";
+import useBrands from "@/hooks/useBrands";
 
 export default function BrandsFilter({
   brandsUpdate,
   activeBrands,
   productsLoading,
-  reset
+  reset,
 }) {
   const LoaderPlaceHolder = (props) => (
     <ContentLoader
@@ -34,19 +35,14 @@ export default function BrandsFilter({
   const page = useRef(1);
   const [loading, setLoading] = useState(true);
   const per_page = 30;
-  
+  const { brands: {data,headers}, isLoading } = useBrands(page.current);
 
   const getBrands = () => {
     setLoading(true);
-    getBrandsPage(per_page, page.current)
-      .then((res) => {
-        if (res.status === 200) {
-          setBrands(res.data);
-          setTotalPages(res.headers?.["x-wp-totalpages"]);
-        }
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));
+    setBrands(data);
+    setTotalPages(headers?.["x-wp-totalpages"]);
+
+    setLoading(isLoading);
   };
 
   function handlePageClick({ selected }) {
@@ -59,11 +55,13 @@ export default function BrandsFilter({
   }
 
   useEffect(() => {
-    getBrands();
-  }, []);
+    setLoading(isLoading);
+    setBrands(data);
+    setTotalPages(headers?.["x-wp-totalpages"]);
+  }, [isLoading,data]);
 
-  useEffect(()=>{},[brands])
 
+  useEffect(() => {}, [brands]);
 
   const handleBrandsClick = (e) => {
     if (e.target.checked) {
@@ -72,15 +70,14 @@ export default function BrandsFilter({
       brandsUpdate({ delete: true, id: e.target.id });
     }
   };
-  useEffect(()=>{
-    
-   reset>0 && clearSelection()
-},[reset])
+  useEffect(() => {
+    reset > 0 && clearSelection();
+  }, [reset]);
 
   return (
     <div className="mb-4">
       {loading ? (
-        <Accordion collapseAll >
+        <Accordion collapseAll>
           <Accordion.Panel>
             <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0">
               Marques
@@ -99,32 +96,35 @@ export default function BrandsFilter({
               Marques
             </Accordion.Title>
             <Accordion.Content className="!py-2">
-            <span
+              <span
                 className="my-5 text-sm underline-offset-4 underline decoration-rachel-red-700 cursor-pointer"
                 onClick={clearSelection}
               >
                 Effacer tout
               </span>
               {brands.length > 0 &&
-                brands.map((brand) => (
-                  <div
-                    key={brand.id}
-                    className="flex items-center gap-2 mt-2 last:mb-2"
-                  >
-                    <Checkbox
-                      id={brand.id}
-                      disabled={productsLoading}
-                      onChange={(e) => {
-                        handleBrandsClick(e);
-                      }}
-                      checked={activeBrands.includes(String(brand.id))}
-                      className="cursor-pointer disabled:cursor-not-allowed"
-                    />
-                    <Label htmlFor={brand.id}>
-                      <p  dangerouslySetInnerHTML={{__html:brand.name}}/>
-                    </Label>
-                  </div>
-                ))}
+                brands.map(
+                  (brand) =>
+                    brand.all_term.count > 0 && (
+                      <div
+                        key={brand.id}
+                        className="flex items-center gap-2 mt-2 last:mb-2"
+                      >
+                        <Checkbox
+                          id={brand.id}
+                          disabled={productsLoading}
+                          onChange={(e) => {
+                            handleBrandsClick(e);
+                          }}
+                          checked={activeBrands.includes(String(brand.id))}
+                          className="cursor-pointer disabled:cursor-not-allowed"
+                        />
+                        <Label htmlFor={brand.id}>
+                          <p dangerouslySetInnerHTML={{ __html: brand.name }} />
+                        </Label>
+                      </div>
+                    )
+                )}
               {totalPages > 0 && !loading ? (
                 <ReactPaginate
                   previousLabel={"← Précedent"}

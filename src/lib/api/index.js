@@ -503,3 +503,51 @@ export async function getPromoCode(code) {
     console.warn(error);
   }
 }
+
+const fetchCategoriesHelper = async (parentId = 0, page = 1) => {
+    const response = await axios.get(process.env.NEXT_PUBLIC_WEBSITE_URL+'/wp-json/wc/v3/products/categories', {
+      params: {
+        parent: parentId,
+        per_page: 100,
+        page,
+        consumer_key: process.env.NEXT_PUBLIC_CONSUMER_KEY,
+        consumer_secret: process.env.NEXT_PUBLIC_CONSUMER_SECRET,
+      },
+    });
+    return response.data;
+ 
+};
+
+const fetchSecondLevelCategories = async () => {
+  let page = 1;
+  let allSecondLevelCategories = [];
+  let categories;
+
+  // Get all top-level categories (parent=0)
+  const topLevelCategories = await fetchCategoriesHelper(0);
+
+  // Loop through each top-level category to find second-level categories
+  for (const topCategory of topLevelCategories) {
+    do {
+      categories = await fetchCategoriesHelper(topCategory.id, page);
+      allSecondLevelCategories = [...allSecondLevelCategories, ...categories];
+      page++;
+    } while (categories.length === 100);
+  }
+
+  return allSecondLevelCategories;
+};
+
+export async function categoriesWithChildren() {
+    
+    const parentCategories = await fetchSecondLevelCategories();
+    const categoriesWithChildren = await Promise.all(
+      parentCategories.map(async (parent) => {
+        const children = await fetchCategoriesHelper(parent.id);
+        return { ...parent, children };
+      })
+    );
+
+    return categoriesWithChildren ;
+ 
+}

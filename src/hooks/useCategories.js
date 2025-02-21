@@ -1,14 +1,14 @@
 import { api } from "@/lib/api";
 import useSWR from "swr";
 
-const fetcher = async ([url, page]) => {
-  const response = await api.get(url, { per_page: 20, page: page });
+const fetcher = async ([url, page,parent]) => {
+  const response = parent !== 0 ? await api.get(url, { parent,per_page: 20, page: page }) : await api.get(url, { per_page: 20, page: page });
   return { data: response.data, headers: response.headers };
 };
 
-const useCategories = (page) => {
+const useCategories = (page,parent = 0) => {
   const { data, error, isLoading } = useSWR(
-    ["products/categories", page],
+    ["products/categories", page,parent],
     fetcher,
     {
       revalidateOnFocus: false,

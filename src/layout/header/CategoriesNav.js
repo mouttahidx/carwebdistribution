@@ -158,14 +158,6 @@ export default function CategoriesNav() {
               ))}
           </Dropdown>
         ))}
-        {/* <Link
-          href="/boutique?sale=1"
-          className={`text-sm text-center lg:max-w-full ${
-            router.pathname === "/boutique?sale=1" && "text-black"
-          } cursor-pointer flex items-center`}
-        >
-          Promotions
-        </Link>{" "} */}
         <span
           onClick={() => {
             window.location.href = "/recherche-pneu/";
