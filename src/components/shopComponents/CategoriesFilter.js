@@ -220,7 +220,7 @@ export default function CategoriesFilter({
                         key={cat.id}
                         className="flex flex-col items-start gap-2 pt-2  pb-4"
                       >
-                        <div className="flex items-center gap-2 py-2 -mb-2 sticky -top-2 w-full bg-white z-10 border-b">
+                        <div className="flex items-center gap-2 py-2 -mb-2 sticky -top-2 w-full bg-white z-10 border-b font-semibold">
                           <p
                             dangerouslySetInnerHTML={{ __html: cat.name }}
                             key={cat.id}
