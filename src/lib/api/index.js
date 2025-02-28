@@ -231,7 +231,7 @@ export async function getSaleProducts() {
 export async function allProducts() {
   let allItems = [];
   let page = 1;
-  
+
   try {
     while (page <= 20) {
       const res = await api.get("products", {
@@ -505,7 +505,9 @@ export async function getPromoCode(code) {
 }
 
 const fetchCategoriesHelper = async (parentId = 0, page = 1) => {
-    const response = await axios.get(process.env.NEXT_PUBLIC_WEBSITE_URL+'/wp-json/wc/v3/products/categories', {
+  const response = await axios.get(
+    process.env.NEXT_PUBLIC_WEBSITE_URL + "/wp-json/wc/v3/products/categories",
+    {
       params: {
         parent: parentId,
         per_page: 100,
@@ -513,9 +515,9 @@ const fetchCategoriesHelper = async (parentId = 0, page = 1) => {
         consumer_key: process.env.NEXT_PUBLIC_CONSUMER_KEY,
         consumer_secret: process.env.NEXT_PUBLIC_CONSUMER_SECRET,
       },
-    });
-    return response.data;
- 
+    }
+  );
+  return response.data;
 };
 
 const fetchSecondLevelCategories = async () => {
@@ -539,15 +541,100 @@ const fetchSecondLevelCategories = async () => {
 };
 
 export async function categoriesWithChildren() {
-    
-    const parentCategories = await fetchSecondLevelCategories();
-    const categoriesWithChildren = await Promise.all(
-      parentCategories.map(async (parent) => {
-        const children = await fetchCategoriesHelper(parent.id);
-        return { ...parent, children };
-      })
-    );
+  const parentCategories = await fetchSecondLevelCategories();
+  const categoriesWithChildren = await Promise.all(
+    parentCategories.map(async (parent) => {
+      const children = await fetchCategoriesHelper(parent.id);
+      return { ...parent, children };
+    })
+  );
 
-    return categoriesWithChildren ;
- 
+  return categoriesWithChildren;
 }
+
+// ______________________________________________________________
+
+/**
+ * Fetch all categories from WooCommerce API (handles pagination)
+ * @returns {Promise<Array>} - List of all categories
+ */
+const fetchAllCategories = async () => {
+  let page = 1;
+  let allCategories = [];
+  let categories;
+  const PER_PAGE = 100;
+
+  do {
+    categories = await api.get("products/categories", {
+        page,
+        per_page: 100,
+        orderby: "name",
+        order: "asc", // Sort alphabetically
+      })
+      .then((res) => res.data)
+      .catch((error) => {
+        console.error(
+          "Error fetching categories:",
+          error.response?.data || error
+        );
+        return [];
+      });
+    allCategories = [...allCategories, ...categories];
+    page++;
+  } while (categories.length === PER_PAGE); // Stop when last page is reached
+
+  return allCategories;
+};
+
+export const getStructuredCategories = (allCategories) => {
+
+  // Get categories at each level
+  const firstLevelCategories = allCategories.filter((cat) => cat.parent === 0);
+  const nonFirstLevelCategories = allCategories.filter((cat) => cat.parent !== 0);
+
+  // Find parents for each category to determine levels
+  const parentMap = new Map();
+  allCategories.forEach(cat => {
+    let current = cat;
+    let depth = 0;
+    while (current.parent !== 0 && depth < 10) {
+      const parent = allCategories.find(p => p.id === current.parent);
+      if (!parent) break;
+      current = parent;
+      depth++;
+    }
+    parentMap.set(cat.id, depth);
+  });
+
+  // Group categories by level
+  const secondLevelCategories = nonFirstLevelCategories.filter(cat => parentMap.get(cat.id) === 1);
+  const thirdLevelCategories = nonFirstLevelCategories.filter(cat => parentMap.get(cat.id) === 2);
+
+  // Build the hierarchy bottom-up
+  const thirdLevelMapped = thirdLevelCategories.reduce((acc, cat) => {
+    if (!acc[cat.parent]) acc[cat.parent] = [];
+    acc[cat.parent].push(cat);
+    return acc;
+  }, {});
+
+  // Attach third level to second level
+  const secondLevelWithChildren = secondLevelCategories.map(secondLevel => ({
+    ...secondLevel,
+    children: thirdLevelMapped[secondLevel.id] || []
+  }));
+
+  // Group second level by their parents
+  const secondLevelMapped = secondLevelWithChildren.reduce((acc, cat) => {
+    if (!acc[cat.parent]) acc[cat.parent] = [];
+    acc[cat.parent].push(cat);
+    return acc;
+  }, {});
+
+  // Create final structure
+  const structuredCategories = firstLevelCategories.map(firstLevel => ({
+    ...firstLevel,
+    children: secondLevelMapped[firstLevel.id] || []
+  }));
+
+  return {data:structuredCategories,headers:[]};
+};

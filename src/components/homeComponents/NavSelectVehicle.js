@@ -227,7 +227,7 @@ export default function NavSelectVehicle() {
           } flex relative justify-start`}
         >
           <div className="relative hidden lg:flex items-center w-10 flex-nowrap">
-            <Image src="/car.svg" className=" w-9" width={50} height={50} unoptimized />
+            <Image src="/car.svg" className=" w-9" width={50} height={50} unoptimized alt="car icon" />
             <span className="absolute bg-rachel-red-800 text-white rounded-full w-3 h-3 flex items-center justify-center p-1 text-[0.6rem] right-0 top-0">
               {data?.user?.vehicles?.length || 0}
             </span>

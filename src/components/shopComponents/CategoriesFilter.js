@@ -1,5 +1,6 @@
 import useCategories from "@/hooks/useCategories";
 import { Accordion, Checkbox, Label } from "flowbite-react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import ContentLoader from "react-content-loader";
@@ -36,7 +37,7 @@ export default function CategoriesFilter({
   const page = useRef(1);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { readString } = usePapaParse();
+
   const {
     categories: { data, headers },
     isLoading,
@@ -80,8 +81,9 @@ export default function CategoriesFilter({
   useEffect(() => {
     setLoading(isLoading);
     setCategories(data);
+    console.log(data);
     setTotalPages(headers?.["x-wp-totalpages"]);
-  }, [data, isLoading,headers]);
+  }, [data, isLoading, headers]);
 
   useEffect(() => {
     getCategories();
@@ -115,7 +117,7 @@ export default function CategoriesFilter({
             id: String(router.query?.categorie_id),
           });
         }
-        
+        categoryUpdate({ clear: true });
         categoryUpdate({ delete: false, id: e.target.id });
       } else {
         categoryUpdate({ delete: true, id: e.target.id });
@@ -148,7 +150,7 @@ export default function CategoriesFilter({
             <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0">
               Catégories
             </Accordion.Title>
-            <Accordion.Content className="!py-2">
+            <Accordion.Content className="!py-2 h-[600px] overflow-y-scroll">
               {categories.length > 0 && (
                 <span
                   className="my-5 text-sm underline-offset-4 underline decoration-rachel-red-700 cursor-pointer"
@@ -181,73 +183,11 @@ export default function CategoriesFilter({
                     </Label>
                   </div>
                 )}
-              {categories.map((cat) => {
-                if (cat.parent == 0) {
-                  let childs = [];
-                  categories.forEach((item) => {
-                    if (item.parent === cat.id) {
-                      childs.push(item);
-                    }
-                  });
-                  if (childs.length > 0) {
-                    return (
-                      <div
-                        className="flex flex-col border-b last:border-none py-4"
-                        key={cat.id}
-                      >
-                        <div className="flex items-center gap-2 mb-3">
-                          <Checkbox
-                            id={cat.id}
-                            onChange={handleCategoryClick}
-                            disabled={productsLoading}
-                            checked={activeCategories.includes(String(cat.id))}
-                            className="cursor-pointer disabled:cursor-not-allowed"
-                          />
-                          <Label
-                            htmlFor={cat.id}
-                            className="flex items-center grow"
-                          >
-                            <p dangerouslySetInnerHTML={{ __html: cat.name }} />
-                          </Label>
-                        </div>
 
-                        <div className="flex ml-4 flex-col gap-y-2">
-                          {childs.map((child) => (
-                            <div
-                              key={child.id}
-                              className="flex items-center gap-2"
-                            >
-                              <Checkbox
-                                id={child.id}
-                                onChange={handleCategoryClick}
-                                disabled={productsLoading}
-                                key={child.id}
-                                checked={activeCategories.includes(
-                                  String(child.id)
-                                )}
-                                className="cursor-pointer disabled:cursor-not-allowed"
-                              />
-                              <Label
-                                htmlFor={child.id}
-                                className="flex items-center justify-start"
-                              >
-                                <p
-                                  dangerouslySetInnerHTML={{
-                                    __html: child.name,
-                                  }}
-                                  className="w-fit"
-                                />
-                                <span className="text-gray-400 text-xs ml-1">
-                                  {/* ({child.count}) */}
-                                </span>
-                              </Label>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  } else {
-                    return (
+              {router.query?.parent_category === "1" ? (
+                <>
+                  {categories.length > 0 &&
+                    categories.map((cat) => (
                       <div
                         key={cat.id}
                         className="flex items-center gap-2 pt-4"
@@ -257,7 +197,7 @@ export default function CategoriesFilter({
                           onChange={handleCategoryClick}
                           disabled={productsLoading}
                           key={cat.id}
-                          checked={activeCategories.includes(String(cat.id))}
+                          checked={checkSubCategoryActive(cat)}
                           className="cursor-pointer disabled:cursor-not-allowed"
                         />
                         <Label
@@ -265,39 +205,94 @@ export default function CategoriesFilter({
                           className="flex items-center grow"
                         >
                           <p dangerouslySetInnerHTML={{ __html: cat.name }} />
+                          <span className="text-gray-400 text-xs ml-auto">
+                            {/* {cat.count > 0 && "(" + cat.count + ")"} */}
+                          </span>
                         </Label>
                       </div>
-                    );
-                  }
-                }
-
-                if (
-                  cat.parent !== 0 &&
-                  categories.find((x) => cat.parent === x.id) === undefined
-                ) {
-                  return (
-                    <div key={cat.id} className="flex items-center gap-2 pt-4">
-                      <Checkbox
-                        id={cat.id}
-                        onChange={handleCategoryClick}
-                        disabled={productsLoading}
+                    ))}
+                </>
+              ) : (
+                <>
+                  {categories.map((cat) => {
+                    return (
+                      <div
                         key={cat.id}
-                        checked={checkSubCategoryActive(cat)}
-                        className="cursor-pointer disabled:cursor-not-allowed"
-                      />
-                      <Label
-                        htmlFor={cat.id}
-                        className="flex items-center grow"
+                        className="flex flex-col items-start gap-2 pt-2  pb-4"
                       >
-                        <p dangerouslySetInnerHTML={{ __html: cat.name }} />
-                        <span className="text-gray-400 text-xs ml-auto">
-                          {/* {cat.count > 0 && "(" + cat.count + ")"} */}
-                        </span>
-                      </Label>
-                    </div>
-                  );
-                }
-              })}
+                        <div className="flex items-center gap-2 py-2 -mb-2 sticky -top-2 w-full bg-white z-10 border-b">
+                          <p
+                            dangerouslySetInnerHTML={{ __html: cat.name }}
+                            key={cat.id}
+                          />
+                        </div>
+
+                        {cat?.children?.length > 0 && (
+                          <div className="ml-0 text-gray-600">
+                            {cat.children.map((child) => (
+                              <div key={child.id}>
+                                <div className="flex items-center gap-2 pt-4 first:mt-0 mt-2 ">
+                                  <Checkbox
+                                    id={child.id}
+                                    onChange={handleCategoryClick}
+                                    disabled={productsLoading}
+                                    key={child.id}
+                                    checked={activeCategories.includes(
+                                      String(child.id)
+                                    )}
+                                    className="cursor-pointer disabled:cursor-not-allowed"
+                                  />
+                                  <Label
+                                    htmlFor={child.id}
+                                    className="flex items-center grow text-sm"
+                                  >
+                                    <p
+                                      dangerouslySetInnerHTML={{
+                                        __html: child.name,
+                                      }}
+                                    />
+                                  </Label>
+                                </div>
+                                {child.children &&
+                                  child.children.length > 0 && (
+                                    <ul className="ml-4 mt-0 text-gray-500">
+                                      {child.children.map((grandchild) => (
+                                        <li key={grandchild.id}>
+                                          <div className="flex items-center gap-2 pt-3">
+                                            <Checkbox
+                                              id={grandchild.id}
+                                              onChange={handleCategoryClick}
+                                              disabled={productsLoading}
+                                              key={grandchild.id}
+                                              checked={activeCategories.includes(
+                                                String(grandchild.id)
+                                              )}
+                                              className="cursor-pointer disabled:cursor-not-allowed"
+                                            />
+                                            <Label
+                                              htmlFor={grandchild.id}
+                                              className="flex items-center grow text-xs"
+                                            >
+                                              <p
+                                                dangerouslySetInnerHTML={{
+                                                  __html: grandchild.name,
+                                                }}
+                                              />
+                                            </Label>
+                                          </div>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  )}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </>
+              )}
 
               {totalPages > 1 && !loading ? (
                 <ReactPaginate

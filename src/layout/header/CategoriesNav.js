@@ -1,4 +1,5 @@
 import { Dropdown } from "flowbite-react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
@@ -20,14 +21,14 @@ export default function CategoriesNav() {
       slug: "accessoires-pour-camions",
       children: [{ id: 51515, name: "Accessoires" }],
     },
-    // {
-    //   name: "Camping et Loisirs",
-    //   slug: "camping-et-loisirs",
-    //   children: [
-    //     { id: 51512, name: "Accessoires" },
-    //     { id: 51511, name: "Équipement de Camping" },
-    //   ],
-    // },
+    {
+      name: "Camping et Loisirs",
+      slug: "camping-et-loisirs",
+      children: [
+        { id: 51512, name: "Accessoires" },
+        { id: 51511, name: "Équipement de Camping" },
+      ],
+    },
     // {
     //   name: "Électrique",
     //   slug: "electrique",
@@ -83,7 +84,6 @@ export default function CategoriesNav() {
         { id: 51481, name: "Distributeur et Allumage" },
         { id: 51482, name: "Système d'Échappement" },
         { id: 51483, name: "Système de Carburant" },
-        { id: 51484, name: "Autres Composants du Moteur" },
         { id: 51485, name: "Capteurs" },
       ],
     },
@@ -112,7 +112,7 @@ export default function CategoriesNav() {
       name: "Roues et Pneus",
       slug: "roues-et-pneus",
       children: [
-        { id: 29345, name: "Jante" ,parent: false},
+        { id: 29345, name: "Jantes", parent: false },
         { id: 51513, name: "Roues" },
         { id: 51514, name: "Pneus" },
       ],
@@ -131,7 +131,7 @@ export default function CategoriesNav() {
   ].sort((a, b) => (a.name > b.name ? 1 : -1));
 
   return (
-    <div className="hidden md:flex top-0 md:sticky duration-200 bg-gray-100 w-full shadow-md z-10 border-t">
+    <div className="hidden md:flex top-0 md:sticky duration-200 bg-gray-100 w-full shadow-md z-20 border-t">
       <div className="flex justify-evenly gap-x-4 py-2 items-center flex-wrap gap-y-4 container mx-auto ">
         {categoriesLevel2.map((item, index) => (
           <Dropdown
@@ -145,15 +145,16 @@ export default function CategoriesNav() {
           >
             {item.children?.length > 0 &&
               item.children.map((child) => (
-                <Dropdown.Item
-                  key={child.id}
-                  href={
-                    "/boutique/?categorie_id=" +
-                    child.id +
-                    ( child?.parent === false ? "" : "&parent_category=1")
-                  }
-                >
-                  {child.name}
+                <Dropdown.Item key={child.id}>
+                  <Link
+                    href={
+                      "/boutique/?categorie_id=" +
+                      child.id +
+                      (child?.parent === false ? "" : "&parent_category=1")
+                    }
+                  >
+                    {child.name}
+                  </Link>
                 </Dropdown.Item>
               ))}
           </Dropdown>

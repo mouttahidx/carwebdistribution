@@ -32,7 +32,7 @@ export default function Shop({ results, brands, headers }) {
   const [loading, setLoading] = useState(false);
   const [totalProduct, setTotalproducts] = useState(0);
   const page = useRef(1);
-  const [perPage, setPerPage] = useState(12);
+  const [perPage, setPerPage] = useState(24);
   const [pageTotal, setPageTotal] = useState(1);
   const [orderBy, setOrderBy] = useState("date");
   const [order, setOrder] = useState("desc");
