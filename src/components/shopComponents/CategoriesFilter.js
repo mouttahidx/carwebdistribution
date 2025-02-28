@@ -150,7 +150,7 @@ export default function CategoriesFilter({
             <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0">
               Catégories
             </Accordion.Title>
-            <Accordion.Content className="!py-2 h-[600px] overflow-y-scroll">
+            <Accordion.Content className="!py-2 max-h-[600px] overflow-y-scroll !pb-8">
               {categories.length > 0 && (
                 <span
                   className="my-5 text-sm underline-offset-4 underline decoration-rachel-red-700 cursor-pointer"
