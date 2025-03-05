@@ -1,6 +1,7 @@
 import DashboardLayout from "@/components/accountComponents/DashboardLayout";
 import LoadingModal from "@/components/accountComponents/LoadingModal";
 import SelectVehicle from "@/components/homeComponents/SelectVehicle";
+import useUserVehicle from "@/hooks/useUserVehicle";
 import { addUserVehicle, deleteUserVehicle } from "@/lib/userVehicleUtils";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
@@ -38,13 +39,16 @@ export default function Vehicules() {
   const [selected, setSelected] = useState([]);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [localeVehicle,setLocalVehicle] = useUserVehicle();
 
   const handleAddVehicle = (vehicule) => {
    addUserVehicle(vehicule,update,signOut,setLoading,selected,data);
+   setLocalVehicle(vehicule)
   };
 
   const handleDelete = (id) => {
     deleteUserVehicle(id,setLoading,setSelected,update,signOut,data,selected);
+    setLocalVehicle(null);
   };
 
   useEffect(() => {
@@ -117,9 +121,9 @@ export default function Vehicules() {
         </p>
         <>
           {/* vehicle search */}
-          <SelectVehicle setVehicules={setVehicules} />
+          {/* <SelectVehicle setVehicules={setVehicules} /> */}
           {/* vehicle search results */}
-          <div className="mt-8 flex gap-2">
+          {/* <div className="mt-8 grid grid-cols-2 lg:grid-cols-5 gap-2">
             {vehicules.length > 0 &&
               vehicules.map((vehicule) => (
                 <div
@@ -149,7 +153,7 @@ export default function Vehicules() {
                   )}
                 </div>
               ))}
-          </div>
+          </div> */}
         </>
         {/* user vehicles list */}
         <div className="mt-8 flex gap-3">

@@ -286,6 +286,34 @@ export default function Shop({ results, brands, headers }) {
           </div>
 
           <div className="grow grid grid-cols-2 md:grid-cols-3 gap-4 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-h-[20vh]">
+            <div className="col-span-full">
+              {category.length > 0 && (
+                <div className="flex items-center gap-x-2">
+                  <p className="font-semibold">Catégories actives:</p>
+                  <div className="flex gap-x-2">
+                      <span
+                        
+                        className="px-2 py-1 bg-gray-200 rounded-full"
+                      >
+                        {category.length}
+                      </span>
+                  </div>
+                </div>
+              )}
+              {brand.length > 0 && (
+                <div className="flex items-center gap-x-2">
+                  <p className="font-semibold">Marque actives:</p>
+                  <div className="flex gap-x-2">
+                      <span
+                        
+                        className="px-2 py-1 bg-gray-200 rounded-full"
+                      >
+                        {brand.length}
+                      </span>
+                  </div>
+                </div>
+              )}
+            </div>
             {!loading ? (
               products?.length > 0 ? (
                 products?.map((product) => (
@@ -373,7 +401,6 @@ export async function getServerSideProps(ctx) {
     ...params
   );
 
-  console.log(ctx.query);
   return {
     props: {
       results: products || [],

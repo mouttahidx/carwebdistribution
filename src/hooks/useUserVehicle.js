@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 export const useUserVehicle = () => {
   const { data, status } = useSession();
-  const [localVehicle, setLocalVehicle] = useState(null);
+  const [localVehicle, setLocalVehicle] = useState();
 
   useEffect(() => {
     if (status !== "loading") {      
@@ -21,7 +22,7 @@ export const useUserVehicle = () => {
 
 
     }
-  }, [status, data]);
+  }, [status]);
 
   return [localVehicle, setLocalVehicle ];
 }

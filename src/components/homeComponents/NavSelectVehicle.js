@@ -11,6 +11,7 @@ import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
 import { addUserVehicle, deleteUserVehicle } from "@/lib/userVehicleUtils";
 import useUserVehicle from "@/hooks/useUserVehicle";
+import usePartsCount from "@/hooks/usePartsCount";
 
 export default function NavSelectVehicle() {
   const { data, status, update } = useSession();
@@ -20,7 +21,7 @@ export default function NavSelectVehicle() {
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState([]);
   const [localVehicle, setLocalVehicle] = useUserVehicle();
-
+  const { categoriesCount, isCountLoading ,total} = usePartsCount();
   useEffect(() => {
     if (router.asPath === "/#select_vehicle") {
       !openModal && setOpenModal(1);
@@ -39,10 +40,13 @@ export default function NavSelectVehicle() {
         model: localVehicle.model,
         subModel: localVehicle.subModel,
         slug: localVehicle.slug,
+        count: localVehicle.count,
       })}; path=/; max-age=31536000; SameSite=Lax`;
-    }else{
-      document.cookie = `user-vehicle=; path=/; max-age=0; SameSite=Lax`; 
+    } else {
+      document.cookie = `user-vehicle=; path=/; max-age=0; SameSite=Lax`;
     }
+
+    console.log(localVehicle);
   }, [localVehicle]);
 
   const handleAddVehicle = (item) => {
@@ -53,6 +57,7 @@ export default function NavSelectVehicle() {
       make: item.make,
       model: item.model,
       subModel: item.subModel,
+      count: item.count,
     });
 
     if (status !== "authenticated") {
@@ -75,6 +80,8 @@ export default function NavSelectVehicle() {
     }
 
     toast.success("Véhicule ajouté avec succès!");
+
+    setOpenModal(false);
     router.push(
       `/boutique?par_vehicule=1&year=${item?.year}&make=${item?.make}&model=${item?.model}&submodel=${item?.subModel}`
     );
@@ -102,8 +109,8 @@ export default function NavSelectVehicle() {
   };
 
   return (
-    <div className="w-full">
-      <div className="bg-gray-100 p-3 py-2 rounded-md w-full grid grid-cols-3 items-center">
+    <div className="w-full flex flex-col">
+      <div className="bg-gray-100 p-3 py-2 rounded-t-md w-full grid grid-cols-3 items-center border-b">
         <div
           className={`col-span-${
             localVehicle ? "2" : "1"
@@ -148,7 +155,7 @@ export default function NavSelectVehicle() {
             {localVehicle ? (
               <Tooltip
                 className="normal-case"
-                content="Changer le véhicule sélectionné"
+                content="Changer le véhicule"
               >
                 Changer
               </Tooltip>
@@ -158,6 +165,14 @@ export default function NavSelectVehicle() {
           </span>
         </div>
       </div>
+      {localVehicle && (
+        <div className="bg-gray-100 p-3 py-1 rounded-b-md text-sm text-center font-bold">
+          Piéces compatibles: &nbsp;
+          {!isCountLoading &&
+            total}
+          
+        </div>
+      )}
 
       <>
         <Modal

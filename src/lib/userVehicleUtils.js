@@ -63,6 +63,10 @@ export const deleteUserVehicle = (id,setLoading,setSelected,update,signOut,data,
           theme: "dark",
           autoClose: 2500,
         });
+
+        if(window !== undefined){
+          localStorage.removeItem("user-vehicle");
+        }
       }
       setLoading(false);
     })

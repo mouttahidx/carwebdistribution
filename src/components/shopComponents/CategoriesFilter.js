@@ -1,13 +1,12 @@
 import useCategories from "@/hooks/useCategories";
+import usePartsCount from "@/hooks/usePartsCount";
 import useUserVehicle from "@/hooks/useUserVehicle";
 import { CheckCircleIcon, TrashIcon } from "@heroicons/react/24/solid";
-import { Accordion, Checkbox, Label } from "flowbite-react";
-import Link from "next/link";
+import { Accordion, Checkbox, Label, Progress, Spinner } from "flowbite-react";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import ContentLoader from "react-content-loader";
 import ReactPaginate from "react-paginate";
-import { usePapaParse } from "react-papaparse";
 
 export default function CategoriesFilter({
   productsLoading,
@@ -40,19 +39,9 @@ export default function CategoriesFilter({
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [localVehicle, setLocalVehicle] = useUserVehicle();
-  const [categoriesCount, setCategoriesCount] = useState([]);
+  const {categoriesCount,isCountLoading} = usePartsCount();
 
-  async function getPartsCount() {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_WEBSITE_URL}/wp-json/wc/v3/user/vehicle/parts?slug=${localVehicle.slug}`
-    );
-    const data = await res.json();
-    data && setCategoriesCount(data);
-  }
 
-  useEffect(() => {
-    localVehicle && getPartsCount();
-  }, [localVehicle]);
 
   const {
     categories: { data, headers },
@@ -145,7 +134,7 @@ export default function CategoriesFilter({
         <Accordion>
           <Accordion.Panel>
             <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0">
-              Catégories
+              Catégories 
             </Accordion.Title>
             <Accordion.Content className="!py-2">
               <LoaderPlaceHolder />
@@ -165,7 +154,7 @@ export default function CategoriesFilter({
               <div className="flex w-full justify-between items-center">
                 Catégories{" "}
                 {router.query.parent_category === "1"
-                  ? categoriesCount.length > 0 && (
+                  ? (!isCountLoading && categoriesCount.length > 0) && (
                       <span>
                         &nbsp;compatibles:{" "}
                         {
@@ -175,7 +164,7 @@ export default function CategoriesFilter({
                         }
                       </span>
                     )
-                  : categoriesCount.length > 0 && (
+                  : (!isCountLoading && categoriesCount?.length > 0) && (
                       <span>&nbsp;compatibles: {categoriesCount.length}</span>
                     )}
                 {activeCategories.length > 0 && (
@@ -242,7 +231,7 @@ export default function CategoriesFilter({
                           className="flex items-center grow"
                         >
                           <p dangerouslySetInnerHTML={{ __html: cat.name }} />
-                          {categoriesCount.length > 0 && (
+                          {(!isCountLoading && categoriesCount.length > 0) && (
                             <span className="text-black text-xs ml-auto font-bold">
                               {categoriesCount.find((c) => c.id === cat.id)
                                 ?.count > 0 &&
@@ -297,7 +286,7 @@ export default function CategoriesFilter({
                                       }}
                                     />
                                     {/* parts count */}
-                                    {categoriesCount.length > 0 && (
+                                    {(!isCountLoading && categoriesCount.length > 0) && (
                                       <span className="text-black text-xs ml-auto font-bold">
                                         {categoriesCount.find(
                                           (c) => c.id === child.id
@@ -342,7 +331,7 @@ export default function CategoriesFilter({
                                               />
 
                                               {/* parts count */}
-                                              {categoriesCount.length > 0 && (
+                                              {(!isCountLoading && categoriesCount.length > 0) && (
                                                 <span className="text-black text-xs ml-auto font-bold">
                                                   {categoriesCount.find(
                                                     (c) =>
