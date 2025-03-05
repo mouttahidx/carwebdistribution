@@ -1,9 +1,10 @@
 import { getBrandsPage } from "@/lib/api";
-import { Accordion, Checkbox, Label } from "flowbite-react";
+import { Accordion, Badge, Checkbox, Label } from "flowbite-react";
 import React, { useEffect, useRef, useState } from "react";
 import ContentLoader from "react-content-loader";
 import ReactPaginate from "react-paginate";
 import useBrands from "@/hooks/useBrands";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
 
 export default function BrandsFilter({
   brandsUpdate,
@@ -65,6 +66,7 @@ export default function BrandsFilter({
 
   const handleBrandsClick = (e) => {
     if (e.target.checked) {
+      brandsUpdate({ clear:true });
       brandsUpdate({ delete: false, id: e.target.id });
     } else {
       brandsUpdate({ delete: true, id: e.target.id });
@@ -79,8 +81,8 @@ export default function BrandsFilter({
       {loading ? (
         <Accordion collapseAll>
           <Accordion.Panel>
-            <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0">
-              Marques
+            <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0 text-black">
+              Marques 
             </Accordion.Title>
             <Accordion.Content className="!py-2">
               <LoaderPlaceHolder />
@@ -93,7 +95,10 @@ export default function BrandsFilter({
         <Accordion collapseAll>
           <Accordion.Panel>
             <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0">
-              Marques
+              <div className="flex w-full justify-between items-center gap-2">
+              Marques {activeBrands.length > 0 && <CheckCircleIcon className=" w-5 h-5 fill-rachel-red-900"/>}
+
+              </div>
             </Accordion.Title>
             <Accordion.Content className="!py-2">
               <span

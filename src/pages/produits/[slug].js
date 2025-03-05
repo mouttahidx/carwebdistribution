@@ -24,6 +24,7 @@ export default function SingleProduct({ product, variations }) {
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(0);
   const [images, setImages] = useState([]);
+  
   const handleOptionChange = (data) => {
     setAttributesSelected(data);
   };
@@ -147,8 +148,8 @@ export default function SingleProduct({ product, variations }) {
   }, [attributesSelected]);
 
   useEffect(() => {
-    console.log(currentProduct);
-  }, [currentProduct, images]);
+   product.images?.length > 0 && setImages(product.images);
+  }, [currentProduct, product?.id]);
 
   useEffect(() => {
     if (quantity > currentProduct.stock_quantity) {

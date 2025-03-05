@@ -1,11 +1,13 @@
 import ProductCard from "@/components/homeComponents/ProductCard";
 import Filter from "@/components/shopComponents/Filter";
+import useUserVehicle from "@/hooks/useUserVehicle";
 import Layout from "@/layout";
 import { allBrands, getProductsByBrand } from "@/lib/api";
 import { Label, Select } from "flowbite-react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
+import { use } from "react";
 import ContentLoader from "react-content-loader";
 import ReactPaginate from "react-paginate";
 
@@ -38,7 +40,8 @@ export default function Shop({ results, brands, headers }) {
   const [order, setOrder] = useState("desc");
   const [vehicle, setVehicle] = useState();
   const [sale, setSale] = useState();
-  const firstRender = useRef(1);
+  const firstRender = useRef(1); 
+
   const categoryUpdate = (data) => {
     if (data.delete) {
       setCategory((curr) => curr.filter((x) => x !== data.id));
@@ -74,93 +77,40 @@ export default function Shop({ results, brands, headers }) {
     }
     getUpdatedProducts();
   }
-  // fetch products methode
+
+  // fetch products method
   const getUpdatedProducts = async (cat = category, bran = brand) => {
     setLoading(true);
-    if (vehicle === "1") {
-      if (sale) {
-        const res = await getProductsByBrand(
-          cat,
-          bran,
-          false,
-          router.query.year || "",
-          router.query.make || "",
-          router.query.model || "",
-          router.query.submodel || "",
-          perPage,
-          page.current,
-          orderBy,
-          order
-        );
-        if (res?.data) {
-          setProducts(res.data);
-          setPageTotal(headers?.["x-wp-totalpages"]);
-          setTotalproducts(headers?.["x-wp-total"]);
-        }
-        setLoading(false);
-      } else {
-        const res = await getProductsByBrand(
-          cat,
-          bran,
-          "",
-          router.query.year || "",
-          router.query.make || "",
-          router.query.model || "",
-          router.query.submodel || "",
-          perPage,
-          page.current,
-          orderBy,
-          order
-        );
-        if (res?.data) {
-          setProducts(res.data);
-          setPageTotal(headers?.["x-wp-totalpages"]);
-          setTotalproducts(headers?.["x-wp-total"]);
-        }
-        setLoading(false);
-      }
-    } else {
-      if (sale) {
-        const { data, headers } =
-          (await getProductsByBrand(
-            cat,
-            bran,
-            true,
-            "",
-            "",
-            "",
-            "",
-            perPage,
-            page.current,
-            orderBy,
-            order
-          )) || {};
+    try {
+      const params = [
+        cat,
+        bran,
+        sale || "",
+        ...(vehicle === "1"
+          ? [
+              router.query.year || "",
+              router.query.make || "",
+              router.query.model || "",
+              router.query.submodel || "",
+            ]
+          : ["", "", "", ""]),
+        perPage,
+        page.current,
+        orderBy,
+        order,
+      ];
 
+      const { data, headers } = (await getProductsByBrand(...params)) || {};
+
+      if (data) {
         setProducts(data);
         setPageTotal(headers?.["x-wp-totalpages"]);
         setTotalproducts(headers?.["x-wp-total"]);
-        setLoading(false);
-      } else {
-        const { data, headers } =
-          (await getProductsByBrand(
-            cat,
-            bran,
-            "",
-            "",
-            "",
-            "",
-            "",
-            perPage,
-            page.current,
-            orderBy,
-            order
-          )) || {};
-
-        setProducts(data);
-        setPageTotal(headers?.["x-wp-totalpages"]);
-        setTotalproducts(headers?.["x-wp-total"]);
-        setLoading(false);
       }
+    } catch (error) {
+      console.error("Failed to fetch products:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -215,7 +165,7 @@ export default function Shop({ results, brands, headers }) {
 
   useEffect(() => {
     checkRender();
-  }, [ brand,category, vehicle, orderBy, perPage, order, sale]);
+  }, [brand, category, vehicle, orderBy, perPage, order, sale]);
 
   /**
    * checkRouter is a function that checks if the router query changed and
@@ -236,12 +186,12 @@ export default function Shop({ results, brands, headers }) {
     }
     // if router change to shop blank needs to empty everything
     page.current = 1;
-    !router.query.categorie_id && setCategory([]);
-    !router.query.marque && setBrand([]);
+    !router.query.categorie_id
+      ? setCategory([])
+      : setCategory([router.query.categorie_id]);
+    !router.query.marque ? setBrand([]) : setBrand([router.query.marque]);
     !router.query.par_vehicule && setVehicle(null);
     !router.query.sale && setSale(null);
-    router.query.categorie_id && setCategory([router.query.categorie_id]);
-    router.query.marque && setBrand([router.query.marque]);
   }
 
   useEffect(() => {
@@ -342,7 +292,11 @@ export default function Shop({ results, brands, headers }) {
                   <ProductCard product={product} key={product.id} />
                 ))
               ) : (
-                <p className="w-full text-center mt-40 col-span-5">{"Aucun résultat trouvé. Essayez d'ajuster vos filtres ou explorer d'autres catégories !"}</p>
+                <p className="w-full text-center mt-40 col-span-5">
+                  {
+                    "Aucun résultat trouvé. Essayez d'ajuster vos filtres ou explorer d'autres catégories !"
+                  }
+                </p>
               )
             ) : (
               <>
@@ -390,20 +344,26 @@ export default function Shop({ results, brands, headers }) {
 }
 
 export async function getServerSideProps(ctx) {
-  let cat = ctx.query.categorie_id ? ctx.query.categorie_id : "";
-  let brand = ctx.query.marque ? ctx.query.marque : "";
+  let categories = ctx.query.categorie_id ? ctx.query.categorie_id : "";
+  let brands = ctx.query.marque ? ctx.query.marque : "";
   let sale = ctx.query.sale ? ctx.query.sale : "";
 
-  let byV = ctx.query.par_vehicule ? ctx.query.par_vehicule : "";
+  let byVehicle = ctx.query.par_vehicule ? ctx.query.par_vehicule : "";
   let year = ctx.query.year ? ctx.query.year : "";
-  let mk = ctx.query.make ? ctx.query.make : "";
-  let md = ctx.query.model ? ctx.query.model : "";
+  let make = ctx.query.make ? ctx.query.make : "";
+  let model = ctx.query.model ? ctx.query.model : "";
   let submodel = ctx.query.submodel ? ctx.query.submodel : "";
 
-  let params = [cat, brand];
+  let params = [categories, brands];
 
-  if (byV !== "" && mk !== "" && md !== "" && year !== "" && submodel !== "") {
-    params = [cat, brand, sale, year, mk, md, submodel];
+  if (
+    byVehicle !== "" &&
+    make !== "" &&
+    model !== "" &&
+    year !== "" &&
+    submodel !== ""
+  ) {
+    params = [categories, brands, sale, year, make, model, submodel];
   }
   if (sale !== "") {
     params.push(true);
@@ -413,6 +373,7 @@ export async function getServerSideProps(ctx) {
     ...params
   );
 
+  console.log(ctx.query);
   return {
     props: {
       results: products || [],

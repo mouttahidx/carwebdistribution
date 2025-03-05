@@ -1,4 +1,6 @@
 import useCategories from "@/hooks/useCategories";
+import useUserVehicle from "@/hooks/useUserVehicle";
+import { CheckCircleIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { Accordion, Checkbox, Label } from "flowbite-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -37,6 +39,20 @@ export default function CategoriesFilter({
   const page = useRef(1);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [localVehicle, setLocalVehicle] = useUserVehicle();
+  const [categoriesCount, setCategoriesCount] = useState([]);
+
+  async function getPartsCount() {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_WEBSITE_URL}/wp-json/wc/v3/user/vehicle/parts?slug=${localVehicle.slug}`
+    );
+    const data = await res.json();
+    data && setCategoriesCount(data);
+  }
+
+  useEffect(() => {
+    localVehicle && getPartsCount();
+  }, [localVehicle]);
 
   const {
     categories: { data, headers },
@@ -61,7 +77,6 @@ export default function CategoriesFilter({
     }
 
     getCategories();
-    console.log(page.current);
   }
 
   function clearSelection() {
@@ -81,7 +96,6 @@ export default function CategoriesFilter({
   useEffect(() => {
     setLoading(isLoading);
     setCategories(data);
-    console.log(data);
     setTotalPages(headers?.["x-wp-totalpages"]);
   }, [data, isLoading, headers]);
 
@@ -145,23 +159,45 @@ export default function CategoriesFilter({
           </Accordion.Panel>
         </Accordion>
       ) : (
-        <Accordion>
+        <Accordion collapseAll={true}>
           <Accordion.Panel>
-            <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0">
-              Catégories
+            <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0 text-black">
+              <div className="flex w-full justify-between items-center">
+                Catégories{" "}
+                {router.query.parent_category === "1"
+                  ? categoriesCount.length > 0 && (
+                      <span>
+                        &nbsp;compatibles:{" "}
+                        {
+                          categoriesCount.filter((c) =>
+                            categories.find((cat) => cat.id === c.id)
+                          ).length
+                        }
+                      </span>
+                    )
+                  : categoriesCount.length > 0 && (
+                      <span>&nbsp;compatibles: {categoriesCount.length}</span>
+                    )}
+                {activeCategories.length > 0 && (
+                  <CheckCircleIcon className=" w-5 h-5 fill-rachel-red-900 ml-2" />
+                )}
+              </div>
             </Accordion.Title>
-            <Accordion.Content className="!py-2 max-h-[600px] overflow-y-scroll !pb-8">
+            <Accordion.Content className="!py-2 max-h-[600px] overflow-y-scroll !pb-8 px-0">
               {categories.length > 0 && (
                 <span
-                  className="my-5 text-sm underline-offset-4 underline decoration-rachel-red-700 cursor-pointer"
+                  className=" px-4 my-5 text-sm underline-offset-4 underline decoration-rachel-red-700 cursor-pointer font-semibold flex items-center gap-2"
                   onClick={clearSelection}
                 >
+                  <TrashIcon className="fill-rachel-red-900 w-5 h-5 inline" />{" "}
                   Effacer tout
                 </span>
               )}
+
+              {/* TO enable Select all */}
               {router.query?.parent_category === "1" &&
                 categories.length > 0 && (
-                  <div className="flex items-center gap-2 pt-4">
+                  <div className="flex items-center gap-2 pt-4 px-4">
                     <Checkbox
                       onChange={handleCategoryClick}
                       disabled={productsLoading}
@@ -185,12 +221,13 @@ export default function CategoriesFilter({
                 )}
 
               {router.query?.parent_category === "1" ? (
+                // If parent category is selected
                 <>
                   {categories.length > 0 &&
                     categories.map((cat) => (
                       <div
                         key={cat.id}
-                        className="flex items-center gap-2 pt-4"
+                        className="flex items-center gap-2 pt-4 px-4"
                       >
                         <Checkbox
                           id={cat.id}
@@ -205,14 +242,22 @@ export default function CategoriesFilter({
                           className="flex items-center grow"
                         >
                           <p dangerouslySetInnerHTML={{ __html: cat.name }} />
-                          <span className="text-gray-400 text-xs ml-auto">
-                            {/* {cat.count > 0 && "(" + cat.count + ")"} */}
-                          </span>
+                          {categoriesCount.length > 0 && (
+                            <span className="text-black text-xs ml-auto font-bold">
+                              {categoriesCount.find((c) => c.id === cat.id)
+                                ?.count > 0 &&
+                                "(" +
+                                  categoriesCount.find((c) => c.id === cat.id)
+                                    ?.count +
+                                  ")"}
+                            </span>
+                          )}
                         </Label>
                       </div>
                     ))}
                 </>
               ) : (
+                // general categories selection
                 <>
                   {categories.map((cat) => {
                     return (
@@ -220,7 +265,7 @@ export default function CategoriesFilter({
                         key={cat.id}
                         className="flex flex-col items-start gap-2 pt-2  pb-4"
                       >
-                        <div className="flex items-center gap-2 py-2 -mb-2 sticky -top-2 w-full bg-white z-10 border-b font-semibold">
+                        <div className="flex items-center gap-2 py-2 -mb-2 sticky -top-2 w-full bg-white z-10 border-b font-semibold px-4">
                           <p
                             dangerouslySetInnerHTML={{ __html: cat.name }}
                             key={cat.id}
@@ -228,7 +273,7 @@ export default function CategoriesFilter({
                         </div>
 
                         {cat?.children?.length > 0 && (
-                          <div className="ml-0 text-gray-600">
+                          <div className="ml-0 text-gray-600 w-full px-4">
                             {cat.children.map((child) => (
                               <div key={child.id}>
                                 <div className="flex items-center gap-2 pt-4 first:mt-0 mt-2 ">
@@ -251,13 +296,30 @@ export default function CategoriesFilter({
                                         __html: child.name,
                                       }}
                                     />
+                                    {/* parts count */}
+                                    {categoriesCount.length > 0 && (
+                                      <span className="text-black text-xs ml-auto font-bold">
+                                        {categoriesCount.find(
+                                          (c) => c.id === child.id
+                                        )?.count > 0 &&
+                                          "(" +
+                                            categoriesCount.find(
+                                              (c) => c.id === child.id
+                                            )?.count +
+                                            ")"}
+                                      </span>
+                                    )}
                                   </Label>
                                 </div>
+
                                 {child.children &&
                                   child.children.length > 0 && (
-                                    <ul className="ml-4 mt-0 text-gray-500">
+                                    <ul className="ml-4 mt-0 text-gray-500 w-full">
                                       {child.children.map((grandchild) => (
-                                        <li key={grandchild.id}>
+                                        <li
+                                          key={grandchild.id}
+                                          className="w-full"
+                                        >
                                           <div className="flex items-center gap-2 pt-3">
                                             <Checkbox
                                               id={grandchild.id}
@@ -278,6 +340,22 @@ export default function CategoriesFilter({
                                                   __html: grandchild.name,
                                                 }}
                                               />
+
+                                              {/* parts count */}
+                                              {categoriesCount.length > 0 && (
+                                                <span className="text-black text-xs ml-auto font-bold">
+                                                  {categoriesCount.find(
+                                                    (c) =>
+                                                      c.id === grandchild.id
+                                                  )?.count > 0 &&
+                                                    "(" +
+                                                      categoriesCount.find(
+                                                        (c) =>
+                                                          c.id === grandchild.id
+                                                      )?.count +
+                                                      ")"}
+                                                </span>
+                                              )}
                                             </Label>
                                           </div>
                                         </li>

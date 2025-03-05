@@ -1,8 +1,10 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import ProductCarousel from "./ProductCarousel";
 
 export default function ProductImages({ images, on_sale }) {
+  useEffect(() => {}, [images]);
+  
   if (images?.length > 0) {
     return (
       <div className="md:w-1/2 w-full mb-10 relative">

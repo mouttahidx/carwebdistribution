@@ -114,7 +114,6 @@ export default function Filter({
             activeCategories={activeCategories}
           />
 
-          {/* <CategoriesSideBar /> */}
         </div>
         <div className="w-6/12 lg:w-full">
           <hr className="hidden lg:block my-3" />
