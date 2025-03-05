@@ -50,6 +50,7 @@ const defaultSWROptions = {
   keepPreviousData: true,
 };
 
+
 const useCategories = (page, parent = 0) => {
   const { data: regularData, error: regularError, isLoading: regularLoading } = useSWR(
     parent !== 0 ? ["products/categories", page, parent] : null,

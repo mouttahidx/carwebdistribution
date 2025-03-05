@@ -21,7 +21,7 @@ export default function NavSelectVehicle() {
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState([]);
   const [localVehicle, setLocalVehicle] = useUserVehicle();
-  const { categoriesCount, isCountLoading ,total} = usePartsCount();
+  const { categoriesCount, isCountLoading, total } = usePartsCount();
   useEffect(() => {
     if (router.asPath === "/#select_vehicle") {
       !openModal && setOpenModal(1);
@@ -45,8 +45,6 @@ export default function NavSelectVehicle() {
     } else {
       document.cookie = `user-vehicle=; path=/; max-age=0; SameSite=Lax`;
     }
-
-    console.log(localVehicle);
   }, [localVehicle]);
 
   const handleAddVehicle = (item) => {
@@ -153,10 +151,7 @@ export default function NavSelectVehicle() {
             }}
           >
             {localVehicle ? (
-              <Tooltip
-                className="normal-case"
-                content="Changer le véhicule"
-              >
+              <Tooltip className="normal-case" content="Changer le véhicule">
                 Changer
               </Tooltip>
             ) : (
@@ -168,9 +163,7 @@ export default function NavSelectVehicle() {
       {localVehicle && (
         <div className="bg-gray-100 p-3 py-1 rounded-b-md text-sm text-center font-bold">
           Piéces compatibles: &nbsp;
-          {!isCountLoading &&
-            total}
-          
+          {!isCountLoading && total}
         </div>
       )}
 

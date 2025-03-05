@@ -40,9 +40,6 @@ export default function CategoriesFilter({
   const router = useRouter();
   const [localVehicle, setLocalVehicle] = useUserVehicle();
   const {categoriesCount,isCountLoading} = usePartsCount();
-
-
-
   const {
     categories: { data, headers },
     isLoading,
@@ -164,7 +161,7 @@ export default function CategoriesFilter({
                         }
                       </span>
                     )
-                  : (!isCountLoading && categoriesCount?.length > 0) && (
+                  : (categoriesCount?.length > 0) && (
                       <span>&nbsp;compatibles: {categoriesCount.length}</span>
                     )}
                 {activeCategories.length > 0 && (
@@ -286,7 +283,7 @@ export default function CategoriesFilter({
                                       }}
                                     />
                                     {/* parts count */}
-                                    {(!isCountLoading && categoriesCount.length > 0) && (
+                                    {(!isCountLoading && categoriesCount?.length > 0) && (
                                       <span className="text-black text-xs ml-auto font-bold">
                                         {categoriesCount.find(
                                           (c) => c.id === child.id
@@ -331,7 +328,7 @@ export default function CategoriesFilter({
                                               />
 
                                               {/* parts count */}
-                                              {(!isCountLoading && categoriesCount.length > 0) && (
+                                              {(!isCountLoading && categoriesCount?.length > 0) && (
                                                 <span className="text-black text-xs ml-auto font-bold">
                                                   {categoriesCount.find(
                                                     (c) =>

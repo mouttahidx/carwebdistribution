@@ -300,9 +300,9 @@ export default function Shop({ results, brands, headers }) {
                   </div>
                 </div>
               )}
-              {brand.length > 0 && (
+              {brand.length > 0 && ( 
                 <div className="flex items-center gap-x-2">
-                  <p className="font-semibold">Marque actives:</p>
+                  <p className="font-semibold">Marques actives:</p>
                   <div className="flex gap-x-2">
                       <span
                         

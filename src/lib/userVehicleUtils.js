@@ -27,6 +27,7 @@ export function addUserVehicle (vehicule,update,signOut,setLoading,selected,data
               slug: vehicule.slug,
             },
           ]);
+        
         }
         setLoading(false);
       })
@@ -36,6 +37,17 @@ export function addUserVehicle (vehicule,update,signOut,setLoading,selected,data
           signOut();
         }
       });
+
+      document.cookie = `user-vehicle=${JSON.stringify({
+        id: vehicule.term_id,
+        name: vehicule.name,
+        year: vehicule.year,
+        make: vehicule.make,
+        model: vehicule.model,
+        subModel: vehicule.subModel,
+        slug: vehicule.slug,
+        count: vehicule.count,
+      })}; path=/; max-age=31536000; SameSite=Lax`;
 };
 
 export const deleteUserVehicle = (id,setLoading,setSelected,update,signOut,data,selected) => {
@@ -67,6 +79,8 @@ export const deleteUserVehicle = (id,setLoading,setSelected,update,signOut,data,
         if(window !== undefined){
           localStorage.removeItem("user-vehicle");
         }
+
+
       }
       setLoading(false);
     })
@@ -76,4 +90,7 @@ export const deleteUserVehicle = (id,setLoading,setSelected,update,signOut,data,
         signOut();
       }
     });
+
+    document.cookie = `user-vehicle=; path=/; max-age=0; SameSite=Lax`;
+
 };

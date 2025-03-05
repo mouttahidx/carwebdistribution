@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import ContentLoader from "react-content-loader";
 import ReactPaginate from "react-paginate";
 import useBrands from "@/hooks/useBrands";
+import useBrandsPartsCount from "@/hooks/useBrandsPartsCount";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 
 export default function BrandsFilter({
@@ -36,7 +37,13 @@ export default function BrandsFilter({
   const page = useRef(1);
   const [loading, setLoading] = useState(true);
   const per_page = 30;
-  const { brands: {data,headers}, isLoading } = useBrands(page.current);
+
+  const {
+    brands: { data, headers },
+    isLoading,
+  } = useBrands(page.current);
+  const { brandsCount, isCountLoading, isError, mutate } =
+    useBrandsPartsCount();
 
   const getBrands = () => {
     setLoading(true);
@@ -59,14 +66,13 @@ export default function BrandsFilter({
     setLoading(isLoading);
     setBrands(data);
     setTotalPages(headers?.["x-wp-totalpages"]);
-  }, [isLoading,data]);
-
+  }, [isLoading, data]);
 
   useEffect(() => {}, [brands]);
 
   const handleBrandsClick = (e) => {
     if (e.target.checked) {
-      brandsUpdate({ clear:true });
+      brandsUpdate({ clear: true });
       brandsUpdate({ delete: false, id: e.target.id });
     } else {
       brandsUpdate({ delete: true, id: e.target.id });
@@ -82,7 +88,7 @@ export default function BrandsFilter({
         <Accordion collapseAll>
           <Accordion.Panel>
             <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0 text-black">
-              Marques 
+              Marques
             </Accordion.Title>
             <Accordion.Content className="!py-2">
               <LoaderPlaceHolder />
@@ -94,10 +100,15 @@ export default function BrandsFilter({
       ) : (
         <Accordion collapseAll>
           <Accordion.Panel>
-            <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0">
-              <div className="flex w-full justify-between items-center gap-2">
-              Marques {activeBrands.length > 0 && <CheckCircleIcon className=" w-5 h-5 fill-rachel-red-900"/>}
-
+            <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0 text-black ">
+              <div className="flex items-center ">
+              Marques{" "}
+              {brandsCount?.length > 0 && (
+                <span>&nbsp;compatibles: {brandsCount.length}</span>
+              )}
+              {activeBrands.length > 0 && (
+                <CheckCircleIcon className=" w-5 h-5 fill-rachel-red-900 ml-2" />
+              )}
               </div>
             </Accordion.Title>
             <Accordion.Content className="!py-2">
@@ -124,8 +135,21 @@ export default function BrandsFilter({
                           checked={activeBrands.includes(String(brand.id))}
                           className="cursor-pointer disabled:cursor-not-allowed"
                         />
-                        <Label htmlFor={brand.id}>
+                        <Label
+                          htmlFor={brand.id}
+                          className="flex items-center grow"
+                        >
                           <p dangerouslySetInnerHTML={{ __html: brand.name }} />
+                          {!isCountLoading && brandsCount.length > 0 && (
+                            <span className="text-black text-xs ml-auto font-bold">
+                              {brandsCount.find((c) => c.id === brand.id)
+                                ?.count > 0 &&
+                                "(" +
+                                  brandsCount.find((c) => c.id === brand.id)
+                                    ?.count +
+                                  ")"}
+                            </span>
+                          )}
                         </Label>
                       </div>
                     )

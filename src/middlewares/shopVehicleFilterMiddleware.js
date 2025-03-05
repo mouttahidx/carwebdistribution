@@ -17,7 +17,14 @@ export default function middlewareShop(req) {
     return NextResponse.redirect(
       `${req.nextUrl.origin}/boutique?${currentSearchParams.toString()}`
     );
+  } else if(!data){
+    const currentSearchParams = new URLSearchParams(req.nextUrl.search);
+    currentSearchParams.delete("par_vehicule");
+    currentSearchParams.delete("year");
+    currentSearchParams.delete("make");
+    currentSearchParams.delete("model");
+    currentSearchParams.delete("submodel");
+    return NextResponse.next();
   }
 
-  return NextResponse.next();
 }
