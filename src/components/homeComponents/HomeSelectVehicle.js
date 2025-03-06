@@ -25,9 +25,7 @@ export default function HomeSelectVehicle() {
     }
   }, [status]);
 
-  const handleAddVehicle = (item) => {
-    console.log(item)
-   
+  const handleAddVehicle = (item) => {   
     setLocalVehicle({
       id: item.term_id,
       name: item.name,

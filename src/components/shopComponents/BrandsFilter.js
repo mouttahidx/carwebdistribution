@@ -6,6 +6,7 @@ import ReactPaginate from "react-paginate";
 import useBrands from "@/hooks/useBrands";
 import useBrandsPartsCount from "@/hooks/useBrandsPartsCount";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { useVehicleContext } from "../Providers";
 
 export default function BrandsFilter({
   brandsUpdate,
@@ -37,6 +38,7 @@ export default function BrandsFilter({
   const page = useRef(1);
   const [loading, setLoading] = useState(true);
   const per_page = 30;
+  const {vehicle} = useVehicleContext();
 
   const {
     brands: { data, headers },
@@ -103,7 +105,7 @@ export default function BrandsFilter({
             <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0 text-black ">
               <div className="flex items-center ">
               Marques{" "}
-              {brandsCount?.length > 0 && (
+              {vehicle && brandsCount?.length > 0 && (
                 <span>&nbsp;compatibles: {brandsCount.length}</span>
               )}
               {activeBrands.length > 0 && (
@@ -140,7 +142,7 @@ export default function BrandsFilter({
                           className="flex items-center grow"
                         >
                           <p dangerouslySetInnerHTML={{ __html: brand.name }} />
-                          {!isCountLoading && brandsCount.length > 0 && (
+                          {!isCountLoading && brandsCount?.length > 0 && (
                             <span className="text-black text-xs ml-auto font-bold">
                               {brandsCount.find((c) => c.id === brand.id)
                                 ?.count > 0 &&

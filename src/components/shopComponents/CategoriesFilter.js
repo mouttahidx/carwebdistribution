@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import ContentLoader from "react-content-loader";
 import ReactPaginate from "react-paginate";
+import { useVehicleContext } from "../Providers";
 
 export default function CategoriesFilter({
   productsLoading,
@@ -38,7 +39,7 @@ export default function CategoriesFilter({
   const page = useRef(1);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const [localVehicle, setLocalVehicle] = useUserVehicle();
+  const {vehicle} = useVehicleContext();
   const {categoriesCount,isCountLoading} = usePartsCount();
   const {
     categories: { data, headers },
@@ -151,7 +152,7 @@ export default function CategoriesFilter({
               <div className="flex w-full justify-between items-center">
                 Catégories{" "}
                 {router.query.parent_category === "1"
-                  ? (!isCountLoading && categoriesCount.length > 0) && (
+                  ? (vehicle && !isCountLoading && categoriesCount.length > 0) && (
                       <span>
                         &nbsp;compatibles:{" "}
                         {
@@ -161,7 +162,7 @@ export default function CategoriesFilter({
                         }
                       </span>
                     )
-                  : (categoriesCount?.length > 0) && (
+                  : (vehicle && categoriesCount?.length > 0) && (
                       <span>&nbsp;compatibles: {categoriesCount.length}</span>
                     )}
                 {activeCategories.length > 0 && (

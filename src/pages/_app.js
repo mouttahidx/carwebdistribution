@@ -6,6 +6,7 @@ import { CartProvider } from "react-use-cart";
 import localFont from "next/font/local";
 import CookieConsent from "@/components/CookieConsent";
 import Head from "next/head";
+import { VehicleProvider } from "@/components/Providers";
 
 const roboto = localFont({
   src: [
@@ -48,21 +49,26 @@ export default function App({ Component, pageProps }) {
       />
       <SessionProvider session={pageProps.session}>
         <CartProvider>
-          <Head>
-          <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
-
-          </Head>
-          <main className={`${roboto.variable} font-sans`}>
-            {Component.PageLayout ? (
-              <Component.PageLayout>
+          <VehicleProvider>
+            <Head>
+              <link
+                rel="sitemap"
+                type="application/xml"
+                title="Sitemap"
+                href="/sitemap.xml"
+              />
+            </Head>
+            <main className={`${roboto.variable} font-sans`}>
+              {Component.PageLayout ? (
+                <Component.PageLayout>
+                  <Component {...pageProps} />
+                </Component.PageLayout>
+              ) : (
                 <Component {...pageProps} />
-              </Component.PageLayout>
-            ) : (
-              <Component {...pageProps} />
-            )}
-            <CookieConsent />
-          </main>
-     
+              )}
+              <CookieConsent />
+            </main>
+          </VehicleProvider>
         </CartProvider>
       </SessionProvider>
     </ErrorBoundary>

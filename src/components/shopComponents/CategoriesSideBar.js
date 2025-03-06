@@ -9,7 +9,6 @@ export default function CategoriesSideBar() {
       async function fetchCategories() {
         const res = await getStructuredCategories();
         setCategories(res.data);
-        console.log(res)
       }
       fetchCategories();
     }, []);

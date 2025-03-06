@@ -1,6 +1,8 @@
 import useSWR from "swr";
 import axios from "axios";
 import useUserVehicle from "./useUserVehicle";
+import { useVehicleContext } from "@/components/Providers";
+import { useEffect } from "react";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
@@ -11,17 +13,17 @@ const defaultSWROptions = {
 };
 
 const usePartsCount = () => {
-  const [localVehicle] = useUserVehicle();
-
+  const {vehicle,setVehicle} = useVehicleContext()
+  
   const { data, error, mutate } = useSWR(
-    localVehicle
-      ? `${process.env.NEXT_PUBLIC_WEBSITE_URL}/wp-json/wc/v3/user/vehicle/parts?slug=${localVehicle.slug}`
+    vehicle
+      ? `${process.env.NEXT_PUBLIC_WEBSITE_URL}/wp-json/wc/v3/user/vehicle/parts?slug=${vehicle?.slug}`
       : null,
     fetcher,
     defaultSWROptions
   );
 
-  console.log(data);
+
   const { categories, total } = data || {};
   return {
     categoriesCount: categories,

@@ -11,10 +11,10 @@ import { BuildingStorefrontIcon } from "@heroicons/react/24/outline";
 import AccountMenuItem from "@/components/accountComponents/AccountMenuItem";
 import NavSelectVehicle from "@/components/homeComponents/NavSelectVehicle";
 import AlgoliaSearch from "@/components/AlgoliaSearch";
-import useUserVehicle from "@/hooks/useUserVehicle";
+import { useVehicleContext } from "@/components/Providers";
 
 export default function MainNav() {
-  const [localVehicle, setLocalVehicle] = useUserVehicle();
+  const { vehicle } = useVehicleContext();
   return (
     <div className="hidden lg:container mx-auto w-full lg:flex items-center border-b justify-between py-2 gap-4 xl:gap-x-6 px-2 md:flex-nowrap flex-wrap relative">
       {/* Logo */}
@@ -61,8 +61,8 @@ export default function MainNav() {
         {/* store link */}
         <Link
           href={
-            localVehicle
-              ? `/boutique?par_vehicule=1&year=${localVehicle?.year}&make=${localVehicle?.make}&model=${localVehicle?.model}&submodel=${localVehicle?.subModel}`
+            vehicle
+              ? `/boutique?par_vehicule=1&year=${vehicle?.year}&make=${vehicle?.make}&model=${vehicle?.model}&submodel=${vehicle?.subModel}`
               : "/boutique"
           }
           className="flex flex-col items-center justify-center"

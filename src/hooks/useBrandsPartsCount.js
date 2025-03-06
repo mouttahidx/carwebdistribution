@@ -21,7 +21,6 @@ const useBrandsPartsCount = () => {
     defaultSWROptions
   );
 
-  console.log(data);
   return {
     brandsCount: data,
     isCountLoading: !error && !data,

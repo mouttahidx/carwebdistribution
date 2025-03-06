@@ -55,10 +55,12 @@ export const authOptions = {
       }
       return token;
     },
+    
     session: async ({ session, token }) => {
       session.user = token.user;
       return session;
     },
+
     async redirect({ url, baseUrl }) {
       // Allows relative callback URLs
       if (url.startsWith("/")) return `${baseUrl}${url}`

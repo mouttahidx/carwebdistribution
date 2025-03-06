@@ -4,7 +4,8 @@ import CategoriesFilter from "./CategoriesFilter";
 import BrandsFilter from "./BrandsFilter";
 import { Button, Modal } from "flowbite-react";
 import { useRouter } from "next/router";
-import CategoriesSideBar from "./CategoriesSideBar";
+
+import { useVehicleContext } from "../Providers";
 
 export default function Filter({
   categoryUpdate,
@@ -13,13 +14,13 @@ export default function Filter({
   brands,
   brandsUpdate,
   activeBrands,
-  vehicle,
 }) {
   const router = useRouter();
   const [isMobile, setMobile] = useState(null);
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
   const [openBrandsModal, setOpenBrandsModal] = useState(false);
   const [reset, setReset] = useState(0);
+  const {vehicle,setVehicle} = useVehicleContext();
 
   useEffect(() => {
     if (isMobile === null) {
@@ -34,7 +35,7 @@ export default function Filter({
   if (isMobile) {
     return (
       <div className="w-full bg-white rounded-md">
-        {vehicle === "1" && (
+        {vehicle && (
           <div className="flex flex-col gap-y-2 mb-8">
             <p className="font-medium">Retirer le filtrage par voiture</p>
             <Button
@@ -93,12 +94,15 @@ export default function Filter({
   return (
     <div className="w-full bg-white rounded-md">
     
-      {vehicle === "1" && (
+      {vehicle && (
         <div className="flex flex-col gap-y-2 mb-8">
           <p className="font-medium">Retirer le filtrage par voiture</p>
           <Button
             className="bg-rachel-red-700 py-0"
             onClick={() => {
+              setVehicle(null);
+              document.cookie = `user-vehicle=; path=/; max-age=0; SameSite=Lax`;
+              router.query.par_vehicule = 0;
               router.push("/boutique");
             }}
           >

@@ -1,6 +1,8 @@
 import DashboardLayout from "@/components/accountComponents/DashboardLayout";
 import LoadingModal from "@/components/accountComponents/LoadingModal";
+import Button from "@/components/Button";
 import SelectVehicle from "@/components/homeComponents/SelectVehicle";
+import { useVehicleContext } from "@/components/Providers";
 import useUserVehicle from "@/hooks/useUserVehicle";
 import { addUserVehicle, deleteUserVehicle } from "@/lib/userVehicleUtils";
 import { TrashIcon } from "@heroicons/react/24/solid";
@@ -39,16 +41,24 @@ export default function Vehicules() {
   const [selected, setSelected] = useState([]);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [localeVehicle,setLocalVehicle] = useUserVehicle();
+  const { vehicle, setVehicle } = useVehicleContext();
 
-  const handleAddVehicle = (vehicule) => {
-   addUserVehicle(vehicule,update,signOut,setLoading,selected,data);
-   setLocalVehicle(vehicule)
-  };
+  // const handleAddVehicle = (vehicule) => {
+  //  addUserVehicle(vehicule,update,signOut,setLoading,selected,data);
+  //  setVehicle(vehicule)
+  // };
 
   const handleDelete = (id) => {
-    deleteUserVehicle(id,setLoading,setSelected,update,signOut,data,selected);
-    setLocalVehicle(null);
+    deleteUserVehicle(
+      id,
+      setLoading,
+      setSelected,
+      update,
+      signOut,
+      data,
+      selected
+    );
+    setVehicle(null);
   };
 
   useEffect(() => {
@@ -79,6 +89,8 @@ export default function Vehicules() {
                 make: vehicle.make,
                 model: vehicle.model,
                 subModel: vehicle.subModel,
+                slug: vehicle.slug,
+                count: vehicle.count,
               });
             });
             setSelected(vehicles_list);
@@ -109,7 +121,6 @@ export default function Vehicules() {
         });
     }
   }, [status]);
-
   if (status === "authenticated" && data) {
     return (
       <DashboardLayout>
@@ -156,6 +167,15 @@ export default function Vehicules() {
           </div> */}
         </>
         {/* user vehicles list */}
+        <Button
+          text={"Ajouter votre véhicule"}
+          onClick={() => {
+            router.replace({
+              pathname: router.pathname, // Stay on the same page
+              query: {"select_vehicle": "true"},
+            });
+          }}
+        />
         <div className="mt-8 flex gap-3">
           {data.user.vehicles.length > 0 && (
             <div>

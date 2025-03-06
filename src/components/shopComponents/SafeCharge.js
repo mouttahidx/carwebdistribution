@@ -183,7 +183,6 @@ export const SafeChargeCC = forwardRef(({ setStripePaid, setLoading }, ref) => {
       const res = await getSafeChargeTokken(reqObject);
 
       if (res) {
-        console.log(res);
         return res;
       } else {
         toast.warn("Merci de réssayer");
@@ -195,7 +194,6 @@ export const SafeChargeCC = forwardRef(({ setStripePaid, setLoading }, ref) => {
 
   // init the safecharge and get token
   useEffect(() => {
-    console.log(process.env.NEXT_PUBLIC_ENV)
     if(process.env.NEXT_PUBLIC_ENV === "prod") {
       sessionToken === "" &&
         loadScript(
