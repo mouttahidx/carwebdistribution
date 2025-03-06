@@ -1,6 +1,6 @@
 import Layout from "@/layout";
 import { createOrder, getCustomerByEmail, getCustomerData } from "@/lib/api";
-import { Button, Label, Select, Spinner, Table, Toast } from "flowbite-react";
+import { Button, Label, Spinner } from "flowbite-react";
 import dynamic from "next/dynamic";
 
 import { useRouter } from "next/router";
@@ -12,15 +12,14 @@ import { Field, Form, Formik } from "formik";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import * as Yup from "yup";
-import StripeForm from "@/components/shopComponents/StripeForm";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js/pure";
+// import { loadStripe } from "@stripe/stripe-js/pure";
 import Image from "next/image";
+
 import { SafeChargeCC } from "@/components/shopComponents/SafeCharge";
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-);
+// const stripePromise = loadStripe(
+//   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+// );
 
 const Paiement = () => {
   const {

@@ -132,7 +132,7 @@ export default function SingleProduct({ product, variations }) {
             ...curr,
             id: null,
             price:
-              "<span class='text-sm'>à partir de:</span> $" + min.toFixed(2),
+              "<span class='text-sm'>à partir de:</span> " + new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(min.toFixed(2)),
             brands: product.brands,
           }));
         }
@@ -140,7 +140,7 @@ export default function SingleProduct({ product, variations }) {
         setCurrentProduct((curr) => ({
           ...curr,
           id: null,
-          price: "<span class='text-sm'>à partir de:</span> $" + min.toFixed(2),
+          price: "<span class='text-sm'>à partir de:</span> " + new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(min.toFixed(2)),
           brands: product.brands,
         }));
       }
