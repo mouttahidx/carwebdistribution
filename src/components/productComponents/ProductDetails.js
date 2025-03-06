@@ -46,7 +46,6 @@ export default function ProductDetails({
       )}
       {!on_sale && (
         <span className="font-semibold text-2xl lg:text-4xl">
-          {price !== "Non disponible" && price !== "" && !isNaN(price) && "$"}
           {isNaN(price) ? 
           <div dangerouslySetInnerHTML={{__html:price}} />
           : 
