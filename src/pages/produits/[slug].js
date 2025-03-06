@@ -24,7 +24,7 @@ export default function SingleProduct({ product, variations }) {
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(0);
   const [images, setImages] = useState([]);
-  
+
   const handleOptionChange = (data) => {
     setAttributesSelected(data);
   };
@@ -148,14 +148,17 @@ export default function SingleProduct({ product, variations }) {
   }, [attributesSelected]);
 
   useEffect(() => {
-   product.images?.length > 0 && setImages(product.images);
+    product.images?.length > 0 && setImages(product.images);
   }, [currentProduct, product?.id]);
 
   useEffect(() => {
-    if (quantity > currentProduct.stock_quantity) {
-      setQuantity(currentProduct.stock_quantity);
+    if(product.manage_stock){
+      if (quantity > currentProduct.stock_quantity) {
+        setQuantity(currentProduct.stock_quantity);
+      }
     }
   }, [quantity]);
+
   return (
     <Layout>
       <Head>
@@ -219,70 +222,61 @@ export default function SingleProduct({ product, variations }) {
             )}
 
             {/*------------------- Add to cart ----------------------- */}
-            {currentProduct.price !== "" &&
-              currentProduct.price !== "0" &&
-              currentProduct.regular_price !== "" && (
-                <div className="flex flex-col justify-start items-start gap-y-4">
-                  {currentProduct.stock_status === "instock" ? (
-                    <div className="flex flex-col items-start">
-                      <Label
-                        htmlFor="quantity"
-                        value="Quantité:"
-                        className="mb-2"
-                      />
-                      <TextInput
-                        className="w-20 text-center"
-                        id="quantity"
-                        min={1}
-                        max={
-                          currentProduct.manage_stock
-                            ? currentProduct.stock_quantity
-                            : 99
+            {
+              <div className="flex flex-col justify-start items-start gap-y-4">
+                {currentProduct.stock_status === "instock" ? (
+                  <div className="flex flex-col items-start">
+                    <Label
+                      htmlFor="quantity"
+                      value="Quantité:"
+                      className="mb-2"
+                    />
+                    <TextInput
+                      className="w-20 text-center"
+                      id="quantity"
+                      min={1}
+                      max={
+                        currentProduct.manage_stock
+                          ? currentProduct.stock_quantity
+                          : 99
+                      }
+                      value={quantity}
+                      type="number"
+                      onChange={(e) => {
+                        if (currentProduct.manage_stock && currentProduct.stock_quantity < e.target.value) {
+                          setQuantity(currentProduct.stock_quantity);
                         }
-                        value={quantity}
-                        type="number"
-                        onChange={(e) => {
-                          if (currentProduct.stock_quantity < e.target.value) {
-                            setQuantity(currentProduct.stock_quantity);
-                          }
-                          if (e.target.value < e.target.min) {
-                            setQuantity(e.target.min);
-                          }
+                        if (e.target.value < e.target.min) {
+                          setQuantity(e.target.min);
+                        }
 
-                          setQuantity(e.target.value);
-                        }}
-                      />
-                      <span className="mt-2 text-sm text-green-600">
-                        {currentProduct.manage_stock &&
-                          currentProduct?.stock_quantity + " en stock"}
-                      </span>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
+                        setQuantity(e.target.value);
+                      }}
+                    />
+                    <span className="mt-2 text-sm text-green-600">
+                      {currentProduct.manage_stock &&
+                        currentProduct?.stock_quantity + " en stock"}
+                    </span>
+                  </div>
+                ) : (
+                  <></>
+                )}
 
-                  <AddToCart
-                    id={currentProduct.id}
-                    price={currentProduct.price}
-                    quantity={quantity}
-                    slug={product.slug}
-                    shortDescription={product.short_description}
-                    name={
-                      product.type === "variable"
-                        ? product?.name +
-                          " ( " +
-                          currentProduct.variation_attributes?.map(
-                            (attr) => attr?.name + ": " + attr.option
-                          ) +
-                          " )"
-                        : product?.name
-                    }
-                    image={product?.images[0]}
-                    maxQuantity={currentProduct.stock_quantity}
-                    disabled={inCart(currentProduct.id) || !currentProduct.id}
-                  />
-                </div>
-              )}
+                <AddToCart
+                  productData={{
+                    id: currentProduct.id,
+                    price: currentProduct.price,
+                    quantity: Number(quantity),
+                    slug: product.slug,
+                    shortDescription: product.short_description,
+                    name: product?.name + " - "+(currentProduct?.sku ? "UGS: "+currentProduct.sku : "ID: "+currentProduct?.id),
+                    image: product?.images[0],
+                  }}
+                  maxQuantity={currentProduct.stock_quantity}
+                  disabled={!currentProduct.id}
+                />
+              </div>
+            }
           </div>
         </div>
         <ProductDescription

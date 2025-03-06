@@ -54,7 +54,7 @@ export default function Cart() {
       <div
         className={`${
           hide ? "translate-x-full" : "translate-x-0"
-        } bg-white  border rounded px-2 py-3 !top-0 md:w-5/12 xl:w-3/12 w-full h-[95vh] lg:h-screen right-0 fixed duration-300 delay-50 z-[9999999999]`}
+        } bg-white  border rounded px-2 py-3 !top-0 md:w-5/12 xl:w-4/12 w-full h-[95vh] lg:h-screen right-0 fixed duration-300 delay-50 z-[9999999999]`}
         ref={ref}
       >
         <div className="flex justify-between items-center">
@@ -77,35 +77,39 @@ export default function Cart() {
               {items.map((item) => (
                 <li
                   key={item.id}
-                  className="flex gap-x-2 pb-3 mb-3 border-b last:border-none"
+                  className="flex items-center justify-start gap-x-2 pb-3 mb-3 border-b last:border-none"
                 >
-                  {item.image ? (
-                    <Image
-                      className="object-cover w-[80px]"
-                      width={80}
-                      height={80}
-                      src={item.image.src}
-                      alt={item.image.alt || item.name}
-                      unoptimized
-                    />
-                  ) :
-                  <Image
-                  className="object-cover w-[80px]"
-                  width={80}
-                  height={80}
-                  src={'/logo-dark.png'}
-                  alt={item.name}
-                  unoptimized
-                />
-                  }
-                  <div className="flex-grow">
-                    <Link href={"/produits/" + item?.slug}>{item.name}</Link>
-
+                  <Link href={"/produits/" + item?.slug} className="block w-[100px]">
+                    {item.image ? (
+                      <Image
+                        className="object-contain w-full h-[70px]"
+                        width={80}
+                        height={80}
+                        src={item.image.src}
+                        alt={item.image.alt || item.name}
+                        unoptimized
+                      />
+                    ) : (
+                      <Image
+                        className="object-contain w-full h-[70px]"
+                        width={80}
+                        height={80}
+                        src={"/logo-dark.png"}
+                        alt={item.name}
+                        unoptimized
+                      />
+                    )}
+                  </Link>
+                  <div className="overflow-x-hidden w-10/12">
+                    <Link
+                      className="truncate w-8/12"
+                      href={"/produits/" + item?.slug}
+                    >
+                      {item.name}
+                    </Link>
                     <div className="flex gap-x-3 items-center mt-2">
-                     
                       <span className="text-sm">Qté: {item.quantity}</span>
                       <span> ${item.itemTotal.toFixed(2)}</span>
-                      
 
                       <button
                         onClick={() => removeItem(item.id)}
@@ -117,11 +121,20 @@ export default function Cart() {
                   </div>
                 </li>
               ))}
-              
             </ul>
             <div className="bg-[#FDFDFD] z-50 absolute w-full bottom-3 lg:bottom-0 py-1 mt-3 bordert-t font-semibold flex justify-between items-center">
-              <span ><span className="font-normal">Sous-total:</span> ${cartTotal.toFixed(2)}</span>
-              <span className="text-rachel-black-200 text-xs cursor-pointer hover:text-rachel-black-700" onClick={()=>{emptyCart();}}>Vider le panier</span>
+              <span>
+                <span className="font-normal">Sous-total:</span> $
+                {cartTotal.toFixed(2)}
+              </span>
+              <span
+                className="text-rachel-black-200 text-xs cursor-pointer hover:text-rachel-black-700"
+                onClick={() => {
+                  emptyCart();
+                }}
+              >
+                Vider le panier
+              </span>
               <span>
                 <Link
                   href="/panier"
