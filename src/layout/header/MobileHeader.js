@@ -35,8 +35,8 @@ export default function MobileHeader() {
             </span>
           </Link>
         </div>
-        {/* notif,show,cart */}
-        <div className="w-3/12 flex gap-x-8 ml-auto items-center mr-10">
+        {/*  Shop ,Cart */}
+        <div className="flex gap-x-8 ml-auto items-center mr-10">
           {/* store link */}
           <Link
             href={"/boutique"}
@@ -58,6 +58,7 @@ export default function MobileHeader() {
         <div className="h-full flex items-center">
         <AccountMenuItem />
         </div>
+
         {/* search */}
       </div>
 

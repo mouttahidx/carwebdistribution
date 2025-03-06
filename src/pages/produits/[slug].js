@@ -195,7 +195,7 @@ export default function SingleProduct({ product, variations }) {
         />
       </Head>
       <section className="xl:px-10 py-10 mx-auto xl:max-w-screen-xl 2xl:max-w-screen-2xl">
-        <div className="lg:mx-auto flex flex-wrap justify-center gap-y-6 items-start">
+        <div className="lg:mx-auto flex flex-wrap justify-center gap-y-6 items-start px-4">
           <ProductImages images={images} on_sale={product?.on_sale} />
 
           <div className="rounded bg-gray-50 md:w-1/2 w-full lg:p-5 lg:py-6 mb-6 lg:mb-0 md:pl-4 xl:pl-10 md:p-2 !pt-0 p-1 lg:pt-1">

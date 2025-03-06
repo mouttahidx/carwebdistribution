@@ -77,13 +77,12 @@ const Footer = () => {
         </div>
         <div className="flex flex-col w-full md:w-1/2 lg:w-4/12">
           <p className="mb-3">Contact</p>
-          <div className="text-gray-500">
+          <div className="text-gray-500 gap-y-2 flex flex-col">
             <p>
               858 chemin du rivage Saint-Antoine-sur-Richelieu <br />
               QC , j0L1 R0
             </p>
             <p>+1 514-883-0691</p>
-            <p>+1 800-883-0691</p>
             <p>info@carwebdistribution.ca</p>
           </div>
         </div>
@@ -92,9 +91,9 @@ const Footer = () => {
       <div className="border-t lg:container mx-auto flex flex-wrap lg:flex-nowrap lg:gap-8 gap-x-6 gap-y-8 p-6 lg:justify-evenly">
         <p className="">Dénomination: Car Web Distribution Inc</p>
         <p className="">NEQ/Numéro d’enregistrement société: 1178476462 </p>
-        <p className="">
+        {/* <p className="">
           Adresse officielle de la société: 44 Boucher, Saint-Hilaire QC J3H 2T6
-        </p>
+        </p> */}
       </div>
       <div className="border-t py-4 px-6  flex justify-between">
         <p className="text-gray-500 text-sm">

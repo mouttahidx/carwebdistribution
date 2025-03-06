@@ -30,7 +30,7 @@ export function DrawerComponent() {
         <Drawer.Header titleIcon={() => <></>} />
         <List className="pl-8">
           <List.Item icon={FaPhone} className=" flex" >
-            <a href="tel:1-800-123-4567">1-800-123-4567</a>
+            <a href="tel:514 883-0691">514 883-0691</a>
           </List.Item>
           <List.Item icon={FaEnvelope} className="!mt-4 flex">
             <a href="mailto:info@carwebdistribution.ca">info@carwebdistribution.ca</a>

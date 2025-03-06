@@ -111,8 +111,8 @@ export default function NavSelectVehicle() {
             }
             className="ml-5 lg:ml-0 flex py-1.5 rounded-md lg:px-2 lg:text-sm text-xs !whitespace-nowrap !text-ellipsis overflow-hidden cursor-pointer items-center gap-x-1 justify-start"
           >
-            <span className="truncate font-normal text-sm max-w-[110px]">
-              <Tooltip content="Magasiner par véhicule">
+            <span className="truncate font-normal text-sm">
+              <Tooltip content={vehicle?.name}>
                 {vehicle?.name}
               </Tooltip>
             </span>

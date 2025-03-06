@@ -46,12 +46,13 @@ export default function MainNav() {
         <NavSelectVehicle />
       </div>
 
+      {/* call a specialist */}
       <div className="hidden w-fit xl:flex capitalize flex-col text-center items-center justify-center text-xs">
         <div>
           parler à un spécialiste
           <br />
-          <a href="tel:+1 800-883-0691" className="text-sm">
-            +1 800-883-0691
+          <a href="tel:514 883-0691" className="text-sm">
+            514 883-0691
           </a>
         </div>
       </div>

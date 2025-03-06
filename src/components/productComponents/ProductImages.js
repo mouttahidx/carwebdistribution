@@ -15,7 +15,7 @@ export default function ProductImages({ images, on_sale }) {
         )}
 
         {images.length === 1 ? (
-          <div className="relative aspect-square xl:aspect-video overflow-hidden">
+          <div className="relative aspect-video overflow-hidden">
             <Image
               alt={images[0]?.name || "Product - Car web"}
               fill

@@ -34,6 +34,7 @@ export default function AddToCart({
   }, [items, quantity, maxQuantity, id]);
 
   const handleClick = () => {
+    setAdded(false);
     quantity = Number(quantity);
     maxQuantity = maxQuantity ? Number(maxQuantity) : null;
     let item = getItem(id);
@@ -58,7 +59,7 @@ export default function AddToCart({
           { id, name, price, image, maxQuantity, slug, shortDescription },
           quantity
         );
-        setAdded(true)
+        setAdded(true);
         setAboveStock(false);
       } else {
         setAboveStock(true);
@@ -69,6 +70,12 @@ export default function AddToCart({
       setAboveStock(false);
     }
   };
+
+  useEffect(() => {
+    if (added) {
+      setTimeout(() => setAdded(false), 4000);
+    }
+  }, [added]);
 
   return (
     <>
@@ -97,11 +104,19 @@ export default function AddToCart({
         </div>
       )}
 
-      {added && 
-        <Alert color="success" onDismiss={() => setAdded(false)}>
-        Le produit a été ajouté à votre panier.
-      </Alert>
-}
+      {added && (
+        <div data-aos="fade-in" data-duration='1000'>
+          <Alert
+            color="success"
+            onDismiss={() => setAdded(false)}
+          >
+            <span className="mr-10">
+              {" "}
+              Le produit a été ajouté à votre panier.
+            </span>
+          </Alert>
+        </div>
+      )}
     </>
   );
 }
