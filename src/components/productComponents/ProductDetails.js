@@ -50,7 +50,7 @@ export default function ProductDetails({
           {isNaN(price) ? 
           <div dangerouslySetInnerHTML={{__html:price}} />
           : 
-          price}
+          new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(price)}
         </span>
       )}
 

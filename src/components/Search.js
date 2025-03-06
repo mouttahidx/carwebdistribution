@@ -159,7 +159,7 @@ export default function Search() {
                       Voir les options
                     </p>
                   ) : (
-                    <p className="text-sm text-red-700 pl-1">${res.price}</p>
+                    <p className="text-sm text-red-700 pl-1">{res.price && new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(res.price)}</p>
                   )}
                 </div>
               </Link>

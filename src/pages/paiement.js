@@ -632,7 +632,7 @@ const Paiement = () => {
               <div className="flex justify-between">
                 <p className="text-sm">Sous-total: </p>
                 <span className="text-base font-semibold">
-                  {metadata.subtotal && "$" + metadata.subtotal.toFixed(2)}
+                  {metadata.subtotal && new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(metadata.subtotal.toFixed(2))}
                 </span>
               </div>
               <hr className="my-4" />
@@ -645,7 +645,7 @@ const Paiement = () => {
                     ({metadata.shipping && metadata.shipping.name})
                   </span>{" "}
                   {metadata.shipping.cost &&
-                    "$" + Number(metadata.shipping.cost).toFixed(2)}
+                    new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format( Number(metadata.shipping.cost).toFixed(2))}
                 </span>
               </div>
               <hr className="my-4" />
@@ -664,11 +664,11 @@ const Paiement = () => {
                         >
                           <span>{taxe.name} : </span>
                           <span>
-                            $
-                            {(
+                            
+                            {new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format((
                               (Number(taxe.rate) * +metadata.subtotal) /
                               100
-                            ).toFixed(2)}
+                            ).toFixed(2))}
                           </span>
                         </span>
                       ))}
@@ -681,7 +681,7 @@ const Paiement = () => {
               <div className="flex justify-between">
                 <p className="font-semibold">Total: </p>
                 <span className="text-lg font-semibold text-red-600">
-                  {metadata.total && "$" + metadata.total.toFixed(2)}
+                  {metadata.total && new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format( metadata.total.toFixed(2))}
                 </span>
               </div>
               {/* --------------------------------------paiement button-------------------------------- */}
