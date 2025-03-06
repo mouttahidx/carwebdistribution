@@ -332,7 +332,7 @@ const Panier = ({ shippingZones }) => {
                         </div>
                       </td>
                       <td className="w-[75px] text-center">
-                        ${item.itemTotal.toFixed(2)}
+                        {new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(item.itemTotal.toFixed(2))}
                       </td>
                       <td className="w-fit text-center">
                         <button onClick={() => removeItem(item.id)}>
@@ -483,7 +483,7 @@ const Panier = ({ shippingZones }) => {
                       (Merci de sélectionnez votre province/livraison)
                     </p>
                   )}
-                  {selectedMethod && "$" + _cartTotal.toFixed(2)}
+                  {selectedMethod && new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(_cartTotal.toFixed(2))}
                 </span>
               </div>
               {/* ----------------------------- shipping price ----------------------------- */}
@@ -497,7 +497,7 @@ const Panier = ({ shippingZones }) => {
                     </p>
                   )}
                   {selectedMethod &&
-                    "$" + Number(selectedMethod.settings.cost.value).toFixed(2)}
+                    new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(Number(selectedMethod.settings.cost.value).toFixed(2))}
                 </span>
               </div>
 
@@ -522,8 +522,7 @@ const Panier = ({ shippingZones }) => {
                         >
                           <span>{taxe.name} : </span>
                           <span>
-                            $
-                            {((Number(taxe.rate) * +subtotal) / 100).toFixed(2)}
+                                                        {new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(((Number(taxe.rate) * +subtotal) / 100).toFixed(2))}
                           </span>
                         </span>
                       ))}
@@ -544,7 +543,7 @@ const Panier = ({ shippingZones }) => {
                       (Merci de sélectionnez votre province/livraison)
                     </p>
                   )}
-                  {selectedMethod && "$" + subtotal.toFixed(2)}
+                  {selectedMethod && new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(subtotal.toFixed(2))}
                 </span>
               </div>
               {/* --------------------------------------Total-------------------------------- */}
@@ -553,8 +552,7 @@ const Panier = ({ shippingZones }) => {
               <div className="flex justify-between">
                 <p className="text-sm">Total: </p>
                 <span className="text-base font-semibold text-red-600">
-                  {selectedMethod ? !loading && "$" + total.toFixed(2) : cartTotal.toFixed(2) }
-                  {}
+                  {selectedMethod ? !loading &&  new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(total.toFixed(2)) : new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(cartTotal.toFixed(2)) }
                 </span>
               </div>
 

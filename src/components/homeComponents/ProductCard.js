@@ -31,25 +31,25 @@ export default function ProductCard({ product, searchTerm }) {
       return product?.on_sale && product?.on_sale !== "" ? (
         <div className="font-semibold flex justify-between gap-x-1">
           <span className="font-medium line-through text-rachel-black-500">
-            ${product?.regular_price}
+            {new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(product?.regular_price)}
           </span>
           <span className="">
-            $
-            {(product?.sale_price && Number(product?.sale_price).toFixed(2)) ||
+            
+            {(product?.sale_price && new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(Number(product?.sale_price).toFixed(2))) ||
               0}
           </span>
         </div>
       ) : (
         <span className="font-semibold">
-          ${product?.price && (+product?.price).toFixed(2)}
+          {product?.price && new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format((+product?.price).toFixed(2))}
         </span>
       );
     }
     if (product.type === "variable") {
       return (
         <span className="font-semibold">
-          <p className="font-normal text-xs">à partir de:</p>$
-          {Number(product?.price).toFixed(2)}
+          <p className="font-normal text-xs">à partir de:</p>
+          {new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(Number(product?.price).toFixed(2))}
         </span>
       );
     }

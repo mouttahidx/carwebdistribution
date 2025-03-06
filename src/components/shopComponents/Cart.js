@@ -107,9 +107,10 @@ export default function Cart() {
                     >
                       {item.name}
                     </Link>
-                    <div className="flex gap-x-3 items-center mt-2">
-                      <span className="text-sm">Qté: {item.quantity}</span>
-                      <span> ${item.itemTotal.toFixed(2)}</span>
+                    <div className="flex gap-x-3 items-center mt-2 ">
+                      <span className="text-sm w-14 border-r">Qté: {item.quantity}</span>
+                      
+                      <span className="font-semibold"> {new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(item.itemTotal.toFixed(2))}</span>
 
                       <button
                         onClick={() => removeItem(item.id)}
@@ -124,8 +125,8 @@ export default function Cart() {
             </ul>
             <div className="bg-[#FDFDFD] z-50 absolute w-full bottom-3 lg:bottom-0 py-1 mt-3 bordert-t font-semibold flex justify-between items-center">
               <span>
-                <span className="font-normal">Sous-total:</span> $
-                {cartTotal.toFixed(2)}
+                <span className="font-normal">Sous-total:</span> &nbsp;
+                {new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(cartTotal.toFixed(2))}
               </span>
               <span
                 className="text-rachel-black-200 text-xs cursor-pointer hover:text-rachel-black-700"

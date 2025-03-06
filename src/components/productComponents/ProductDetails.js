@@ -37,10 +37,10 @@ export default function ProductDetails({
       {on_sale && sale_price && (
         <div className="font-semibold flex justify-start gap-x-2 my-4">
           <span className="font-medium line-through text-2xl lg:text-4xl text-rachel-black-500">
-            {regular_price && "$" + Number(regular_price).toFixed(2)}
+            {regular_price && new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(Number(regular_price).toFixed(2))}
           </span>
           <span className=" text-2xl lg:text-4xl ">
-            ${Number(sale_price).toFixed(2) || 0}
+            {new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(Number(sale_price).toFixed(2)) || 0}
           </span>
         </div>
       )}
