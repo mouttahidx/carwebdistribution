@@ -283,7 +283,7 @@ const Panier = ({ shippingZones }) => {
                             />
                           )}
                           <div className="flex-grow">
-                            <p className="text-sm md:text-base break-words">
+                            <p className="text-xs md:text-base break-words overflow-x-hidden w-16 h-12">
                               {item.name}
                             </p>
                             <p
