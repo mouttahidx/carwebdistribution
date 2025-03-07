@@ -328,6 +328,7 @@ const Paiement = () => {
               onSubmit={(values, { setSubmitting }) => {
                 submitOrder(values, setSubmitting);
               }}
+              
               initialValues={
                 values || {
                   /* ------------------------------ billing info ------------------------------ */

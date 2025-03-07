@@ -220,22 +220,39 @@ export default function Shop({ results, brands, headers }) {
         </aside>
 
         {/* products */}
-        <section className="flex-grow lg:w-8/12  xl:px-6">
-          <div className="mb-6 flex justify-center md:justify-between items-center flex-wrap md:flex-nowrap">
-            <div className="w-full md:w-[400px] text-center md:text-left mb-4 md:mb-0">
+        <section className="flex-grow px-4 lg:w-8/12  xl:px-6">
+          <div className="mb-6 flex-col lg:flex-row gap-y-4 flex justify-center md:justify-between items-center lg:items-start flex-wrap md:flex-nowrap pt-2">
+          <div className="">
+              <div className="flex items-center gap-x-2">
+                <p className="">Filtres activés:</p>
+                <div className="flex gap-x-2">
+                  {category.length > 0 && (
+                    <span className="px-2 py-1 bg-gray-200 rounded-full text-xs">
+                      Catégories
+                    </span>
+                  )}
+                  {brand.length > 0 && (
+                    <span className="px-2 py-1 bg-gray-200 rounded-full text-xs">
+                      Marques
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className=" text-center md:text-left mb-4 md:mb-0">
               {!loading && products?.length > 0 && (
                 <p className="text-sm font-light">
-                  Affichage de{" "}
+                 
                   <span className="font-semibold">
-                    {perPage * page.current < totalProduct
+                   ( {perPage * page.current < totalProduct
                       ? products?.length * page.current
                       : totalProduct}{" "}
-                    sur {totalProduct}
-                  </span>
-                  <span> produits</span> - <b>( {perPage} par page )</b>
+                    sur {totalProduct} )
+                  </span> Produits
                 </p>
               )}
             </div>
+            
             <div className="flex justify-end  gap-x-5">
               <div className="flex items-center gap-x-2 flex-col">
                 <Label htmlFor="order" value="Tri" />
@@ -286,30 +303,14 @@ export default function Shop({ results, brands, headers }) {
           </div>
 
           <div className="grow grid grid-cols-2 md:grid-cols-3 gap-4 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-h-[20vh]">
-            <div className="col-span-full">
-              <div className="flex items-center gap-x-2">
-                <p className="font-semibold">Filtres activés:</p>
-                <div className="flex gap-x-2">
-                  {category.length > 0 && (
-                    <span className="px-2 py-1 bg-gray-200 rounded-full text-sm">
-                      Catégories
-                    </span>
-                  )}
-                  {brand.length > 0 && (
-                    <span className="px-2 py-1 bg-gray-200 rounded-full text-sm">
-                      Marques
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
+            
             {!loading ? (
               products?.length > 0 ? (
                 products?.map((product) => (
                   <ProductCard product={product} key={product.id} />
                 ))
               ) : (
-                <p className="w-full text-center mt-40 col-span-5">
+                <p className="w-full text-center my-40 col-span-5">
                   {
                     "Aucun résultat trouvé. Essayez d'ajuster vos filtres ou explorer d'autres catégories !"
                   }

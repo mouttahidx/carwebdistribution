@@ -63,6 +63,8 @@ export default function NavSelectVehicle() {
   };
 
   const handleDelete = () => {
+    setVehicle(null);
+    setVehicles(null)
     if (status !== "authenticated") {
       localStorage.removeItem("user-vehicle");
     } else if (status === "authenticated") {
@@ -78,7 +80,6 @@ export default function NavSelectVehicle() {
     }
     
     toast.success("Véhicule supprimé avec succès");
-    setVehicle(null);
 
   };
 

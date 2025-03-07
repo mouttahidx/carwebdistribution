@@ -55,7 +55,7 @@ export default function Tiles() {
             text={"Magasiner"}
             onClick={() => {
               router.push(
-                "/boutique/?categorie_id=29644,29656,29642,29640,29666,29637,29648"
+                "/boutique/?categorie_id=51512"
               );
             }}
             className="tracking-wide !px-4"
@@ -84,7 +84,7 @@ export default function Tiles() {
           <Button
             text={"Magasiner"}
             onClick={() => {
-              router.push("/boutique/?categorie_id=29659");
+              router.push("/boutique/?categorie_id=51509");
             }}
             className="tracking-wide !px-4"
             icon={false}
@@ -163,7 +163,7 @@ export default function Tiles() {
           <Button
             text={"Magasiner"}
             onClick={() => {
-              router.push("/boutique/?categorie_id=28598");
+              router.push("/boutique/?categorie_id=51499");
             }}
             className="tracking-wide !px-4"
             icon={false}

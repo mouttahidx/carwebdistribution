@@ -39,8 +39,8 @@ export default function CategoriesFilter({
   const page = useRef(1);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const {vehicle} = useVehicleContext();
-  const {categoriesCount,isCountLoading} = usePartsCount();
+  const { vehicle } = useVehicleContext();
+  const { categoriesCount, isCountLoading } = usePartsCount();
   const {
     categories: { data, headers },
     isLoading,
@@ -132,7 +132,7 @@ export default function CategoriesFilter({
         <Accordion>
           <Accordion.Panel>
             <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0">
-              Catégories 
+              Catégories
             </Accordion.Title>
             <Accordion.Content className="!py-2">
               <LoaderPlaceHolder />
@@ -152,7 +152,9 @@ export default function CategoriesFilter({
               <div className="flex w-full justify-between items-center">
                 Catégories{" "}
                 {router.query.parent_category === "1"
-                  ? (vehicle && !isCountLoading && categoriesCount.length > 0) && (
+                  ? vehicle &&
+                    !isCountLoading &&
+                    categoriesCount.length > 0 && (
                       <span>
                         &nbsp;compatibles:{" "}
                         {
@@ -162,7 +164,8 @@ export default function CategoriesFilter({
                         }
                       </span>
                     )
-                  : (vehicle && categoriesCount?.length > 0) && (
+                  : vehicle &&
+                    categoriesCount?.length > 0 && (
                       <span>&nbsp;compatibles: {categoriesCount.length}</span>
                     )}
                 {activeCategories.length > 0 && (
@@ -210,6 +213,11 @@ export default function CategoriesFilter({
               {router.query?.parent_category === "1" ? (
                 // If parent category is selected
                 <>
+                  <div className="flex text-sm items-center gap-2 py-2 -mb-2 sticky -top-2 w-full bg-white z-10 border-b font-semibold px-4 mt-4">
+                    <p
+                      dangerouslySetInnerHTML={{ __html: categories[0]?.yoast_head_json?.schema['@graph'][1]?.itemListElement[1]?.name + " > "+categories[0]?.yoast_head_json?.schema['@graph'][1]?.itemListElement[2]?.name }}
+                    />
+                  </div>
                   {categories.length > 0 &&
                     categories.map((cat) => (
                       <div
@@ -229,7 +237,7 @@ export default function CategoriesFilter({
                           className="flex items-center grow"
                         >
                           <p dangerouslySetInnerHTML={{ __html: cat.name }} />
-                          {(!isCountLoading && categoriesCount.length > 0) && (
+                          {!isCountLoading && categoriesCount.length > 0 && (
                             <span className="text-black text-xs ml-auto font-bold">
                               {categoriesCount.find((c) => c.id === cat.id)
                                 ?.count > 0 &&
@@ -284,18 +292,19 @@ export default function CategoriesFilter({
                                       }}
                                     />
                                     {/* parts count */}
-                                    {(!isCountLoading && categoriesCount?.length > 0) && (
-                                      <span className="text-black text-xs ml-auto font-bold">
-                                        {categoriesCount.find(
-                                          (c) => c.id === child.id
-                                        )?.count > 0 &&
-                                          "(" +
-                                            categoriesCount.find(
-                                              (c) => c.id === child.id
-                                            )?.count +
-                                            ")"}
-                                      </span>
-                                    )}
+                                    {!isCountLoading &&
+                                      categoriesCount?.length > 0 && (
+                                        <span className="text-black text-xs ml-auto font-bold">
+                                          {categoriesCount.find(
+                                            (c) => c.id === child.id
+                                          )?.count > 0 &&
+                                            "(" +
+                                              categoriesCount.find(
+                                                (c) => c.id === child.id
+                                              )?.count +
+                                              ")"}
+                                        </span>
+                                      )}
                                   </Label>
                                 </div>
 
@@ -329,20 +338,22 @@ export default function CategoriesFilter({
                                               />
 
                                               {/* parts count */}
-                                              {(!isCountLoading && categoriesCount?.length > 0) && (
-                                                <span className="text-black text-xs ml-auto font-bold">
-                                                  {categoriesCount.find(
-                                                    (c) =>
-                                                      c.id === grandchild.id
-                                                  )?.count > 0 &&
-                                                    "(" +
-                                                      categoriesCount.find(
-                                                        (c) =>
-                                                          c.id === grandchild.id
-                                                      )?.count +
-                                                      ")"}
-                                                </span>
-                                              )}
+                                              {!isCountLoading &&
+                                                categoriesCount?.length > 0 && (
+                                                  <span className="text-black text-xs ml-auto font-bold">
+                                                    {categoriesCount.find(
+                                                      (c) =>
+                                                        c.id === grandchild.id
+                                                    )?.count > 0 &&
+                                                      "(" +
+                                                        categoriesCount.find(
+                                                          (c) =>
+                                                            c.id ===
+                                                            grandchild.id
+                                                        )?.count +
+                                                        ")"}
+                                                  </span>
+                                                )}
                                             </Label>
                                           </div>
                                         </li>

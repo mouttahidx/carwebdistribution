@@ -13,6 +13,7 @@ import CreateAccount from "@/components/homeComponents/CreateAccount";
 import TiresBrands from "@/components/homeComponents/TiresBrands";
 import HomeSelectVehicle from "@/components/homeComponents/HomeSelectVehicle";
 import PreloadCategories from "@/components/PreloadCategories";
+import NewSlider from "@/components/homeComponents/NewSlider";
 
 export default function Home({ brands, products }) {
   return (
@@ -22,17 +23,18 @@ export default function Home({ brands, products }) {
           process.env.NEXT_PUBLIC_WEBSITE_TITLE || "Check .ENV"
         }`}</title>
       </Head>
-      <SimpleSlider data={products} />
+      {/* <SimpleSlider data={products} /> */}
+      <NewSlider />
       <main className="w-full flex justify-center !overflow-x-hidden">
         <section className="container px-1 ">
-          <HomeSelectVehicle />
+          {/* <HomeSelectVehicle /> */}
+          <FeaturedProducts products={products} />
           <CreateAccount />
           <TireSearch />
           <Tiles data-aos="fade-up" />
           <TiresBrands />
           {/* <BrowseCategories /> */}
           {brands.length > 0 && <BrowseBrands brands={brands} />}
-          <FeaturedProducts products={products} />
           <Benefits />
           <PreloadCategories />
           {/* <PromoProducts /> */}
