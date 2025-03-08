@@ -636,39 +636,19 @@ const Paiement = () => {
             </div>
             <div className="px-2 lg:px-5 py-5 ">
               {/* ----------------------------- subtotal ----------------------------- */}
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <p className="text-sm">Sous-total: </p>
-
-                {metadata.couponApplied.applied ? (
-                  <div className="flex flex-col">
-                    <span className="text-gray-500 line-through">
-                      {new Intl.NumberFormat("fr-CA", {
-                        style: "currency",
-                        currency: "cad",
-                      }).format(
-                        metadata.subtotal /
-                          (1 - metadata.couponApplied.amount / 100)
-                      )}
-                    </span>
-
-                    <span>
-                      {new Intl.NumberFormat("fr-CA", {
-                        style: "currency",
-                        currency: "cad",
-                      }).format(metadata.subtotal)}
-                    </span>
-                  </div>
-                ) : (
-                  new Intl.NumberFormat("fr-CA", {
+                <span className="text-base font-semibold">
+                  {new Intl.NumberFormat("fr-CA", {
                     style: "currency",
                     currency: "cad",
-                  }).format(metadata.subtotal)
-                )}
+                  }).format(Number(cartTotal))}
+                </span>
               </div>
               <hr className="my-4" />
 
               {/* ----------------------------- shipping price ----------------------------- */}
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <p className="text-sm">Frais de livraison: </p>
                 <span className="text-base font-semibold">
                   <span className="text-sm font-light">
@@ -685,7 +665,7 @@ const Paiement = () => {
               {/* ----------------------------- FEES ----------------------------- */}
               {metadata.fees && metadata.fees > 0 && (
                 <>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center">
                     <p className="text-sm">Frais de manutention: </p>
                     <span className="text-base font-semibold">
                       {new Intl.NumberFormat("fr-CA", {
@@ -698,21 +678,8 @@ const Paiement = () => {
                 </>
               )}
 
-              {/* ----------------------------- subtotal ----------------------------- */}
-              <div className="flex justify-between">
-                <p className="text-sm">Total HT: </p>
-                <span className="text-base font-semibold">
-                  {metadata.subtotal &&
-                    new Intl.NumberFormat("fr-CA", {
-                      style: "currency",
-                      currency: "cad",
-                    }).format(metadata.subtotal)}
-                </span>
-              </div>
-              <hr className="my-4" />
-
               {/* ---------------------------------- Taxes --------------------------------- */}
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <p className="text-sm">Taxes: </p>
                 <span className="text-base font-semibold">
                   <div className="flex flex-col text-sm divide-y-2">
@@ -721,7 +688,7 @@ const Paiement = () => {
                       metadata.taxeRates.map((taxe) => (
                         <span
                           key={taxe.id}
-                          className="flex justify-between py-2 gap-x-5"
+                          className="flex justify-between items-center py-2 gap-x-5"
                         >
                           <span>{taxe.name} : </span>
                           <span>
@@ -737,10 +704,52 @@ const Paiement = () => {
                   </div>
                 </span>
               </div>
+              <hr className="my-4" />
+
+              {/* ----------------------------- total before taxes ----------------------------- */}
+              <div className="flex justify-between items-center">
+                <p className="text-sm">
+                  Total HT:{" "}
+                  {metadata.couponApplied.applied && (
+                    <b>
+                      {"(Coupon appliqué -" +
+                        metadata.couponApplied.amount +
+                        "%)"}
+                    </b>
+                  )}{" "}
+                </p>
+                <span className="text-base font-semibold">
+                  {metadata.couponApplied.applied ? (
+                    <div className="flex flex-col">
+                      <span className="text-gray-500 line-through">
+                        {new Intl.NumberFormat("fr-CA", {
+                          style: "currency",
+                          currency: "cad",
+                        }).format(
+                          metadata.subtotal /
+                            (1 - metadata.couponApplied.amount / 100)
+                        )}
+                      </span>
+
+                      <span>
+                        {new Intl.NumberFormat("fr-CA", {
+                          style: "currency",
+                          currency: "cad",
+                        }).format(metadata.subtotal)}
+                      </span>
+                    </div>
+                  ) : (
+                    new Intl.NumberFormat("fr-CA", {
+                      style: "currency",
+                      currency: "cad",
+                    }).format(metadata.subtotal)
+                  )}
+                </span>
+              </div>
 
               {/* ----------------------Total-------------------- */}
               <hr className="my-4" />
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <p className="font-semibold">Total: </p>
                 <span className="text-lg font-semibold text-red-600">
                   {metadata.total &&
