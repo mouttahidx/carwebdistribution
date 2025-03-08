@@ -12,10 +12,9 @@ export default function Cart() {
     cartTotal,
     totalUniqueItems,
     items,
-    updateItemQuantity,
     removeItem,
     emptyCart,
-    metadata,
+    
   } = useCart();
   const ref = useRef(null);
   const [hide, setHide] = useState(true);
@@ -23,6 +22,8 @@ export default function Cart() {
   const hideCart = () => {
     setHide(true);
   };
+
+  // useEffect(()=>{},[cartTotal])
 
   useOutsideClick(ref, hideCart);
 

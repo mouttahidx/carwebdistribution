@@ -134,7 +134,7 @@ const Paiement = () => {
   const submitOrder = async (values, setSubmitting) => {
     setLoading(true);
     setValues(values);
-    await stripeRef.current.onSubmit(values, metadata.total.toFixed(2));
+    await stripeRef.current.onSubmit(values, metadata.total);
   };
 
   const prepareOrder = async () => {
@@ -199,6 +199,10 @@ const Paiement = () => {
             total: metadata.shipping.cost,
           },
         ],
+        ...(metadata.fees && {
+          name: "Frais de manutention",
+          total: metadata.fees,
+        }),
         ...(metadata.couponApplied.applied && {
           coupon_lines: [
             {
@@ -245,6 +249,10 @@ const Paiement = () => {
             total: metadata.shipping.cost,
           },
         ],
+        ...(metadata.fees && {
+          name: "Frais de manutention",
+          total: metadata.fees,
+        }),
         ...(metadata.couponApplied.applied && {
           coupon_lines: [
             {
@@ -328,7 +336,6 @@ const Paiement = () => {
               onSubmit={(values, { setSubmitting }) => {
                 submitOrder(values, setSubmitting);
               }}
-              
               initialValues={
                 values || {
                   /* ------------------------------ billing info ------------------------------ */
@@ -630,9 +637,12 @@ const Paiement = () => {
             <div className="px-2 lg:px-5 py-5 ">
               {/* ----------------------------- subtotal ----------------------------- */}
               <div className="flex justify-between">
-                <p className="text-sm">Sous-total: </p>
+                <p className="text-sm">Total HT: </p>
                 <span className="text-base font-semibold">
-                  {metadata.subtotal && new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format(metadata.subtotal.toFixed(2))}
+                  {new Intl.NumberFormat("fr-CA", {
+                    style: "currency",
+                    currency: "cad",
+                  }).format(cartTotal)}
                 </span>
               </div>
               <hr className="my-4" />
@@ -645,7 +655,38 @@ const Paiement = () => {
                     ({metadata.shipping && metadata.shipping.name})
                   </span>{" "}
                   {metadata.shipping.cost &&
-                    new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format( Number(metadata.shipping.cost).toFixed(2))}
+                    new Intl.NumberFormat("fr-CA", {
+                      style: "currency",
+                      currency: "cad",
+                    }).format(Number(metadata.shipping.cost))}
+                </span>
+              </div>
+              <hr className="my-4" />
+              {/* ----------------------------- FEES ----------------------------- */}
+              {metadata.fees && metadata.fees > 0 && (
+                <>
+                  <div className="flex justify-between">
+                    <p className="text-sm">Frais de manutention: </p>
+                    <span className="text-base font-semibold">
+                      {new Intl.NumberFormat("fr-CA", {
+                        style: "currency",
+                        currency: "cad",
+                      }).format(Number(metadata.fees))}
+                    </span>
+                  </div>
+                  <hr className="my-4" />
+                </>
+              )}
+
+              {/* ----------------------------- subtotal ----------------------------- */}
+              <div className="flex justify-between">
+                <p className="text-sm">Total HT: </p>
+                <span className="text-base font-semibold">
+                  {metadata.subtotal &&
+                    new Intl.NumberFormat("fr-CA", {
+                      style: "currency",
+                      currency: "cad",
+                    }).format(metadata.subtotal)}
                 </span>
               </div>
               <hr className="my-4" />
@@ -664,11 +705,12 @@ const Paiement = () => {
                         >
                           <span>{taxe.name} : </span>
                           <span>
-                            
-                            {new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format((
-                              (Number(taxe.rate) * +metadata.subtotal) /
-                              100
-                            ).toFixed(2))}
+                            {new Intl.NumberFormat("fr-CA", {
+                              style: "currency",
+                              currency: "cad",
+                            }).format(
+                              (Number(taxe.rate) * +metadata.subtotal) / 100
+                            )}
                           </span>
                         </span>
                       ))}
@@ -681,7 +723,11 @@ const Paiement = () => {
               <div className="flex justify-between">
                 <p className="font-semibold">Total: </p>
                 <span className="text-lg font-semibold text-red-600">
-                  {metadata.total && new Intl.NumberFormat("fr-CA",{style:"currency",currency:"cad"}).format( metadata.total.toFixed(2))}
+                  {metadata.total &&
+                    new Intl.NumberFormat("fr-CA", {
+                      style: "currency",
+                      currency: "cad",
+                    }).format(metadata.total)}
                 </span>
               </div>
               {/* --------------------------------------paiement button-------------------------------- */}
