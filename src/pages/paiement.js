@@ -678,32 +678,6 @@ const Paiement = () => {
                 </>
               )}
 
-              {/* ---------------------------------- Taxes --------------------------------- */}
-              <div className="flex justify-between items-center">
-                <p className="text-sm">Taxes: </p>
-                <span className="text-base font-semibold">
-                  <div className="flex flex-col text-sm divide-y-2">
-                    {metadata.taxeRates &&
-                      metadata.taxeRates?.length > 0 &&
-                      metadata.taxeRates.map((taxe) => (
-                        <span
-                          key={taxe.id}
-                          className="flex justify-between items-center py-2 gap-x-5"
-                        >
-                          <span>{taxe.name} : </span>
-                          <span>
-                            {new Intl.NumberFormat("fr-CA", {
-                              style: "currency",
-                              currency: "cad",
-                            }).format(
-                              (Number(taxe.rate) * +metadata.subtotal) / 100
-                            )}
-                          </span>
-                        </span>
-                      ))}
-                  </div>
-                </span>
-              </div>
               <hr className="my-4" />
 
               {/* ----------------------------- total before taxes ----------------------------- */}
@@ -744,6 +718,35 @@ const Paiement = () => {
                       currency: "cad",
                     }).format(metadata.subtotal)
                   )}
+                </span>
+              </div>
+
+              <hr className="my-4" />
+
+              {/* ---------------------------------- Taxes --------------------------------- */}
+              <div className="flex justify-between items-center">
+                <p className="text-sm">Taxes: </p>
+                <span className="text-base font-semibold">
+                  <div className="flex flex-col text-sm divide-y-2">
+                    {metadata.taxeRates &&
+                      metadata.taxeRates?.length > 0 &&
+                      metadata.taxeRates.map((taxe) => (
+                        <span
+                          key={taxe.id}
+                          className="flex justify-between items-center py-2 gap-x-5"
+                        >
+                          <span>{taxe.name} : </span>
+                          <span>
+                            {new Intl.NumberFormat("fr-CA", {
+                              style: "currency",
+                              currency: "cad",
+                            }).format(
+                              (Number(taxe.rate) * +metadata.subtotal) / 100
+                            )}
+                          </span>
+                        </span>
+                      ))}
+                  </div>
                 </span>
               </div>
 
