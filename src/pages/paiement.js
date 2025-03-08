@@ -637,13 +637,33 @@ const Paiement = () => {
             <div className="px-2 lg:px-5 py-5 ">
               {/* ----------------------------- subtotal ----------------------------- */}
               <div className="flex justify-between">
-                <p className="text-sm">Total HT: </p>
-                <span className="text-base font-semibold">
-                  {new Intl.NumberFormat("fr-CA", {
+                <p className="text-sm">Sous-total: </p>
+
+                {metadata.couponApplied.applied ? (
+                  <div className="flex flex-col">
+                    <span className="text-gray-500 line-through">
+                      {new Intl.NumberFormat("fr-CA", {
+                        style: "currency",
+                        currency: "cad",
+                      }).format(
+                        metadata.subtotal /
+                          (1 - metadata.couponApplied.amount / 100)
+                      )}
+                    </span>
+
+                    <span>
+                      {new Intl.NumberFormat("fr-CA", {
+                        style: "currency",
+                        currency: "cad",
+                      }).format(metadata.subtotal)}
+                    </span>
+                  </div>
+                ) : (
+                  new Intl.NumberFormat("fr-CA", {
                     style: "currency",
                     currency: "cad",
-                  }).format(cartTotal)}
-                </span>
+                  }).format(metadata.subtotal)
+                )}
               </div>
               <hr className="my-4" />
 
