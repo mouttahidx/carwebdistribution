@@ -678,7 +678,6 @@ const Paiement = () => {
                 </>
               )}
 
-              <hr className="my-4" />
 
               {/* ----------------------------- total before taxes ----------------------------- */}
               <div className="flex justify-between items-center">
