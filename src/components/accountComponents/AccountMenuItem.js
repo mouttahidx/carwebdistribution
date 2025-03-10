@@ -54,7 +54,9 @@ export default function AccountMenuItem() {
             </Dropdown.Item>
             <Dropdown.Divider />
 
-            <Dropdown.Item onClick={() => signOut()}>
+            <Dropdown.Item onClick={() => {
+              
+              signOut()}}>
               <span className="text-sm text-red-500 w-full">Quitter</span>
             </Dropdown.Item>
           </>

@@ -41,12 +41,7 @@ export default function Vehicules() {
   const [selected, setSelected] = useState([]);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { vehicle, setVehicle } = useVehicleContext();
-
-  // const handleAddVehicle = (vehicule) => {
-  //  addUserVehicle(vehicule,update,signOut,setLoading,selected,data);
-  //  setVehicle(vehicule)
-  // };
+  const { deleteVehicle } = useVehicleContext();
 
   const handleDelete = (id) => {
     deleteUserVehicle(
@@ -58,7 +53,7 @@ export default function Vehicules() {
       data,
       selected
     );
-    setVehicle(null);
+    deleteVehicle();
   };
 
   useEffect(() => {
@@ -172,7 +167,7 @@ export default function Vehicules() {
           onClick={() => {
             router.replace({
               pathname: router.pathname, // Stay on the same page
-              query: {"select_vehicle": "true"},
+              query: { select_vehicle: "true" },
             });
           }}
         />

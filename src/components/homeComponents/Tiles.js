@@ -17,7 +17,7 @@ export default function Tiles() {
         style={{ backgroundImage: `url('/img/tires.jpg')` }}
         className="col-span-1 col-end-2 flex-col bg-no-repeat bg-cover bg-center rounded "
       >
-        <div className="bg-opacity-20 bg-black w-full h-full py-10 xl:py-16 flex flex-col justify-end items-center rounded">
+        <div className="bg-opacity-40 bg-black w-full h-full py-5 flex flex-col justify-end items-center rounded">
           <h4
             style={{ textShadow: "1px 1px 10px black" }}
             className="text-white font-medium text-center md:text-xl lg:text-2xl max-w-[200px] mb-6"
@@ -43,7 +43,7 @@ export default function Tiles() {
         style={{ backgroundImage: `url('/img/rv.jpg')` }}
         className="md:col-start-2 col-span-2  md:row-start-1 flex-col bg-no-repeat bg-cover bg-center rounded "
       >
-        <div className="bg-opacity-20 bg-black w-full h-full py-10 xl:py-16 flex flex-col justify-end items-center rounded shadow-md">
+        <div className="bg-opacity-40 bg-black w-full h-full py-5 flex flex-col justify-end items-center rounded shadow-md">
           <h4
             style={{ textShadow: "1px 1px 10px black" }}
             className="text-white text-center md:text-2xl lg:text-3xl 2xl:text-4xl mb-6 uppercase px-10 !leading-relaxed"
@@ -72,7 +72,7 @@ export default function Tiles() {
         style={{ backgroundImage: `url('/img/luggage.jpg')` }}
         className="md:col-start-2 col-span-2  md:row-start-2 flex-col bg-no-repeat bg-cover bg-center rounded "
       >
-        <div className="bg-opacity-20 bg-black w-full h-full py-10 xl:py-16 flex flex-col justify-end items-center rounded shadow-md">
+        <div className="bg-opacity-40 bg-black w-full h-full py-5 flex flex-col justify-end items-center rounded shadow-md">
           <h4
             style={{ textShadow: "1px 1px 10px black" }}
             className="text-white text-center md:text-2xl lg:text-3xl 2xl:text-4xl mb-6 uppercase px-10 !leading-relaxed"
@@ -101,7 +101,7 @@ export default function Tiles() {
         style={{ backgroundImage: `url('/img/rims.jpg')` }}
         className="col-start-2 row-start-1 col-end-3 md:row-start-1 md:col-start-4 md:col-end-5 col-span-1 flex-col bg-no-repeat bg-cover rounded bg-right"
       >
-        <div className="bg-opacity-20 bg-black w-full h-full py-10 xl:py-16 flex flex-col justify-end items-center rounded">
+        <div className="bg-opacity-40 bg-black w-full h-full py-5 flex flex-col justify-end items-center rounded">
           <h4
             style={{ textShadow: "1px 1px 10px black" }}
             className="text-white font-medium text-center md:text-xl lg:text-2xl max-w-[200px] mb-6"
@@ -127,7 +127,7 @@ export default function Tiles() {
         style={{ backgroundImage: `url('/img/velo.webp')` }}
         className="md:row-start-2 col-start-1 flex-col bg-no-repeat bg-cover bg-center rounded "
       >
-        <div className="bg-opacity-20 bg-black w-full h-full py-10 xl:py-16 flex flex-col justify-end items-center rounded">
+        <div className="bg-opacity-40 bg-black w-full h-full py-5 flex flex-col justify-end items-center rounded">
           <h4
             style={{ textShadow: "1px 1px 10px black" }}
             className="text-white font-medium text-center md:text-xl lg:text-2xl max-w-[200px] mb-6"
@@ -153,7 +153,7 @@ export default function Tiles() {
         style={{ backgroundImage: `url('/img/interior.jpg')` }}
         className="md:col-start-4 md:row-start-2 flex-col bg-no-repeat bg-cover bg-center rounded "
       >
-        <div className="bg-opacity-20 bg-black w-full h-full py-10 xl:py-16 flex flex-col justify-end items-center rounded">
+        <div className="bg-opacity-40 bg-black w-full h-full py-5 flex flex-col justify-end items-center rounded">
           <h4
             style={{ textShadow: "1px 1px 10px black" }}
             className="text-white font-medium text-center md:text-xl lg:text-2xl max-w-[200px] mb-6"

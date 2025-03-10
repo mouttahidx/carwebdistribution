@@ -29,7 +29,7 @@ export default function Home({ brands, products }) {
         <section className="container px-1 ">
           {/* <HomeSelectVehicle /> */}
           <FeaturedProducts products={products} />
-          <CreateAccount />
+          {/* <CreateAccount /> */}
           <TireSearch />
           <Tiles data-aos="fade-up" />
           <TiresBrands />

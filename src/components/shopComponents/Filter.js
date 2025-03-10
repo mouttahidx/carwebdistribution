@@ -20,7 +20,7 @@ export default function Filter({
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
   const [openBrandsModal, setOpenBrandsModal] = useState(false);
   const [reset, setReset] = useState(0);
-  const {vehicle,setVehicle} = useVehicleContext();
+  const {vehicle,deleteVehicle} = useVehicleContext();
 
   useEffect(() => {
     if (isMobile === null) {
@@ -42,6 +42,7 @@ export default function Filter({
               className="bg-rachel-red-700 py-0"
               onClick={() => {
                 router.push("/boutique");
+                deleteVehicle()
               }}
             >
               Retirer

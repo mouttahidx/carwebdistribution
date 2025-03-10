@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { TrashIcon } from "@heroicons/react/24/solid";
-import Button from "../Button";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "react-use-cart";
 import { useEffect, useState } from "react";
 import { getProductBySlug } from "@/lib/api";
+import { useRouter } from "next/router";
+import { Button } from "flowbite-react";
 
 export default function CartTable() {
   const {
@@ -17,6 +18,7 @@ export default function CartTable() {
     isEmpty,
   } = useCart();
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const checkProducts = () => {
     setLoading(true);

@@ -97,6 +97,7 @@ export default function CartSummary({ couponApplied, setCouponApplied }) {
         <hr className="my-4" />
         <CartTaxes
           selectedMethod={selectedMethod}
+          setSelectedMethod
           location={locationId}
           subtotal={subtotal}
           setTaxesTotal={setTaxesTotal}

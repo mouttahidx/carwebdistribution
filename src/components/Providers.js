@@ -15,28 +15,26 @@ export function VehicleProvider({ children }) {
     setVehicle(localeVehicle);
   }, [localeVehicle]);
 
-  useEffect(() => {
+  const deleteVehicle = () => {
+    console.log("deleting...");
+    setVehicle(null);
+    setLocaleVehicle(null);
+    localStorage.removeItem("user-vehicle");
+    document.cookie = `user-vehicle=; path=/; max-age=0; SameSite=Lax`;
 
-    if(!vehicle)
-    {
-      if (router.pathname === "/boutique") {
-        console.log(router.query)
-        const { par_vehicule, year, make, model, submodel, ...routerQuery } =
-          router.query;
-        router.replace({
-          query: { ...routerQuery },
-        });
-      }
+    if (router.pathname === "/boutique") {
+      const { par_vehicule, year, make, model, submodel, ...routerQuery } =
+        router.query;
+      router.replace({
+        query: { ...routerQuery },
+      });
     }
+  };
 
-
-    if (!vehicle && localeVehicle) {
-      setLocaleVehicle(null);     
-    }
-  }, [vehicle]);
+  useEffect(() => {}, [vehicle]);
 
   return (
-    <VehicleContext.Provider value={{ vehicle, setVehicle }}>
+    <VehicleContext.Provider value={{ vehicle, setVehicle, deleteVehicle }}>
       {children}
     </VehicleContext.Provider>
   );

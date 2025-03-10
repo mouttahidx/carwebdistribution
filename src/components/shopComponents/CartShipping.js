@@ -15,7 +15,7 @@ export default function CartShipping({
   const [shippingZones, setShippingZones] = useState([]);
   const [shippingMethodList, setShippingMethodList] = useState([]);
   const [selectedMethod, setSelectedMethod] = useState(null);
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState((metadata && metadata?.address) && metadata.address?.id);
   const [shippingCost, setShippingCost] = useState();
 
   const handleShippingZoneChange = (zone) => {
@@ -43,7 +43,11 @@ export default function CartShipping({
     selected.settings.cost.value === ""
       ? setShippingCost(0)
       : setShippingCost(Number(selected.settings.cost.value));
+
+
     setLocationid(location);
+    console.log("location: ",location)
+
   };
 
   useEffect(() => {

@@ -27,7 +27,7 @@ export default function TireSearch() {
         }}
       />
       <section
-        className="flex flex-col items-center w-full py-28 border-t rounded px-11 bg-center md:bg-right-bottom bg-cover bg-no-repeat my-24"
+        className="flex flex-col items-center w-full py-16 border-t rounded px-11 bg-center md:bg-right-bottom bg-cover bg-no-repeat my-24"
         style={{ backgroundImage: `url('/slider2.jpg')` }}
         data-aos="fade-out" data-aos-duration="2000"
       >

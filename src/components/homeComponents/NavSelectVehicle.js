@@ -21,7 +21,7 @@ export default function NavSelectVehicle() {
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState([]);
 
-  const {vehicle, setVehicle} = useVehicleContext();
+  const {vehicle, setVehicle, deleteVehicle} = useVehicleContext();
 
   useEffect(() => {    
     if (router.query?.select_vehicle) {
@@ -63,7 +63,7 @@ export default function NavSelectVehicle() {
   };
 
   const handleDelete = () => {
-    setVehicle(null);
+    deleteVehicle()
     setVehicles(null)
     if (status !== "authenticated") {
       localStorage.removeItem("user-vehicle");
@@ -78,7 +78,7 @@ export default function NavSelectVehicle() {
         selected
       );
     }
-    
+  
     toast.success("Véhicule supprimé avec succès");
 
   };

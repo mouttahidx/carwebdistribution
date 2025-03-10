@@ -2,7 +2,7 @@ import { getAllTaxes, getShippingZoneLocations } from "@/lib/api";
 import { Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 
-export default function CartTaxes({ selectedMethod, subtotal, location, setTaxesTotal , setTaxesRates:setParentTaxesRates }) {
+export default function CartTaxes({ selectedMethod, subtotal, location, setTaxesTotal , setTaxesRates:setParentTaxesRates,setSelectedMethod }) {
   const [loading, setLoading] = useState(false);
   const [taxesList, setTaxesList] = useState(null);
   const [taxeRates, setTaxesRates] = useState([]);
@@ -16,7 +16,7 @@ export default function CartTaxes({ selectedMethod, subtotal, location, setTaxes
       if (res) {
         if (res.status >= 200 && res.status <= 250) {
           const shippingState = res.data[0];
-
+          console.log(shippingState)
           // check if state
           if (
             res.data.length > 0 &&

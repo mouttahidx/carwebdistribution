@@ -171,7 +171,7 @@ export default function CategoriesNav() {
               : "cursor-pointer text-sm text-center max-w-[120px] lg:max-w-full  hover:text-black duration-200"
           }
         >
-          Outil de recherche de pneus
+          Recherche de pneus
         </span>
       </div>
     </div>

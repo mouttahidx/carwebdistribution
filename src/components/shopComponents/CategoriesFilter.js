@@ -96,6 +96,10 @@ export default function CategoriesFilter({
     reset > 0 && clearSelection();
   }, [reset]);
 
+  useEffect(()=>{
+    !vehicle && clearSelection();
+  },[vehicle])
+
   const checkSubCategoryActive = function (category) {
     if (activeCategories.includes(String(category.id))) {
       return true;

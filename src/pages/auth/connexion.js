@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { PropagateLoader } from "react-spinners";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Head from "next/head";
 
 export default function Connexion() {
   const [userInfo, setUserInfo] = useState({
@@ -17,7 +18,6 @@ export default function Connexion() {
   const [loading, setLoading] = useState(false);
   const [remember, setRemember] = useState(false);
   const session = useSession();
-
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -66,7 +66,16 @@ export default function Connexion() {
             localStorage.setItem("rachel-rememberme", false);
           }
         }
-        router.push(router.query?.callbackUrl || "/");
+        localStorage.removeItem("user-vehicle");
+        document.cookie = `user-vehicle=; path=/; max-age=0; SameSite=Lax`;
+        if ('par_vehicule' in router.query) {
+          const { par_vehicule, year, make, model, submodel, ...routerQuery } =
+            router.query;
+          router.replace({
+            query: { ...routerQuery },
+          });
+        }
+        router.push("/");
       }
       if (res.status >= 400 && res.status < 500) {
         toast.error("Courriel / Mot de passe incorrect", {
@@ -108,9 +117,10 @@ export default function Connexion() {
   }, []);
  
 
-  if (!session.loading && session.status === "unauthenticated") {
+ 
     return (
       <Layout>
+        <Head><title>Connexion - {process.env.NEXT_PUBLIC_WEBSITE_TITLE}</title></Head>
         <div className="mx-auto max-w-[400px] flex flex-col items-center py-20">
           <h1 className="font-semibold  text-3xl">Connexion</h1>
           <hr className="bg-rachel-red-700 mb-10 h-1 w-24" />
@@ -177,7 +187,5 @@ export default function Connexion() {
         <ToastContainer className={"!z-[99999999999999]"}/>
       </Layout>
     );
-  }
 
-  return null;
 }

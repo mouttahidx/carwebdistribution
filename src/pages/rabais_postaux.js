@@ -153,8 +153,8 @@ export default function Rabaispostaux() {
           Rabais postaux
         </h1>
         <div className="h-1.5 w-24 bg-rachel-red-700 mx-auto rounded-full mt-2 mb-16 " />
-        <div className="gap-3 2xl:gap-8 py-16 px-5 max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
-          {promos.map((promo, index) => (
+        <div className="gap-3 2xl:gap-8 py-16 px-5 max-w-7xl mx-auto grid md:grid-cols-3 lg:grid-cols-3 ">
+          {/* {promos.map((promo, index) => (
             <Card
               key={index}
               className="w-full [&>div]:px-3"
@@ -187,7 +187,39 @@ export default function Rabaispostaux() {
                   </svg>
                 </a>
             </Card>
-          ))}
+          ))} */}
+          <div></div>
+           <Card
+              className="w-full [&>div]:px-3"
+              imgSrc={"/rabais2025.jpg"}
+              imgAlt={"rabais2025"}
+            >
+              {/* <span className="text-xs h-6">{promo.dates}</span> */}
+              {/* <h5 className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+                {promo.title}
+              </h5>
+              <p className="text-sm font-normal text-gray-700 dark:text-gray-400">
+                {promo.text}
+              </p> */}
+                <a
+                  href={"/rabais-2025.pdf"}
+                  className="flex items-center bg-rachel-red-700 hover:!bg-rachel-red-800 mt-auto text-white py-1 rounded-md  justify-center"
+                >
+                  Voir le PDF
+                  <svg
+                    className="-mr-1 ml-2 h-4 w-4"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </a>
+            </Card>
         </div>
       </Layout>
     </>
