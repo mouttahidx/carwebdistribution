@@ -41,8 +41,10 @@ export default function Filter({
             <Button
               className="bg-rachel-red-700 py-0"
               onClick={() => {
-                router.push("/boutique");
                 deleteVehicle()
+                document.cookie = `user-vehicle=; path=/; max-age=0; SameSite=Lax`;
+                router.query.par_vehicule = 0;
+                router.push("/boutique");
               }}
             >
               Retirer
@@ -101,7 +103,7 @@ export default function Filter({
           <Button
             className="bg-rachel-red-700 py-0"
             onClick={() => {
-              setVehicle(null);
+              deleteVehicle();
               document.cookie = `user-vehicle=; path=/; max-age=0; SameSite=Lax`;
               router.query.par_vehicule = 0;
               router.push("/boutique");
