@@ -91,7 +91,7 @@ export default function CartShipping({
               disabled={loading}
               required
               defaultValue={
-                metadata && metadata.address ? metadata.address.id : "DEFAULT"
+               "DEFAULT"
               }
               onChange={(e) => {
                 handleShippingZoneChange(e.target.value);
