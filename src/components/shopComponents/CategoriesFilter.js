@@ -178,13 +178,13 @@ export default function CategoriesFilter({
               </div>
             </Accordion.Title>
             <Accordion.Content className="!py-2 max-h-[600px] overflow-y-scroll !pb-8 px-0">
-              {categories.length > 0 && (
+              {activeCategories.length > 0 && (
                 <span
                   className=" px-4 my-5 text-sm underline-offset-4 underline decoration-rachel-red-700 cursor-pointer font-semibold flex items-center gap-2"
                   onClick={clearSelection}
                 >
                   <TrashIcon className="fill-rachel-red-900 w-5 h-5 inline" />{" "}
-                  Effacer tout
+                  Désélectionner
                 </span>
               )}
 

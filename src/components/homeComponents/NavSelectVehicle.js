@@ -80,7 +80,7 @@ export default function NavSelectVehicle() {
     }
   
     toast.success("Véhicule supprimé avec succès");
-
+    setOpenModal(false)
   };
 
   return (

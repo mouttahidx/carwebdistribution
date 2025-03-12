@@ -15,16 +15,15 @@ export default function CartShipping({
   const [shippingZones, setShippingZones] = useState([]);
   const [shippingMethodList, setShippingMethodList] = useState([]);
   const [selectedMethod, setSelectedMethod] = useState(null);
-  const [location, setLocation] = useState((metadata && metadata?.address) && metadata.address?.id);
+  const [location, setLocation] = useState((metadata && metadata?.address) && metadata.address?.id || "DEFAULT");
   const [shippingCost, setShippingCost] = useState();
+  const [selectedZone,setSelectedZone] = useState()
 
-  const handleShippingZoneChange = (zone) => {
+  const handleShippingZoneChange = () => {
     setLoading(true);
     setShippingMethodList([]);
     setSelectedMethod(null);
-    setLocation(zone);
-
-    getShippingZoneMethods(zone)
+    getShippingZoneMethods(location)
       .then((res) => {
         if (res.status === 200) {
           setShippingMethodList(res.data);
@@ -57,11 +56,6 @@ export default function CartShipping({
     };
 
     getData();
-
-    // test if cart metadata has address of user stored and set it as default value for address
-    if (metadata && metadata.address) {
-      handleShippingZoneChange(metadata.address.id);
-    }
   }, []);
 
   useEffect(() => {
@@ -72,6 +66,10 @@ export default function CartShipping({
       setAddress(shippingZones.find((x) => +x.id === +location));
     }
   }, [selectedMethod, shippingCost]);
+
+  useEffect(()=>{
+    handleShippingZoneChange();
+  },[location])
 
   return (
     <>
@@ -90,11 +88,10 @@ export default function CartShipping({
             <Select
               disabled={loading}
               required
-              defaultValue={
-               "DEFAULT"
-              }
+              
+              value={location}
               onChange={(e) => {
-                handleShippingZoneChange(e.target.value);
+                setLocation(e.target.value)
               }}
             >
               <option disabled value={"DEFAULT"}>
@@ -121,7 +118,7 @@ export default function CartShipping({
                 {loading && <Spinner className="fill-rachel-red-700" />}
               </div>
               <Select
-                disabled={loading}
+                disabled={loading || !location}
                 required
                 defaultValue={"DEFAULT"}
                 onChange={(e) => {

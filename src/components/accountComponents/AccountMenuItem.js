@@ -56,7 +56,7 @@ export default function AccountMenuItem() {
 
             <Dropdown.Item onClick={() => {
               
-              signOut()}}>
+              signOut({callbackUrl:"/"})}}>
               <span className="text-sm text-red-500 w-full">Quitter</span>
             </Dropdown.Item>
           </>

@@ -43,7 +43,7 @@ export default function App({ Component, pageProps }) {
         }
       `}</style>
       <NextNProgress
-        color="#600000"
+        color="#d00000"
         options={{ showSpinner: false }}
         height={5}
       />

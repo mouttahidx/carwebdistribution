@@ -5,7 +5,7 @@ import ContentLoader from "react-content-loader";
 import ReactPaginate from "react-paginate";
 import useBrands from "@/hooks/useBrands";
 import useBrandsPartsCount from "@/hooks/useBrandsPartsCount";
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { CheckCircleIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useVehicleContext } from "../Providers";
 
 export default function BrandsFilter({
@@ -38,7 +38,7 @@ export default function BrandsFilter({
   const page = useRef(1);
   const [loading, setLoading] = useState(true);
   const per_page = 30;
-  const {vehicle} = useVehicleContext();
+  const { vehicle } = useVehicleContext();
 
   const {
     brands: { data, headers },
@@ -104,22 +104,25 @@ export default function BrandsFilter({
           <Accordion.Panel>
             <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0 text-black ">
               <div className="flex items-center ">
-              Marques{" "}
-              {vehicle && brandsCount?.length > 0 && (
-                <span>&nbsp;compatibles: {brandsCount.length}</span>
-              )}
-              {activeBrands.length > 0 && (
-                <CheckCircleIcon className=" w-5 h-5 fill-rachel-red-900 ml-2" />
-              )}
+                Marques{" "}
+                {vehicle && brandsCount?.length > 0 && (
+                  <span>&nbsp;compatibles: {brandsCount.length}</span>
+                )}
+                {activeBrands.length > 0 && (
+                  <CheckCircleIcon className=" w-5 h-5 fill-rachel-red-900 ml-2" />
+                )}
               </div>
             </Accordion.Title>
             <Accordion.Content className="!py-2">
-              <span
-                className="my-5 text-sm underline-offset-4 underline decoration-rachel-red-700 cursor-pointer"
+              {activeBrands.length > 0 && (
+                <span
+                className="my-5 text-sm underline-offset-4 underline decoration-rachel-red-700 cursor-pointer font-semibold flex items-center gap-2"
                 onClick={clearSelection}
               >
-                Effacer tout
+                <TrashIcon className="fill-rachel-red-900 w-5 h-5 inline" />{" "}
+                Désélectionner
               </span>
+              )}
               {brands.length > 0 &&
                 brands.map(
                   (brand) =>

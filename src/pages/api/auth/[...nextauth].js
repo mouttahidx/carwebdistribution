@@ -1,6 +1,7 @@
 import axios from "axios";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { signOut } from "next-auth/react";
 
 export const authOptions = {
 
@@ -44,6 +45,7 @@ export const authOptions = {
 
   pages: {
     signIn: "/auth/connexion",
+    signOut: "/"
   },
 
   callbacks: {
