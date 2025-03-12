@@ -93,7 +93,7 @@ export default function Contact() {
               </p>
             </div>
           </div>
-          <div className="flex flex-col justify-center items-center w-full  ">
+          {/* <div className="flex flex-col justify-center items-center w-full  ">
             <MapIcon className="w-10 h-10 rounded fill-white bg-gray-500 p-2" />
             <div className="ml-2 text-center gap-y-4 flex flex-col mt-3">
               <p className="text-sm leading-none">Adresse:</p>
@@ -102,7 +102,7 @@ export default function Contact() {
                 Saint-Antoine-sur-Richelieu, QC
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="py-16 px-10 w-full flex justify-center ">
           <div className="max-w-xl">

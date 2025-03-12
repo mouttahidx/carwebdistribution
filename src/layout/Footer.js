@@ -78,10 +78,6 @@ const Footer = () => {
         <div className="flex flex-col w-full md:w-1/2 lg:w-4/12">
           <p className="mb-3">Contact</p>
           <div className="text-gray-500 gap-y-2 flex flex-col">
-            <p>
-              858 chemin du rivage Saint-Antoine-sur-Richelieu <br />
-              QC , j0L1 R0
-            </p>
             <p>+1 514-883-0691</p>
             <p>info@carwebdistribution.ca</p>
           </div>
