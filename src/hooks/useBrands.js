@@ -6,7 +6,7 @@ const fetcher = async ([url, page]) => {
   const response = await axios.get(
     process.env.NEXT_PUBLIC_WEBSITE_URL +
       "wp-json/wc/v3/marque/all?per_page=" +
-      30 +
+      100 +
       "&page=" +
       page
   );

@@ -17,7 +17,6 @@ export default function CartShipping({
   const [selectedMethod, setSelectedMethod] = useState(null);
   const [location, setLocation] = useState((metadata && metadata?.address) && metadata.address?.id || "DEFAULT");
   const [shippingCost, setShippingCost] = useState();
-  const [selectedZone,setSelectedZone] = useState()
 
   const handleShippingZoneChange = () => {
     setLoading(true);

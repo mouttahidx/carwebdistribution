@@ -5,14 +5,21 @@ import ContentLoader from "react-content-loader";
 import ReactPaginate from "react-paginate";
 import useBrands from "@/hooks/useBrands";
 import useBrandsPartsCount from "@/hooks/useBrandsPartsCount";
-import { CheckCircleIcon, TrashIcon } from "@heroicons/react/24/solid";
+import {
+  CheckBadgeIcon,
+  CheckCircleIcon,
+  TrashIcon,
+} from "@heroicons/react/24/solid";
 import { useVehicleContext } from "../Providers";
+import useCategoryBrandsCount from "@/hooks/useCategoryBrandsCount";
+import { sortBrandsByReference } from "@/lib/sortBrandsbyIdInCount";
 
 export default function BrandsFilter({
   brandsUpdate,
   activeBrands,
   productsLoading,
   reset,
+  activeCategory = null,
 }) {
   const LoaderPlaceHolder = (props) => (
     <ContentLoader
@@ -37,14 +44,14 @@ export default function BrandsFilter({
   const [totalPages, setTotalPages] = useState(1);
   const page = useRef(1);
   const [loading, setLoading] = useState(true);
-  const per_page = 30;
   const { vehicle } = useVehicleContext();
-
+  const { BrandsPerCategory, BrandsPerCategoryLoading } =
+    useCategoryBrandsCount(activeCategory && activeCategory);
   const {
     brands: { data, headers },
     isLoading,
   } = useBrands(page.current);
-  const { brandsCount, isCountLoading, isError, mutate } =
+  const { brandsCount, isCountLoading } =
     useBrandsPartsCount();
 
   const getBrands = () => {
@@ -70,8 +77,6 @@ export default function BrandsFilter({
     setTotalPages(headers?.["x-wp-totalpages"]);
   }, [isLoading, data]);
 
-  useEffect(() => {}, [brands]);
-
   const handleBrandsClick = (e) => {
     if (e.target.checked) {
       brandsUpdate({ clear: true });
@@ -80,9 +85,13 @@ export default function BrandsFilter({
       brandsUpdate({ delete: true, id: e.target.id });
     }
   };
+
   useEffect(() => {
     reset > 0 && clearSelection();
-  }, [reset]);
+  }, [reset,vehicle]);
+
+  useEffect(() => {
+  }, [BrandsPerCategoryLoading, BrandsPerCategory, brands,activeCategory]);
 
   return (
     <div className="mb-4">
@@ -105,6 +114,11 @@ export default function BrandsFilter({
             <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0 text-black ">
               <div className="flex items-center ">
                 Marques{" "}
+                {!BrandsPerCategoryLoading &&
+                  !vehicle && activeCategory &&
+                  "compatibles avec la catégorie : (" +
+                    BrandsPerCategory?.length +
+                    ")"}
                 {vehicle && brandsCount?.length > 0 && (
                   <span>&nbsp;compatibles: {brandsCount.length}</span>
                 )}
@@ -116,20 +130,21 @@ export default function BrandsFilter({
             <Accordion.Content className="!py-2">
               {activeBrands.length > 0 && (
                 <span
-                className="my-5 text-sm underline-offset-4 underline decoration-rachel-red-700 cursor-pointer font-semibold flex items-center gap-2"
-                onClick={clearSelection}
-              >
-                <TrashIcon className="fill-rachel-red-900 w-5 h-5 inline" />{" "}
-                Désélectionner
-              </span>
+                  className="my-5 text-sm underline-offset-4 underline decoration-rachel-red-700 cursor-pointer font-semibold flex items-center gap-2"
+                  onClick={clearSelection}
+                >
+                  <TrashIcon className="fill-rachel-red-900 w-5 h-5 inline" />{" "}
+                  Désélectionner
+                </span>
               )}
+              <div className="grid grid-cols-2 gap-x-4 ">
               {brands.length > 0 &&
                 brands.map(
                   (brand) =>
                     brand.all_term.count > 0 && (
                       <div
                         key={brand.id}
-                        className="flex items-center gap-2 mt-2 last:mb-2"
+                        className="flex items-center gap-2 mt-2 last:mb-2 hover:bg-gray-100 rounded cursor-pointer"
                       >
                         <Checkbox
                           id={brand.id}
@@ -142,24 +157,42 @@ export default function BrandsFilter({
                         />
                         <Label
                           htmlFor={brand.id}
-                          className="flex items-center grow"
+                          className="flex items-center grow cursor-pointer"
                         >
-                          <p dangerouslySetInnerHTML={{ __html: brand.name }} />
-                          {!isCountLoading && brandsCount?.length > 0 && (
-                            <span className="text-black text-xs ml-auto font-bold">
-                              {brandsCount.find((c) => c.id === brand.id)
-                                ?.count > 0 &&
-                                "(" +
-                                  brandsCount.find((c) => c.id === brand.id)
-                                    ?.count +
-                                  ")"}
-                            </span>
-                          )}
+                          <p dangerouslySetInnerHTML={{ __html: brand.name }} className="uppercase" />
+                          {vehicle &&
+                            !isCountLoading &&
+                            brandsCount?.length > 0 && (
+                              <span className="text-black text-xs ml-auto font-bold">
+                                {brandsCount.find((c) => c.id === brand.id)
+                                  ?.count > 0 &&
+                                  "(" +
+                                    brandsCount.find((c) => c.id === brand.id)
+                                      ?.count +
+                                    ")"}
+                              </span>
+                            )}
+
+                          {!vehicle &&
+                            !BrandsPerCategoryLoading && activeCategory &&
+                            BrandsPerCategory?.length > 0 && (
+                              <span className="text-black text-xs ml-auto font-bold">
+                                {BrandsPerCategory.find(
+                                  (c) => c.id === brand.id
+                                ) &&
+                                  "(" +
+                                    BrandsPerCategory.find(
+                                      (c) => c.id === brand.id
+                                    )?.count +
+                                    ")"}
+                              </span>
+                            )}
                         </Label>
                       </div>
                     )
                 )}
-              {totalPages > 0 && !loading ? (
+                </div>
+              {totalPages > 1 && !loading ? (
                 <ReactPaginate
                   previousLabel={"← Précedent"}
                   nextLabel={"Suivant →"}
