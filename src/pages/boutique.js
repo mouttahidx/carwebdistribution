@@ -1,13 +1,11 @@
 import ProductCard from "@/components/homeComponents/ProductCard";
 import Filter from "@/components/shopComponents/Filter";
-import useUserVehicle from "@/hooks/useUserVehicle";
 import Layout from "@/layout";
-import { allBrands, getProductsByBrand } from "@/lib/api";
+import { getProductsByBrand } from "@/lib/api";
 import { Label, Select } from "flowbite-react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
-import { use } from "react";
 import ContentLoader from "react-content-loader";
 import ReactPaginate from "react-paginate";
 
@@ -184,13 +182,18 @@ export default function Shop({ results, brands, headers }) {
     } else if (firstRender.current >= 1 && router.query?.par_vehicule === "1") {
       setVehicle("1");
     }
+
     // if router change to shop blank needs to empty everything
     page.current = 1;
+
     !router.query.categorie_id
       ? setCategory([])
       : setCategory([router.query.categorie_id]);
+
     !router.query.marque ? setBrand([]) : setBrand([router.query.marque]);
+
     !router.query.par_vehicule && setVehicle(null);
+
     !router.query.sale && setSale(null);
   }
 

@@ -17,6 +17,7 @@ export default function middlewareShop(req) {
     return NextResponse.redirect(
       `${req.nextUrl.origin}/boutique?${currentSearchParams.toString()}`
     );
+
   } else if(!data){
     const currentSearchParams = new URLSearchParams(req.nextUrl.search);
     currentSearchParams.delete("par_vehicule");

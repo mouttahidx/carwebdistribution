@@ -1,8 +1,6 @@
 import useSWR from "swr";
 import axios from "axios";
-import useUserVehicle from "./useUserVehicle";
 import { useVehicleContext } from "@/components/Providers";
-import { useEffect } from "react";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 

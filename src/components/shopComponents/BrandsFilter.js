@@ -6,13 +6,11 @@ import ReactPaginate from "react-paginate";
 import useBrands from "@/hooks/useBrands";
 import useBrandsPartsCount from "@/hooks/useBrandsPartsCount";
 import {
-  CheckBadgeIcon,
   CheckCircleIcon,
   TrashIcon,
 } from "@heroicons/react/24/solid";
 import { useVehicleContext } from "../Providers";
 import useCategoryBrandsCount from "@/hooks/useCategoryBrandsCount";
-import { sortBrandsByReference } from "@/lib/sortBrandsbyIdInCount";
 
 export default function BrandsFilter({
   brandsUpdate,
@@ -45,12 +43,15 @@ export default function BrandsFilter({
   const page = useRef(1);
   const [loading, setLoading] = useState(true);
   const { vehicle } = useVehicleContext();
+
   const { BrandsPerCategory, BrandsPerCategoryLoading } =
     useCategoryBrandsCount(activeCategory && activeCategory);
+
   const {
     brands: { data, headers },
     isLoading,
   } = useBrands(page.current);
+
   const { brandsCount, isCountLoading } =
     useBrandsPartsCount();
 
@@ -91,7 +92,8 @@ export default function BrandsFilter({
   }, [reset,vehicle]);
 
   useEffect(() => {
-  }, [BrandsPerCategoryLoading, BrandsPerCategory, brands,activeCategory]);
+
+  }, [BrandsPerCategoryLoading, BrandsPerCategory, brands,activeCategory,brandsCount]);
 
   return (
     <div className="mb-4">

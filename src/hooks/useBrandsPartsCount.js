@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import axios from "axios";
-import useUserVehicle from "./useUserVehicle";
+import { useVehicleContext } from "@/components/Providers";
 
 const defaultSWROptions = {
   revalidateOnFocus: false,
@@ -11,11 +11,10 @@ const defaultSWROptions = {
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 const useBrandsPartsCount = () => {
-  const [localVehicle] = useUserVehicle();
-
+  const {vehicle} = useVehicleContext();
   const { data, error, mutate } = useSWR(
-    localVehicle
-      ? `${process.env.NEXT_PUBLIC_WEBSITE_URL}/wp-json/wc/v3/user/vehicle/brand/parts?slug=${localVehicle.slug}`
+    vehicle
+      ? `${process.env.NEXT_PUBLIC_WEBSITE_URL}/wp-json/wc/v3/user/vehicle/brand/parts?slug=${vehicle.slug}`
       : null,
     fetcher,
     defaultSWROptions

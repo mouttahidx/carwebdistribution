@@ -17,7 +17,6 @@ export default function AddToCart({
   const [aboveStock, setAboveStock] = useState(false);
 
   useEffect(() => {
-    console.log("aboveStock:", aboveStock);
   }, [aboveStock]);
 
   useEffect(() => {

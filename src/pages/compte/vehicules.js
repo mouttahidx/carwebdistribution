@@ -1,10 +1,8 @@
 import DashboardLayout from "@/components/accountComponents/DashboardLayout";
 import LoadingModal from "@/components/accountComponents/LoadingModal";
 import Button from "@/components/Button";
-import SelectVehicle from "@/components/homeComponents/SelectVehicle";
 import { useVehicleContext } from "@/components/Providers";
-import useUserVehicle from "@/hooks/useUserVehicle";
-import { addUserVehicle, deleteUserVehicle } from "@/lib/userVehicleUtils";
+import {  deleteUserVehicle } from "@/lib/userVehicleUtils";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { signOut, useSession } from "next-auth/react";
@@ -37,7 +35,6 @@ export default function Vehicules() {
     </ContentLoader>
   );
   const { status, data, update } = useSession();
-  const [vehicules, setVehicules] = useState([]);
   const [selected, setSelected] = useState([]);
   const router = useRouter();
   const [loading, setLoading] = useState(false);

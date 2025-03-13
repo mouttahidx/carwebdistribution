@@ -16,7 +16,6 @@ export default function CartTaxes({ selectedMethod, subtotal, location, setTaxes
       if (res) {
         if (res.status >= 200 && res.status <= 250) {
           const shippingState = res.data[0];
-          console.log(shippingState)
           // check if state
           if (
             res.data.length > 0 &&

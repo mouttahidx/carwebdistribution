@@ -22,7 +22,6 @@ export const useUserVehicle = () => {
         data?.user?.vehicles?.length > 0 &&
           setLocalVehicle(data?.user?.vehicles[0]);
 
-          console.log("logged: ", data?.user?.vehicles[0]);
         tmp_vehicle = data?.user?.vehicles[0];
       }
     }

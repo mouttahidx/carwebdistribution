@@ -42,9 +42,7 @@ export default function CartShipping({
       ? setShippingCost(0)
       : setShippingCost(Number(selected.settings.cost.value));
 
-
     setLocationid(location);
-    console.log("location: ",location)
 
   };
 

@@ -1,6 +1,5 @@
 import useCategories from "@/hooks/useCategories";
 import usePartsCount from "@/hooks/usePartsCount";
-import useUserVehicle from "@/hooks/useUserVehicle";
 import { CheckCircleIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { Accordion, Checkbox, Label, Progress, Spinner } from "flowbite-react";
 import { useRouter } from "next/router";
@@ -94,11 +93,9 @@ export default function CategoriesFilter({
 
   useEffect(() => {
     reset > 0 && clearSelection();
-  }, [reset]);
+  }, [reset,vehicle]);
 
-  useEffect(()=>{
-    !vehicle && clearSelection();
-  },[vehicle])
+ 
 
   const checkSubCategoryActive = function (category) {
     if (activeCategories.includes(String(category.id))) {

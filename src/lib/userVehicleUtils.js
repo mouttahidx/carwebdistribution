@@ -37,7 +37,7 @@ export function addUserVehicle (vehicule,update,signOut,setLoading,selected,data
           signOut();
         }
       });
-
+      
       document.cookie = `user-vehicle=${JSON.stringify({
         id: vehicule.term_id,
         name: vehicule.name,
