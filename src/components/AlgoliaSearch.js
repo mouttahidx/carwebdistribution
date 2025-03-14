@@ -120,10 +120,10 @@ function IndexResults({ title, setSearchResults }) {
 }
 
 const Hit = ({ hit }) => {
-  if (hit?.term_id) {
+  if (hit?.brand_id) {
     return (
       <Link
-        href={`/boutique/?marque=${hit["term_id"]}`}
+        href={`/boutique/?marque=${hit?.brand_id}`}
         className="flex items-center gap-x-2 border-b p-2"
       >
         <div className="text-sm">
@@ -132,13 +132,13 @@ const Hit = ({ hit }) => {
               __html: hit._highlightResult?.name?.value,
             }}
           />
-          <span className="ml-1 text-gray-500 text-xs">- ({hit.Count})</span>
+          <span className="ml-1 text-gray-500 text-xs">- ({hit.count})</span>
         </div>
       </Link>
     );
   }
 
-  if (hit.price) {
+  if (hit?.product_id) {
     return (
       <Link
         href={`/produits/${hit.slug}`}
@@ -198,18 +198,18 @@ const Hit = ({ hit }) => {
   }
     return (
       <>
-      { hit["Term Id"] && <Link
-        href={`/boutique/?categorie_id=${hit["Term Id"]}`}
+      { hit.category_id && <Link
+        href={`/boutique/?categorie_id=${hit.category_id}`}
         className="flex items-center gap-x-2 border-b p-2"
       >
         <div className="text-sm">
           <span
             dangerouslySetInnerHTML={{
-              __html: hit._highlightResult?.Name?.value,
+              __html: hit._highlightResult?.name?.value,
             }}
           />
           {hit.count > 0 && (
-            <span className="ml-1 text-gray-500 text-xs">- ({hit.Count})</span>
+            <span className="ml-1 text-gray-500 text-xs">- ({hit.count})</span>
           )}
         </div>
       </Link>  }
