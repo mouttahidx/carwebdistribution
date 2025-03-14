@@ -103,6 +103,7 @@ export const categoriesLevel2 = [
       { id: 29345, name: "Jantes", parent: false },
       { id: 51513, name: "Roues" },
       { id: 51514, name: "Pneus" },
+      { id: 50373, name: "Écrous et boulons" ,parent: false},
     ],
   },
   {

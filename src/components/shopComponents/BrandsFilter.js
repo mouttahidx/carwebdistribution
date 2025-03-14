@@ -116,7 +116,7 @@ export default function BrandsFilter({
             <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0 text-black ">
               <div className="flex items-center ">
                 Marques{" "}
-                {!BrandsPerCategoryLoading &&
+                {!BrandsPerCategoryLoading && BrandsPerCategory?.length > 0&& 
                   !vehicle && activeCategory &&
                   "compatibles avec la catégorie : (" +
                     BrandsPerCategory?.length +
@@ -178,7 +178,7 @@ export default function BrandsFilter({
                           {!vehicle &&
                             !BrandsPerCategoryLoading && activeCategory &&
                             BrandsPerCategory?.length > 0 && (
-                              <span className="text-black text-xs ml-auto font-bold">
+                              <span className="text-rachel-red-700 text-xs ml-auto font-bold">
                                 {BrandsPerCategory.find(
                                   (c) => c.id === brand.id
                                 ) &&

@@ -119,6 +119,7 @@ export default function Filter({
             categoryUpdate={categoryUpdate}
             productsLoading={productsLoading}
             activeCategories={activeCategories}
+            activeBrand={activeBrands?.length > 0 && activeBrands[0]}
           />
 
         </div>

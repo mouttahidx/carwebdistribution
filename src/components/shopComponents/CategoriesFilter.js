@@ -7,12 +7,14 @@ import React, { useEffect, useRef, useState } from "react";
 import ContentLoader from "react-content-loader";
 import ReactPaginate from "react-paginate";
 import { useVehicleContext } from "../Providers";
+import useBrandCategoriesCount from "@/hooks/useBrandCategoriesCount";
 
 export default function CategoriesFilter({
   productsLoading,
   categoryUpdate,
   activeCategories,
   reset,
+  activeBrand
 }) {
   const LoaderPlaceHolder = (props) => (
     <ContentLoader
@@ -47,6 +49,7 @@ export default function CategoriesFilter({
     page.current,
     router.query?.parent_category === "1" ? router.query?.categorie_id : 0
   );
+  const {CategoriesPerBrandCount,CategoriesPerBrandCountLoading} = useBrandCategoriesCount(activeBrand && activeBrand)
 
   const getCategories = () => {
     setLoading(true);
@@ -93,9 +96,9 @@ export default function CategoriesFilter({
 
   useEffect(() => {
     reset > 0 && clearSelection();
-  }, [reset,vehicle]);
+  }, [reset,]);
 
- 
+  useEffect(()=>{console.log(CategoriesPerBrandCount)},[CategoriesPerBrandCount,activeBrand,categories,CategoriesPerBrandCountLoading])
 
   const checkSubCategoryActive = function (category) {
     if (activeCategories.includes(String(category.id))) {
@@ -152,6 +155,12 @@ export default function CategoriesFilter({
             <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0 text-black">
               <div className="flex w-full justify-between items-center">
                 Catégories{" "}
+                {!CategoriesPerBrandCountLoading && CategoriesPerBrandCount?.length > 0 &&
+                  !vehicle && activeBrand &&
+                  "compatibles avec la marque : (" +
+                    CategoriesPerBrandCount?.length +
+                    ")"}
+
                 {router.query.parent_category === "1"
                   ? vehicle &&
                     !isCountLoading &&
@@ -216,7 +225,14 @@ export default function CategoriesFilter({
                 <>
                   <div className="flex text-sm items-center gap-2 py-2 -mb-2 sticky -top-2 w-full bg-white z-10 border-b font-semibold px-4 mt-4">
                     <p
-                      dangerouslySetInnerHTML={{ __html: categories[0]?.yoast_head_json?.schema['@graph'][1]?.itemListElement[1]?.name + " > "+categories[0]?.yoast_head_json?.schema['@graph'][1]?.itemListElement[2]?.name }}
+                      dangerouslySetInnerHTML={{
+                        __html:
+                          categories[0]?.yoast_head_json?.schema["@graph"][1]
+                            ?.itemListElement[1]?.name +
+                          " > " +
+                          categories[0]?.yoast_head_json?.schema["@graph"][1]
+                            ?.itemListElement[2]?.name,
+                      }}
                     />
                   </div>
                   {categories.length > 0 &&
@@ -340,7 +356,7 @@ export default function CategoriesFilter({
 
                                               {/* parts count */}
                                               {!isCountLoading &&
-                                                categoriesCount?.length > 0 && (
+                                                categoriesCount?.length > 0 && vehicle &&  (
                                                   <span className="text-black text-xs ml-auto font-bold">
                                                     {categoriesCount.find(
                                                       (c) =>
@@ -355,6 +371,33 @@ export default function CategoriesFilter({
                                                         ")"}
                                                   </span>
                                                 )}
+
+                                                {/* parts - categories per brand count */}
+                                              {!CategoriesPerBrandCountLoading &&
+                                                CategoriesPerBrandCount?.length > 0 && !vehicle &&  (
+                                                  <span className="text-rachel-red-500 text-xs ml-auto font-bold">
+                                                    {CategoriesPerBrandCount.find(
+                                                      (c) =>
+                                                        c.id === grandchild.id
+                                                    )?.count > 0 &&
+                                                      "(" +
+                                                        CategoriesPerBrandCount.find(
+                                                          (c) =>
+                                                            c.id ===
+                                                            grandchild.id
+                                                        )?.count +
+                                                        ")"}
+                                                  </span>
+                                                )}
+
+
+                                              { !vehicle && !CategoriesPerBrandCount &&  (
+                                                  <span className="text-black text-xs ml-auto font-bold">
+                                                   ({grandchild.count})
+                                                  </span>
+                                                )}
+
+
                                             </Label>
                                           </div>
                                         </li>
