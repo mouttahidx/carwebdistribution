@@ -1,6 +1,7 @@
 "use client";
 import { liteClient as algoliasearch } from "algoliasearch/lite";
 import { Badge } from "flowbite-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { use, useEffect, useState } from "react";
@@ -126,7 +127,7 @@ const Hit = ({ hit }) => {
         href={`/boutique/?marque=${hit?.brand_id}`}
         className="flex items-center gap-x-2 border-b p-2"
       >
-        <div className="text-sm">
+        <div className="text-sm uppercase">
           <span
             dangerouslySetInnerHTML={{
               __html: hit._highlightResult?.name?.value,
@@ -144,10 +145,13 @@ const Hit = ({ hit }) => {
         href={`/produits/${hit.slug}`}
         className="flex items-center gap-x-2 border-b p-2"
       >
-        <img
+        
+        <Image
           src={hit.image || "/slider1.jpg"}
           className="w-16 h-16 object-contain mr-2"
           alt={hit.name}
+          width={200}
+          height={200}
         />
         <div className="text-sm leading-relaxed">
           <span

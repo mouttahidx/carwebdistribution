@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* _________________________________ */
 .main-slider .slick-prev:before,
 .main-slider .slick-next:before {
   @apply !text-rachel-red-700 !mt-0.5;

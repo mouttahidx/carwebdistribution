@@ -2,16 +2,12 @@ import { getSelectedBrands, getFeaturedProducts } from "@/lib/api";
 import BrowseCategories from "@/components/homeComponents/BrowseCategories";
 import BrowseBrands from "@/components/homeComponents/BrowseBrands";
 import FeaturedProducts from "@/components/homeComponents/FeaturedProducts";
-import SimpleSlider from "@/components/homeComponents/Slider";
 import Layout from "@/layout";
 import Benefits from "@/components/homeComponents/Benefits";
 import TireSearch from "@/components/homeComponents/TireSearch";
 import Head from "next/head";
 import Tiles from "@/components/homeComponents/Tiles";
-import CreateAccount from "@/components/homeComponents/CreateAccount";
-
 import TiresBrands from "@/components/homeComponents/TiresBrands";
-import HomeSelectVehicle from "@/components/homeComponents/HomeSelectVehicle";
 import PreloadCategories from "@/components/PreloadCategories";
 import NewSlider from "@/components/homeComponents/NewSlider";
 
@@ -28,12 +24,12 @@ export default function Home({ brands, products }) {
       <main className="w-full flex justify-center !overflow-x-hidden">
         <section className="container px-1 ">
           {/* <HomeSelectVehicle /> */}
+          <BrowseCategories />
           <FeaturedProducts products={products} />
           {/* <CreateAccount /> */}
           <TireSearch />
           <Tiles data-aos="fade-up" />
           <TiresBrands />
-          {/* <BrowseCategories /> */}
           {brands.length > 0 && <BrowseBrands brands={brands} />}
           <Benefits />
           <PreloadCategories />
