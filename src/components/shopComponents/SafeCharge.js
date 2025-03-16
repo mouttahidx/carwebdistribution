@@ -266,17 +266,17 @@ export const SafeChargeCC = forwardRef(({ setStripePaid, setLoading }, ref) => {
                 type="text"
                 value={expDateMM}
                 onChange={(e) => setExpDateMM(e.target.value)}
-                className={`w-14 exp-date !rounded" ${
+                className={`w-14 exp-date text-center !rounded " ${
                   error && "border border-red-700"
                 }`}
               />
               <input
                 id="exp-dateYY"
-                placeholder="AA"
+                placeholder="AAAA"
                 type="text"
                 value={expDateYY}
                 onChange={(e) => setExpDateYY(e.target.value)}
-                className={`w-14 exp-date !rounded" ${
+                className={`w-16 text-center exp-date !rounded " ${
                   error && "border border-red-700"
                 }`}
               />
