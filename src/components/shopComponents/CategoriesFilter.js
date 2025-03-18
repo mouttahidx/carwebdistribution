@@ -14,7 +14,7 @@ export default function CategoriesFilter({
   categoryUpdate,
   activeCategories,
   reset,
-  activeBrand
+  activeBrand,
 }) {
   const LoaderPlaceHolder = (props) => (
     <ContentLoader
@@ -49,7 +49,8 @@ export default function CategoriesFilter({
     page.current,
     router.query?.parent_category === "1" ? router.query?.categorie_id : 0
   );
-  const {CategoriesPerBrandCount,CategoriesPerBrandCountLoading} = useBrandCategoriesCount(activeBrand && activeBrand)
+  const { CategoriesPerBrandCount, CategoriesPerBrandCountLoading } =
+    useBrandCategoriesCount(activeBrand && activeBrand);
 
   const getCategories = () => {
     setLoading(true);
@@ -96,9 +97,16 @@ export default function CategoriesFilter({
 
   useEffect(() => {
     reset > 0 && clearSelection();
-  }, [reset,]);
+  }, [reset]);
 
-  useEffect(()=>{console.log(CategoriesPerBrandCount)},[CategoriesPerBrandCount,activeBrand,categories,CategoriesPerBrandCountLoading])
+  useEffect(() => {
+    console.log(CategoriesPerBrandCount);
+  }, [
+    CategoriesPerBrandCount,
+    activeBrand,
+    categories,
+    CategoriesPerBrandCountLoading,
+  ]);
 
   const checkSubCategoryActive = function (category) {
     if (activeCategories.includes(String(category.id))) {
@@ -155,12 +163,13 @@ export default function CategoriesFilter({
             <Accordion.Title className=" !py-4 font-semibold text-sm !ring-0 text-black">
               <div className="flex w-full justify-between items-center">
                 Catégories{" "}
-                {!CategoriesPerBrandCountLoading && CategoriesPerBrandCount?.length > 0 &&
-                  !vehicle && activeBrand &&
+                {!CategoriesPerBrandCountLoading &&
+                  CategoriesPerBrandCount?.length > 0 &&
+                  !vehicle &&
+                  activeBrand &&
                   "compatibles avec la marque : (" +
                     CategoriesPerBrandCount?.length +
                     ")"}
-
                 {router.query.parent_category === "1"
                   ? vehicle &&
                     !isCountLoading &&
@@ -233,6 +242,7 @@ export default function CategoriesFilter({
                           categories[0]?.yoast_head_json?.schema["@graph"][1]
                             ?.itemListElement[2]?.name,
                       }}
+                      
                     />
                   </div>
                   {categories.length > 0 &&
@@ -262,6 +272,27 @@ export default function CategoriesFilter({
                                   categoriesCount.find((c) => c.id === cat.id)
                                     ?.count +
                                   ")"}
+                            </span>
+                          )}
+                          {/* parts - categories per brand count */}
+                          {!CategoriesPerBrandCountLoading &&
+                            CategoriesPerBrandCount?.length > 0 &&
+                            !vehicle && (
+                              <span className="text-rachel-red-500 text-xs ml-auto font-bold">
+                                {CategoriesPerBrandCount.find(
+                                  (c) => c.id === cat.id
+                                )?.count > 0 &&
+                                  "(" +
+                                    CategoriesPerBrandCount.find(
+                                      (c) => c.id === cat.id
+                                    )?.count +
+                                    ")"}
+                              </span>
+                            )}
+
+                          {!vehicle && !CategoriesPerBrandCount && (
+                            <span className="text-black text-xs ml-auto font-bold">
+                              ({cat.count})
                             </span>
                           )}
                         </Label>
@@ -356,7 +387,8 @@ export default function CategoriesFilter({
 
                                               {/* parts count */}
                                               {!isCountLoading &&
-                                                categoriesCount?.length > 0 && vehicle &&  (
+                                                categoriesCount?.length > 0 &&
+                                                vehicle && (
                                                   <span className="text-black text-xs ml-auto font-bold">
                                                     {categoriesCount.find(
                                                       (c) =>
@@ -372,9 +404,11 @@ export default function CategoriesFilter({
                                                   </span>
                                                 )}
 
-                                                {/* parts - categories per brand count */}
+                                              {/* parts - categories per brand count */}
                                               {!CategoriesPerBrandCountLoading &&
-                                                CategoriesPerBrandCount?.length > 0 && !vehicle &&  (
+                                                CategoriesPerBrandCount?.length >
+                                                  0 &&
+                                                !vehicle && (
                                                   <span className="text-rachel-red-500 text-xs ml-auto font-bold">
                                                     {CategoriesPerBrandCount.find(
                                                       (c) =>
@@ -390,14 +424,12 @@ export default function CategoriesFilter({
                                                   </span>
                                                 )}
 
-
-                                              { !vehicle && !CategoriesPerBrandCount &&  (
+                                              {!vehicle &&
+                                                !CategoriesPerBrandCount && (
                                                   <span className="text-black text-xs ml-auto font-bold">
-                                                   ({grandchild.count})
+                                                    ({grandchild.count})
                                                   </span>
                                                 )}
-
-
                                             </Label>
                                           </div>
                                         </li>

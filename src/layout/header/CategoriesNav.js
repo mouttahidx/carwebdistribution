@@ -21,7 +21,7 @@ export const categoriesLevel2 = [
     name: "Embrayage et Transmission",
     slug: "embrayage-et-transmission",
     children: [
-      { id: 51479, name: "Autres Accessoires de Transmission" ,img:"/img/categories/access_transmition.webp"},
+      { id: 51479, name: "Accessoires de Transmission" ,img:"/img/categories/access_transmition.webp"},
       { id: 51477, name: "Composants d'Embrayage", img:"/img/categories/embryage_components.webp" },
       { id: 51478, name: "Pièces de Transmission" ,img:"/img/categories/piece_transm.webp"},
     ],
@@ -30,7 +30,7 @@ export const categoriesLevel2 = [
     name: "Extérieur",
     slug: "exterieur",
     children: [
-      { id: 51493, name: "Autres Accessoires Extérieurs" ,img:"/img/categories/access_exterior.webp" },
+      { id: 51493, name: "Accessoires Extérieurs" ,img:"/img/categories/access_exterior.webp" },
       { id: 51494, name: "Composants de Carrosserie" ,img:"/img/categories/carosserie_component.webp"},
       { id: 51197, name: "Déflecteur de toit ouvrant",parent:false ,img:"/img/categories/deflecteur_toit.webp"},
       { id: 51194, name: "Déflecteur de vitre latérale",parent:false ,img:"/img/categories/deflecteur_vitre.webp"},
@@ -52,7 +52,6 @@ export const categoriesLevel2 = [
     slug: "interieur",
     children: [
       { id: 51499, name: "Accessoires Intérieurs" ,img:"/img/categories/access_interieur.webp"},
-      { id: 51498, name: "Autres Accessoires Intérieurs" ,img:"/img/categories/autre_access_interieur.webp"},
       { id: 51500, name: "Électronique Intérieure" ,img:"/img/categories/electric_interieur.webp"},
       { id: 51496, name: "Sièges" ,img:"/img/categories/siege.webp"},
     ],
@@ -72,13 +71,13 @@ export const categoriesLevel2 = [
     name: "Outils et Équipement",
     slug: "outils-et-equipement",
     children: [
-      { id: 51516, name: "Autres outils et accessoires",img:"/img/categories/outils_equipement_autres.webp" },
-      { id: 51517, name: "Autres outils et équipements",img:"/img/categories/outils_equipement_autres_equipements.webp" },
+      { id: 51516, name: "Outils et accessoires",img:"/img/categories/outils_equipement_autres.webp" },
+      { id: 51517, name: "Équipements",img:"/img/categories/outils_equipement_autres_equipements.webp" },
       { id: 51506, name: "Crics et supports",img:"/img/categories/crics.webp" },
-      { id: 51504, name: "Outils à main et kits",img:"/img/categories/jantes.webp" },
+      { id: 51504, name: "Outils à main et kits",img:"/img/categories/kit_reparation.webp" },
       { id: 51505, name: "Outils de atelier",img:"/img/categories/outil_atelier.webp" },
       { id: 51507, name: "Outils de diagnostic et de programmation",img:"/img/categories/diagnostic.webp" },
-      { id: 51508, name: "Quincaillerie et autres" ,img:"/img/categories/quinca.webp"},
+      { id: 51508, name: "Quincaillerie" ,img:"/img/categories/quinca.webp"},
     ],
   },
   {
@@ -96,14 +95,14 @@ export const categoriesLevel2 = [
       { id: 50373, name: "Écrous et boulons" ,parent: false ,img:"/img/categories/boulon.webp"},
       { id: 29345, name: "Jantes", parent: false,img:"/img/categories/jantes.webp" },
       { id: 51514, name: "Pneus" ,img:"/img/categories/pneu.webp"},
-      { id: 51513, name: "Roues" ,img:"/img/categories/roue acier.webp"},
+      { id: 51513, name: "Roues d'acier" ,img:"/img/categories/roue acier.webp"},
     ],
   },
   {
     name: "Suspension et Direction",
     slug: "suspension-et-direction",
     children: [
-      { id: 51488, name: "Autres Pièces de Suspension et Direction",img:"/img/categories/autre_suspension.webp" },
+      { id: 51488, name: "Pièces de Suspension et Direction",img:"/img/categories/autre_suspension.webp" },
       { id: 51490, name: "Composants d'Alignement",img:"/img/categories/compo_alignement.webp" },
       { id: 51489, name: "Composants de Direction" ,img:"/img/categories/compo_direction.webp"},
       { id: 51487, name: "Composants de Suspension",img:"/img/categories/compo_suspension.webp" },

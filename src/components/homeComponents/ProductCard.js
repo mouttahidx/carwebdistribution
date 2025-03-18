@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { getProductVariations } from "@/lib/api";
+import { useState } from "react";
 import ContentLoader from "react-content-loader";
+import { categoriesLevel2 } from "@/layout/header/CategoriesNav";
 
-export default function ProductCard({ product, searchTerm }) {
+export default function ProductCard({ product }) {
   /* -------------------- prepare loading placeholder data -------------------- */
   const MyLoader = (props) => (
     <ContentLoader
@@ -55,6 +55,9 @@ export default function ProductCard({ product, searchTerm }) {
     }
   };
 
+
+
+
   /* -------------------------------------------------------------------------- */
   /*                               product render                               */
   /* -------------------------------------------------------------------------- */
@@ -68,15 +71,12 @@ export default function ProductCard({ product, searchTerm }) {
       <div className="rounded-t-md relative w-full h-44 border-b">
         <Image
           src={
-            product?.image ||
-            (product?.images?.length > 0 && product?.images[0]?.src) ||
-            product?.categories_image ||
-            "/slider2.jpg"
+            product?.images?.length > 0 && product?.images[0]?.src || '/logo-dark.png'
           }
           fill
           sizes="100vw"
           className={`rounded-t-md object-${
-            product?.categories_image ? "cover" : "contain"
+            product?.images?.length === 0 ? "cover" : "contain"
           } w-full`}
           alt={product.name || "thumbnail of product"}
         />
