@@ -200,8 +200,12 @@ const Paiement = () => {
           },
         ],
         ...(metadata.fees && {
-          name: "Frais de manutention",
-          total: metadata.fees,
+          fee_lines: [
+            {
+              name: "Frais de manutention",
+              total: String(metadata.fees),
+            },
+          ],
         }),
         ...(metadata.couponApplied.applied && {
           coupon_lines: [
@@ -250,8 +254,12 @@ const Paiement = () => {
           },
         ],
         ...(metadata.fees && {
-          name: "Frais de manutention",
-          total: metadata.fees,
+          fee_lines: [
+            {
+              name: "Frais de manutention",
+              total: String(metadata.fees),
+            },
+          ],
         }),
         ...(metadata.couponApplied.applied && {
           coupon_lines: [
@@ -677,7 +685,6 @@ const Paiement = () => {
                   <hr className="my-4" />
                 </>
               )}
-
 
               {/* ----------------------------- total before taxes ----------------------------- */}
               <div className="flex justify-between items-center">

@@ -21,6 +21,7 @@ export const SafeChargeCC = forwardRef(({ setStripePaid, setLoading }, ref) => {
   const [safeCharge, setSafeCharge] = useState(null);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [error, setError] = useState(false);
+
   const loadScript = (src) =>
     new Promise((resolve, reject) => {
       const scriptElem = Object.assign(document.createElement("script"), {
@@ -55,7 +56,7 @@ export const SafeChargeCC = forwardRef(({ setStripePaid, setLoading }, ref) => {
       toast.warn("Merci de remplir les champs de la carte bancaire");
       return false;
     }
-
+    setLoading(false)
     setError(false);
     return true;
   };
@@ -101,22 +102,24 @@ export const SafeChargeCC = forwardRef(({ setStripePaid, setLoading }, ref) => {
   const respCallback = (resp) => {
     if (resp.result === "APPROVED") {
       setStripePaid(true);
-      toast.success("Paiement effectué avec succès, préparation de la commande...");
+      toast.success(
+        "Paiement effectué avec succès, préparation de la commande..."
+      );
     } else if (resp.result === "DECLINED") {
       setError(true);
-      setLoading(false)
+      setLoading(false);
       toast.error("Carte non valide.");
       setStripePaid(false);
     } else if (resp.result === "ERROR") {
       setStripePaid(false);
-      setLoading(false)
+      setLoading(false);
       setError(true);
 
       resp.errorDescription && toast.error(resp.errorDescription);
     } else {
       if (resp.reason) {
         setError(true);
-        setLoading(false)
+        setLoading(false);
         setStripePaid(false);
         toast.warn(resp.reason);
       }
@@ -194,7 +197,7 @@ export const SafeChargeCC = forwardRef(({ setStripePaid, setLoading }, ref) => {
 
   // init the safecharge and get token
   useEffect(() => {
-    if(process.env.NEXT_PUBLIC_ENV === "prod") {
+    if (process.env.NEXT_PUBLIC_ENV === "prod") {
       sessionToken === "" &&
         loadScript(
           "https://cdn.safecharge.com/safecharge_resources/v1/websdk/safecharge.js" //production
@@ -252,6 +255,7 @@ export const SafeChargeCC = forwardRef(({ setStripePaid, setLoading }, ref) => {
             placeholder="Numéro de carte"
             type="text"
             value={cardNumber}
+            maxLength={16}
             onChange={(e) => setCardNumber(e.target.value)}
             className={`w-full !rounded ${error && "border border-red-700"}`}
           />
@@ -264,6 +268,7 @@ export const SafeChargeCC = forwardRef(({ setStripePaid, setLoading }, ref) => {
                 id="exp-dateMM"
                 placeholder="MM"
                 type="text"
+                maxLength={2}
                 value={expDateMM}
                 onChange={(e) => setExpDateMM(e.target.value)}
                 className={`w-14 exp-date text-center !rounded " ${
@@ -274,9 +279,10 @@ export const SafeChargeCC = forwardRef(({ setStripePaid, setLoading }, ref) => {
                 id="exp-dateYY"
                 placeholder="AAAA"
                 type="text"
+                maxLength={4}
                 value={expDateYY}
                 onChange={(e) => setExpDateYY(e.target.value)}
-                className={`w-16 text-center exp-date !rounded " ${
+                className={`w-[70px] text-center exp-date !rounded " ${
                   error && "border border-red-700"
                 }`}
               />

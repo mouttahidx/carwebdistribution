@@ -9,7 +9,7 @@ import CartSubtotal from "./CartSubtotal";
 import CartTaxes from "./CartTaxes";
 
 export default function CartSummary({ couponApplied, setCouponApplied }) {
-  const { totalUniqueItems, cartTotal, setCartMetadata } = useCart();
+  const { totalUniqueItems, cartTotal, setCartMetadata,metadata } = useCart();
   const [loading, setLoading] = useState(false);
   const [selectedMethod, setSelectedMethod] = useState();
   const router = useRouter();
@@ -35,6 +35,7 @@ export default function CartSummary({ couponApplied, setCouponApplied }) {
     } else {
       setSubtotal(tmpSubtotal);
     }
+    console.log(metadata)
   }, [selectedMethod, cartTotal, couponApplied]);
 
   useEffect(() => {
@@ -56,7 +57,7 @@ export default function CartSummary({ couponApplied, setCouponApplied }) {
           cost: selectedMethod.settings.cost.value,
         },
       });
-  }, [total]);
+  }, [total,selectedMethod]);
 
   return (
     <div className="bg-white mt-14  py-3 lg:py-5 border rounded w-full">

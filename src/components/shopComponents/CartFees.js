@@ -5,6 +5,7 @@ export default function CartFees({ setFees }) {
   const FEES = 10;
   useEffect(() => {
     process.env.NEXT_PUBLIC_APPLY_FEES === 'true' && setFees(FEES);
+    
   }, []);
 
   return (
