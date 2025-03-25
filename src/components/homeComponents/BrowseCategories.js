@@ -56,7 +56,7 @@ export default function BrowseCategories() {
       </div>
 
       <div className="w-full flex justify-center">
-        <Tabs aria-label="Default tabs" variant="fullWidth" theme={customTheme}>
+        <Tabs variant="fullWidth" theme={customTheme}>
           {categoriesLevel2.map((parent) => (
             <Tabs.Item title={parent.name} key={parent.slug}>
               <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 lg:gap-8 justify-center">

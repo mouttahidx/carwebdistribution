@@ -211,6 +211,8 @@ export default function Shop({ results, brands, headers }) {
       <div className="flex flex-col items lg:flex-row  px-1 container mx-auto">
         {/* sidebar */}
         <aside className="lg:w-4/12 pt-16 lg:pt-2 mb-10 lg:my-0 ">
+          <h1 className="font-semibold text-center mb-3 text-lg">Boutique - Car web distribution</h1>
+
           <Filter
             brands={brands}
             brandsUpdate={brandsUpdate}
@@ -225,7 +227,7 @@ export default function Shop({ results, brands, headers }) {
         {/* products */}
         <section className="flex-grow px-4 lg:w-8/12  xl:px-6">
           <div className="mb-6 flex-col lg:flex-row gap-y-4 flex justify-center md:justify-between items-center lg:items-start flex-wrap md:flex-nowrap pt-2">
-          <div className="">
+            <div className="">
               <div className="flex items-center gap-x-2">
                 <p className="">Filtres activés:</p>
                 <div className="flex gap-x-2">
@@ -245,17 +247,18 @@ export default function Shop({ results, brands, headers }) {
             <div className=" text-center md:text-left mb-4 md:mb-0">
               {!loading && products?.length > 0 && (
                 <p className="text-sm font-light">
-                 
                   <span className="font-semibold">
-                   ( {perPage * page.current < totalProduct
+                    ({" "}
+                    {perPage * page.current < totalProduct
                       ? products?.length * page.current
                       : totalProduct}{" "}
                     sur {totalProduct} )
-                  </span> Produits
+                  </span>{" "}
+                  Produits
                 </p>
               )}
             </div>
-            
+
             <div className="flex justify-end  gap-x-5">
               <div className="flex items-center gap-x-2 flex-col">
                 <Label htmlFor="order" value="Tri" />
@@ -306,7 +309,6 @@ export default function Shop({ results, brands, headers }) {
           </div>
 
           <div className="grow grid grid-cols-2 md:grid-cols-3 gap-4 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 min-h-[20vh]">
-            
             {!loading ? (
               products?.length > 0 ? (
                 products?.map((product) => (

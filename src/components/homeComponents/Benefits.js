@@ -33,7 +33,7 @@ export default function Benefits() {
             <div className="p-2 bg-white rounded-lg">
               <CheckCircleIcon className="w-6 h-6 text-rachel-red-800" />
             </div>
-            <h4 className="text-white font-semibold">{item.main}</h4>
+            <h3 className="text-white font-semibold">{item.main}</h3>
           </div>
           <p className="mt-4 text-white text-sm font-light">{item.benefit}</p>
         </div>

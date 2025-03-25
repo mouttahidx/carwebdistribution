@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import "aos/dist/aos.css";
 import Aos from "aos";
 import { useEffect } from "react";
+import Image from "next/image";
 
 export default function TiresBrands() {
   const brands = [
@@ -48,12 +48,11 @@ export default function TiresBrands() {
             <Link
               href={"/recherche-pneu"}
               key={index}
-              className="flex flex-col justify-start rounded-md items-center py-10 bg-center bg-contain  h-[100px] hover:shadow-2xl bg-no-repeat shadow-black duration-500 border"
-              style={{ backgroundImage: `url('${brand}')` }}
               data-aos="fade-up"
               data-aos-duration="500"
               data-aos-delay={index * 100}
-            />
+              
+            ><Image src={brand} alt={brand} width={250} height={150} className="hover:shadow-2xl bg-no-repeat h-[100px] shadow-black duration-500 border object-contain object-center"/></Link>
           ))}
       </div>
       <Link

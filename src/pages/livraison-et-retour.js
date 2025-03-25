@@ -65,7 +65,7 @@ export default function Retours() {
               </li>
             </ul>
           </div>
-          <h3 className="my-6 font-bold">Remboursements (le cas échéant)</h3>
+          <h2 className="my-6 font-bold">Remboursements (le cas échéant)</h2>
           <p className="mb-5">
             Une fois votre retour reçu et inspecté, nous vous adresserons un
             e-mail pour vous indiquer que nous avons reçu l'article retourné.
@@ -75,9 +75,9 @@ export default function Retours() {
             crédité(e) automatiquemendans un délai de quelques jours.
           </p>
 
-          <h3 className="my-6 font-bold">
+          <h2 className="my-6 font-bold">
             Remboursements retardés ou manquants (le cas échéant)
-          </h3>
+          </h2>
           <p className="mb-5">
             Si vous n'avez pas encore reçu de remboursement, revérifiez d'abord
             votre compte bancaire. Puis contactez la société émettrice de votre
@@ -90,14 +90,14 @@ export default function Retours() {
             remboursement, contactez-nous à l'adresse suivante :
             info@carwebdistribution.ca.
           </p>
-          <h3 className="my-6 font-bold">
+          <h2 className="my-6 font-bold">
             Articles soldés ou en promotion (le cas échéant)
-          </h3>
+          </h2>
           <p className="mb-5">
             Seuls les articles à prix normal sont remboursables.
             Malheureusement, les articles soldés ou en promotion ne le sont pas.
           </p>
-          <h3 className="my-6 font-bold">Échanges (le cas échéant)</h3>
+          <h2 className="my-6 font-bold">Échanges (le cas échéant)</h2>
           <p className="mb-5">
             Nous ne remplaçons que les articles initialement défectueux ou
             endommagés. Si vous devez remplacer le vôtre par le même article,
@@ -105,7 +105,7 @@ export default function Retours() {
             article à : 3170 Rachel Est Montréal, QC, Montréal, QC, H2W 1E2,
             Canada.
           </p>
-          <h3 className="my-6 font-bold">Cadeaux</h3>
+          <h2 className="my-6 font-bold">Cadeaux</h2>
           <p className="mb-5">
             Si l'article a été marqué comme cadeau au moment de l'achat et s'il
             vous a été expédié directement, vous recevrez un crédit cadeau d'une
@@ -119,7 +119,7 @@ export default function Retours() {
             nous adresserons le remboursement et elle saura donc que vous avez
             retourné son cadeau.
           </p>
-          <h3 className="my-6 font-bold">Expédition</h3>
+          <h2 className="my-6 font-bold">Expédition</h2>
           <p className="mb-5">
             Pour retourner votre produit, vous devez l'envoyer à l'adresse
             postale suivante : 3170 Rachel Est Montréal, QC, Montréal, QC, H2W
@@ -140,7 +140,7 @@ export default function Retours() {
             faire assurer votre envoi. Nous ne garantissons pas que nous
             recevrons l'article retourné.
           </p>
-          <h3 className="my-6 font-bold">Ramassage au 3170 Rachel</h3>
+          <h2 className="my-6 font-bold">Ramassage au 3170 Rachel</h2>
           <p className="mb-5">
             Optez pour la commodité avec notre service de ramassage au 3170 Rue
             Rachel E, Montréal, QC H1W 1A2. Choisissez cette option lors de

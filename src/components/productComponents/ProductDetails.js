@@ -54,21 +54,21 @@ export default function ProductDetails({
       )}
 
       {/* short description */}
-      <h5
+      <span
         className="my-4 text-sm text-rachel-black-400"
         dangerouslySetInnerHTML={{ __html: short_description }}
       />
       {/* SKU  */}
       {sku !== "" && (
-        <h5 className="my-4 text-sm text-rachel-black-600">
+        <span className="my-4 text-sm text-rachel-black-600">
           <b>UGS:</b> {sku}
-        </h5>
+        </span>
       )}
       {/* Part N */}
       {metadata?.length > 0 && metadata[0]?.value && (
-        <h5 className="my-4 text-sm text-rachel-black-600">
+        <span className="my-4 text-sm text-rachel-black-600">
           <b>Numéro de modéle:</b> {metadata[0]?.value}
-        </h5>
+        </span>
       )}
 
       {/* category */}

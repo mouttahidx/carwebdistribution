@@ -122,7 +122,7 @@ export default function NavSelectVehicle() {
 
         <div className="flex text-xs gap-x-2 items-center justify-center pl-2 ml-2 border-l border-gray-200">
           <span
-            className="text-blue-500 uppercase font-semibold cursor-pointer text-[10px] xl:text-xs  whitespace-nowrap"
+            className="text-blue-800 uppercase font-semibold cursor-pointer text-[0.8rem] whitespace-nowrap"
             onClick={() => {
               setOpenModal(true);
             }}

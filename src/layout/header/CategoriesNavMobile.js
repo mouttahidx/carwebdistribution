@@ -19,7 +19,6 @@ export default function CategoriesNavMobile() {
  
   return (
     <Sidebar
-      aria-label="Sidebar with multi-level dropdown example"
       className="w-full -mt-2"
     >
       <Sidebar.Items>

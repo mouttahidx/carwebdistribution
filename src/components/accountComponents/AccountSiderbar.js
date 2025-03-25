@@ -11,7 +11,7 @@ import {  FaCar, FaFileInvoice } from "react-icons/fa";
 export default function AccountSidebar() {
   const router = useRouter();
   return (
-    <Sidebar aria-label="Default sidebar example" className="w-full lg:w-2/12 ">
+    <Sidebar className="w-full lg:w-2/12 ">
       <Sidebar.Items>
         {/* ----------------------------- hide on mobile ----------------------------- */}
         <Sidebar.ItemGroup className="hidden lg:block">

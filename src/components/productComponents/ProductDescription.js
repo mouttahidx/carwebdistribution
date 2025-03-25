@@ -4,7 +4,7 @@ export default function ProductDescription({ description, additionalInfos }) {
   return (
     <div className="px-3 py-6 md:p-4 bg-white rounded-md border">
       <div className="pb-10 border-b">
-        <h3 className="mb-10 font-semibold text-lg">Description</h3>
+        <h2 className="mb-10 font-semibold text-lg">Description</h2>
         <div dangerouslySetInnerHTML={{ __html: description }} />
       </div>
       <div className="pt-10">
