@@ -51,6 +51,7 @@ export default function App({ Component, pageProps }) {
         <CartProvider>
           <VehicleProvider>
             <Head>
+            <script src="https://analytics.ahrefs.com/analytics.js" data-key="wpr0aQUTdU1PskABGAU9Hg" async></script>
               <link
                 rel="sitemap"
                 type="application/xml"
