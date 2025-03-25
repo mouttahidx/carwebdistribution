@@ -22,8 +22,9 @@ export default function NewSlider() {
           quality={100}
           className="w-full h-screen object-cover"
           alt="Voiture camionette Car web distribution"
-          priority={true}
-        />
+          fetchPriority="high"
+          loading="eager"
+/>
       </div>
 
       <div className="w-full lg:px-10 px-2 h-[400px] lg:h-[350px] z-10 bg-black bg-opacity-25 rounded py-32 relative">
